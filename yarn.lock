@@ -431,7 +431,7 @@ callsites@^3.0.0:
   resolved "https://registry.yarnpkg.com/callsites/-/callsites-3.1.0.tgz#b3630abd8943432f54b3f0519238e33cd7df2f73"
   integrity sha512-P8BjAsXvZS+VIDUI11hHCQEv74YT67YUi5JJFNWIqL235sBmjX4+qx9Muvls5ivyNENctx46xQLQ3aTuE7ssaQ==
 
-canvas@^2.2.0:
+canvas@^2.11.2, canvas@^2.2.0:
   version "2.11.2"
   resolved "https://registry.yarnpkg.com/canvas/-/canvas-2.11.2.tgz#553d87b1e0228c7ac0fc72887c3adbac4abbd860"
   integrity sha512-ItanGBMrmRV7Py2Z+Xhs7cT+FNt5K0vPL4p9EZ/UX/Mu7hFbkxSjKF2KVtPwX7UYWp7dRKnrTvReflgrItJbdw==
@@ -1427,14 +1427,6 @@ path-type@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/path-type/-/path-type-4.0.0.tgz#84ed01c0a7ba380afe09d90a8c180dcd9d03043b"
   integrity sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==
-
-pet-pet-gif@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.yarnpkg.com/pet-pet-gif/-/pet-pet-gif-1.0.9.tgz#0ddf59bcb0ce18c452fecd4a431096913065e736"
-  integrity sha512-cgS8cvajNJzcV6TgZYE4ZT9EgSyEF7U25ScOGGIB5QMv2c9rIZouVDBlsd/TXpA/d209ko8O2kXe/qljemxA1g==
-  dependencies:
-    gifencoder "^2.0.1"
-    lodash "^4.17.21"
 
 picomatch@^2.0.4, picomatch@^2.2.1, picomatch@^2.3.1:
   version "2.3.1"

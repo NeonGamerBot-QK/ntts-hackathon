@@ -1,4 +1,4 @@
-const petPetGif = require("pet-pet-gif");
+const petPetGif = require("../../pet-pet");
 const { SlashCommandBuilder } = require("discord.js");
 
 module.exports = {

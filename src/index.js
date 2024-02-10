@@ -27,7 +27,7 @@ console.log('damon ready event') // configured to set state to starting
                   console.log(`New Files!!`)
                   console.log(response)
                   const commitMessage = require('child_process').execSync('git log -1 --pretty=%B').toString()
-                  const hash = fs.readFileSync('.git/refs/heads/master').toString()
+                  const hash = fs.readFileSync('.git/refs/heads/main').toString()
                   const compareStr = response.split("Updating ")[1].split('\n')[0].trim() || `${bhash}...${hash}`
                   const content = `<t:${Date.now().toString().slice(0, -3)}:f> Automatic update from GitHub, pulling files. [\`${compareStr}\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/compare/${compareStr})\n\`\`\`${cap(response, 1700)}\`\`\`\n## Current Branch \n[\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${bhash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${bhash})       **Commit Message**: \`${bcommitMessage.replace('\n', '')}\`\n## Latest Branch\n[\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${hash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${hash})       **Commit Message**: \`${commitMessage}\``
                   client.users.cache.get("566766267046821888").send(content)

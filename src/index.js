@@ -1,11 +1,14 @@
 require("dotenv").config();
 const fs = require("fs");
 const path = require("path");
+const JSONDb = require("simple-json-db");
 const discord = require("discord.js");
 const { Events } = require("discord.js");
 const client = new discord.Client({
   intents: Object.values(discord.GatewayIntentBits),
 });
+const db = new JSONDb(path.join(__dirname, "..", "db.json"));
+client.db = db;
 // this is just incase i paste code and forget to change stuff
 // eslint-disable-next-line no-unused-vars
 const discord_c = client;

@@ -23,7 +23,8 @@ module.exports = {
     ),
 
   async execute(interaction) {
-    const Banlogchannel = null;
+    const Banlogchannel =
+      interaction.client.db.get(`logchannel_${interaction.guild.id}_0`) || null;
     const user = interaction.options.getUser("user");
 
     if (
@@ -65,9 +66,10 @@ module.exports = {
 
       await baner.ban();
       interaction.reply({ embeds: [embed] });
-
-      const channel = interaction.guild.channels.cache.get(Banlogchannel);
-      channel.send({ embeds: [log] });
+      if (Banlogchannel) {
+        const channel = interaction.guild.channels.cache.get(Banlogchannel);
+        channel.send({ embeds: [log] });
+      }
     }
  catch (error) {
       const embed = new EmbedBuilder()

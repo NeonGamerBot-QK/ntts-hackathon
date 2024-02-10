@@ -34,7 +34,8 @@ module.exports = {
         content: "**You don't have the permission**",
         ephemeral: true,
       });
-    } else if (!user) {
+    }
+ else if (!user) {
       return interaction.reply({
         content: "you didn't enter user",
         ephemeral: true,
@@ -66,7 +67,8 @@ module.exports = {
 
       const channel = interaction.guild.channels.cache.get(Banlogchannel);
       channel.send({ embeds: [log] });
-    } catch (error) {
+    }
+ catch (error) {
       const embed = new EmbedBuilder()
         .setColor(0xffa600)
         .setTitle("Error")

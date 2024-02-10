@@ -17,7 +17,7 @@ client.on("ready", () => {
   console.log("damon ready event"); // configured to set state to starting
   let exiting = false;
   setInterval(() => {
-    const cap = function (str, length) {
+    const cap = function(str, length) {
       if (str == null || str?.length <= length) return str;
 
       return str.substr(0, length) + "**\u2026**";
@@ -54,7 +54,8 @@ client.on("ready", () => {
             });
         }
         // if its already exiting then it is really this error
-      } else if (
+      }
+ else if (
         error.message.includes(
           "error: Your local changes to the following files would be overwritten by merge:",
         ) &&
@@ -111,12 +112,14 @@ for (const folder of commandFolders) {
       // Set a new item in the Collection with the key as the command name and the value as the exported module
       if ("data" in command && "execute" in command) {
         client.commands.set(command.data.name, command);
-      } else {
+      }
+ else {
         console.log(
           `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
         );
       }
-    } catch (e) {
+    }
+ catch (e) {
       // welp no command
       console.log("[ERROR] ", e);
     }
@@ -135,14 +138,16 @@ client.on(Events.InteractionCreate, async (interaction) => {
 
   try {
     await command.execute(interaction);
-  } catch (error) {
+  }
+ catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
         content: "There was an error while executing this command!",
         ephemeral: true,
       });
-    } else {
+    }
+ else {
       await interaction.reply({
         content: "There was an error while executing this command!",
         ephemeral: true,
@@ -161,7 +166,8 @@ for (const file of eventFiles) {
   const event = require(filePath);
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...args));
-  } else {
+  }
+ else {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }

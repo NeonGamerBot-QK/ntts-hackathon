@@ -1,0 +1,22 @@
+# Path: .github\workflows\deploy.yml
+# generate a nodejs workflow file
+# https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
+name: Deploy
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actio ns/checkout@v2
+      - name: Deploy to Pterodactyl & Restart Server
+        uses: fjogeleit/http-request-action@master
+        with:
+          url: ${{ secrets.PANEL_URL }}api/client/servers/${{ secrets.ID }}/power
+          method: POST
+          bearerToken: ${{ secrets.API_KEY }}
+          data: '{ "signal": "restart" }'

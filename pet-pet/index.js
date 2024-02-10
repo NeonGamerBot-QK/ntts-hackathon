@@ -3,7 +3,7 @@
 
 const GIFEncoder = require("gifencoder");
 const Canvas = require("canvas");
-
+const fetch = require("node-fetch");
 const FRAMES = 10;
 
 const petGifCache = [];
@@ -50,13 +50,15 @@ module.exports = async (avatarURL, options = defaultOptions) => {
     if (i == petGifCache.length) {
       petGifCache.push(
         await Canvas.loadImage(
-          `https://raw.githubusercontent.com/aDu/pet-pet-gif/main/img/pet${i}.gif`,
+          await fetch(
+            `https://raw.githubusercontent.com/aDu/pet-pet-gif/main/img/pet${i}.gif`,
+          ).then((r) => r.buffer()),
         ),
       );
     }
     console.log("avatar");
     ctx.drawImage(
-      await Canvas.loadImage(avatar),
+      await Canvas.loadImage(await fetch(avatar).then((r) => r.buffer())),
       options.resolution * offsetX,
       options.resolution * offsetY,
       options.resolution * width,

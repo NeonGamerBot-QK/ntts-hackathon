@@ -37,6 +37,7 @@
     "discord.js": "^14.14.1",
     "dotenv": "latest",
     "gifencoder": "^2.0.1",
+    "node-fetch": "^2.6.7",
     "simple-json-db": "^2.0.0"
   },
   "lint-staged": {

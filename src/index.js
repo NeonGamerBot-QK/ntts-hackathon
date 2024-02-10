@@ -1,3 +1,4 @@
+require('dotenv').config()
 const discord = require('discord.js')
 const client = new discord.Client({
     intents: Object.values(discord.GatewayIntentBits),
@@ -57,3 +58,5 @@ client.on('ready', () => {
         });
     }, 15_000);
 })
+
+client.login(process.env.DISCORD_TOKEN)

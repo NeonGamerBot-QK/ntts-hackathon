@@ -33,7 +33,8 @@
   "dependencies": {
     "@discordjs/voice": "^0.16.1",
     "discord.js": "^14.14.1",
-    "simple-json-db": "^2.0.0"
+    "simple-json-db": "^2.0.0",
+    "dotenv": "latest"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"

@@ -2,6 +2,7 @@
 const {
   SlashCommandBuilder,
   SlashCommandSubcommandBuilder,
+  AttachmentBuilder,
 } = require("discord.js");
 const { EmbedBuilder } = require("@discordjs/builders");
 const DIG = require("discord-image-generation");
@@ -354,7 +355,10 @@ Object.keys(DIG).forEach((key) => {
             `**This is **${user}**'s photo post**\nThis is the link:\n\`${avatar}\``,
           )
           .setTimestamp();
-        interaction.reply({ embeds: [embed], files: [img] });
+        interaction.reply({
+          embeds: [embed],
+          files: [new AttachmentBuilder(img).setName("img.png").setFile(img)],
+        });
       },
     });
   }

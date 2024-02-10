@@ -41,7 +41,7 @@
     "**/*": "prettier --write --ignore-unknown",
     "*.{js,jsx}": [
       "prettier --write",
-      "eslint --max-warnings 0 ."
+      "eslint --fix ."
     ]
   }
 }

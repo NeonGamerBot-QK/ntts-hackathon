@@ -3,8 +3,12 @@ const discord = require('discord.js')
 const client = new discord.Client({
     intents: Object.values(discord.GatewayIntentBits),
 })
+const discord_c = client;   
 client.on('ready', () => {
     console.log(`Ready on ${client.user.tag}`)
+    client.user.setStatus('dnd');
+client.user.setActivity('⚡Comming Soon');
+console.log('damon ready event') // configured to set state to starting
     setInterval(() => {
         const cap = function (str, length) {
           if(str == null || str?.length <= length) return str;

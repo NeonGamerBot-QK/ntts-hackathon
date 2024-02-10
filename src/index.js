@@ -6,6 +6,7 @@ const { Events } = require("discord.js");
 const client = new discord.Client({
   intents: Object.values(discord.GatewayIntentBits),
 });
+const discord_c = client;
 client.on("ready", () => {
   console.log(`Ready on ${client.user.tag}`);
   client.user.setStatus("dnd");
@@ -20,18 +21,17 @@ client.on("ready", () => {
     const bcommitMessage = require("child_process")
       .execSync("git log -1 --pretty=%B")
       .toString();
-    const bhash = fs.readFileSync(".git/refs/heads/master").toString();
-    require("child_process").exec("git pull -v", (error, stdout) => {
-      const response = (error ? error.message : error) || stdout;
-      let exiting = false;
+    const bhash = fs.readFileSync(".git/refs/heads/main").toString();
+    require("child_process").exec(`git pull -v`, (error, stdout) => {
+      let response = (error ? error.message : error) || stdout;
       if (!error) {
         if (!response.includes("Already up to date.")) {
-          console.log("New Files!!");
+          console.log(`New Files!!`);
           console.log(response);
           const commitMessage = require("child_process")
             .execSync("git log -1 --pretty=%B")
             .toString();
-          const hash = fs.readFileSync(".git/refs/heads/master").toString();
+          const hash = fs.readFileSync(".git/refs/heads/main").toString();
           const compareStr =
             response.split("Updating ")[1].split("\n")[0].trim() ||
             `${bhash}...${hash}`;

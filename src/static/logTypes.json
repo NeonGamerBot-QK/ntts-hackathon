@@ -1,0 +1,170 @@
+[
+  {
+    "name": "Channel Create",
+    "value": 10
+  },
+  {
+    "name": "Channel Update",
+    "value": 11
+  },
+  {
+    "name": "Channel Delete",
+    "value": 12
+  },
+  {
+    "name": "Channel Pins Update",
+    "value": 13
+  },
+  {
+    "name": "Thread Create",
+    "value": 14
+  },
+  {
+    "name": "Thread Update",
+    "value": 15
+  },
+  {
+    "name": "Thread Delete",
+    "value": 16
+  },
+  {
+    "name": "Thread Member Update",
+    "value": 18
+  },
+  {
+    "name": "Thread Members Update",
+    "value": 19
+  },
+  {
+    "name": "Guild Update",
+    "value": 24
+  },
+  {
+    "name": "Guild Ban Add",
+    "value": 27
+  },
+  {
+    "name": "Guild Ban Remove",
+    "value": 28
+  },
+  {
+    "name": "Guild Emojis Update",
+    "value": 29
+  },
+  {
+    "name": "Guild Stickers Update",
+    "value": 30
+  },
+  {
+    "name": "Guild Integrations Update",
+    "value": 31
+  },
+  {
+    "name": "Guild Member Add",
+    "value": 32
+  },
+  {
+    "name": "Guild Member Remove",
+    "value": 33
+  },
+  {
+    "name": "Guild Member Update",
+    "value": 34
+  },
+  {
+    "name": "Guild Role Create",
+    "value": 36
+  },
+  {
+    "name": "Guild Role Update",
+    "value": 37
+  },
+  {
+    "name": "Guild Role Delete",
+    "value": 38
+  },
+  {
+    "name": "Guild Scheduled Event Create",
+    "value": 39
+  },
+  {
+    "name": "Guild Scheduled Event Update",
+    "value": 40
+  },
+  {
+    "name": "Guild Scheduled Event Delete",
+    "value": 41
+  },
+  {
+    "name": "Guild Scheduled Event User Add",
+    "value": 42
+  },
+  {
+    "name": "Guild Scheduled Event User Remove",
+    "value": 43
+  },
+  {
+    "name": "Integration Create",
+    "value": 44
+  },
+  {
+    "name": "Integration Update",
+    "value": 45
+  },
+  {
+    "name": "Integration Delete",
+    "value": 46
+  },
+  {
+    "name": "Invite Create",
+    "value": 48
+  },
+  {
+    "name": "Invite Delete",
+    "value": 49
+  },
+  {
+    "name": "Message Update",
+    "value": 51
+  },
+  {
+    "name": "Message Delete",
+    "value": 52
+  },
+  {
+    "name": "Message Delete Bulk",
+    "value": 53
+  },
+  {
+    "name": "Message Reaction Add",
+    "value": 54
+  },
+  {
+    "name": "Message Reaction Remove",
+    "value": 55
+  },
+  {
+    "name": "Message Reaction Remove Emoji",
+    "value": 57
+  },
+  {
+    "name": "Stage Instance Create",
+    "value": 59
+  },
+  {
+    "name": "Stage Instance Update",
+    "value": 60
+  },
+  {
+    "name": "Stage Instance Delete",
+    "value": 61
+  },
+  {
+    "name": "Voice Server Update",
+    "value": 65
+  },
+  {
+    "name": "Webhooks Update",
+    "value": 66
+  }
+]

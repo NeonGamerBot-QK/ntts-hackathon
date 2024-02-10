@@ -1,14 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
-const types = [
-  {
-    name: "ban",
-    value: "0",
-  },
-  {
-    name: "kick",
-    value: "1",
-  },
-];
+const types = require("../../src/static/logTypes.json");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setlogchannel")

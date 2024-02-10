@@ -24,7 +24,10 @@ module.exports = {
 
   async execute(interaction) {
     const Banlogchannel =
-      interaction.client.db.get(`logchannel_${interaction.guild.id}_0`) || null;
+      interaction.client.db.get(
+        `logchannel_${interaction.guild.id}_` +
+          require("../../src/static/logTypes.json")[10].value,
+      ) || null;
     const user = interaction.options.getUser("user");
 
     if (

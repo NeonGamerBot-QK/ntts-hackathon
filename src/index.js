@@ -2,6 +2,7 @@ require('dotenv').config()
 const fs = require('fs')
 const path = require('path')
 const discord = require('discord.js')
+const { Events } = require('discord.js')
 const client = new discord.Client({
     intents: Object.values(discord.GatewayIntentBits),
 })

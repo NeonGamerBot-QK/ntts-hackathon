@@ -9,7 +9,8 @@ module.exports = {
         .setName("type")
         .setDescription("The Type of logs for the channel")
         .setRequired(true)
-        .addChoices(...types);
+        .setAutocomplete(true);
+      //    .addChoices(...types);
     })
     .addChannelOption((o) => {
       return o
@@ -27,6 +28,22 @@ module.exports = {
     );
     interaction.reply(
       `Log channel for \`${types.find((t) => t.value === type).name}\` has been set to ${channel}`,
+    );
+  },
+  async autocomplete(interaction) {
+    const focusedValue = interaction.options.getFocused();
+    const choices = [
+      "Popular Topics: Threads",
+      "Sharding: Getting started",
+      "Library: Voice Connections",
+      "Interactions: Replying to slash commands",
+      "Popular Topics: Embed preview",
+    ];
+    const filtered = choices.filter((choice) =>
+      choice.startsWith(focusedValue),
+    );
+    await interaction.respond(
+      filtered.map((choice) => ({ name: choice, value: choice })),
     );
   },
 };

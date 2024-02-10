@@ -367,7 +367,7 @@ module.exports = {
     }
   },
 };
-imageGenCmds.forEach((cmd) => {
+imageGenCmds.slice(0, 25).forEach((cmd) => {
   module.exports.data.addSubcommand(cmd.data);
   // module.exports[cmd.data.name] = cmd.exec;
 });

@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actio ns/checkout@v2
+        uses: actions/checkout@v2
       - name: Deploy to Pterodactyl & Restart Server
         uses: fjogeleit/http-request-action@master
         with:

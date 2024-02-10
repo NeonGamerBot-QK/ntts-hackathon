@@ -12,13 +12,13 @@ const types = [
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("setlogchannel")
-    .setDescription("Fr it's a ping, what do you expect")
+    .setDescription("set the log channel for the server")
     .addStringOption((o) => {
       return o
         .setName("type")
         .setDescription("The Type of logs for the channel")
         .setRequired(true)
-        .addChoices(types);
+        .addChoices(...types);
     })
     .addChannelOption((o) => {
       return o
@@ -26,7 +26,7 @@ module.exports = {
         .setDescription("The channel to set as log channel")
         .setRequired(true);
     })
-    .setDMPermission(true),
+    .setDMPermission(false),
   async execute(interaction) {
     const channel = interaction.options.getChannel("channel");
     const type = interaction.options.getString("type");

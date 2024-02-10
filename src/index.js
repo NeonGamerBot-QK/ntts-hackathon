@@ -11,7 +11,7 @@ const discord_c = client;
 client.on("ready", () => {
   console.log(`Ready on ${client.user.tag}`);
   client.user.setStatus("dnd");
-  client.user.setActivity("⚡Comming Soon");
+  // client.user.setActivity("⚡Comming Soon");
   console.log("damon ready event"); // configured to set state to starting
   let exiting = false;  
   setInterval(() => {

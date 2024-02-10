@@ -4,11 +4,11 @@ const { EmbedBuilder } = require('@discordjs/builders')
 module.exports = {
     data: new SlashCommandBuilder()
         .setName('avatar')
-        .setDescription('取得使用者投向')
+        .setDescription('Get user avatar')
         .setDMPermission(false)
         .addUserOption(options => options
             .setName('user')
-            .setDescription('想要獲取頭貼的人')
+            .setDescription('People who want to get other users')
             .setRequired(true)
         ),
 
@@ -18,8 +18,8 @@ module.exports = {
         const avatar = user.avatarURL();
 
         const embed = new EmbedBuilder()
-            .setTitle('使用者頭貼')
-            .setDescription(`**這個是**${user}**的大頭貼**\n這是連結：\n\`${avatar}\``)
+            .setTitle('User Sticket')
+            .setDescription(`**This is **${user}**'s photo post**\nThis is the link:\n\`${avatar}\``)
             .setThumbnail(avatar)
             .setTimestamp()
 

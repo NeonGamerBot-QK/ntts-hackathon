@@ -44,6 +44,7 @@ module.exports = {
         ],
       });
     } catch (err) {
+      console.error(err)
       interaction.editReply({
         content: "An error came while executing this command.",
       });

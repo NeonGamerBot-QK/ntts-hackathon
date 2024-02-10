@@ -1,7 +1,7 @@
 const { SlashCommandBuilder } = require('@discordjs/builders');
 const { PermissionsBitField, EmbedBuilder, GuildBanManager } = require('discord.js')
-const { Banlogchannel } = require('../../config.json')
-const { SystemMsg } = require('../../local.json')
+// const { Banlogchannel } = require('../../config.json')
+// const { SystemMsg } = require('../../local.json')
 
 module.exports = {
     data: new SlashCommandBuilder()

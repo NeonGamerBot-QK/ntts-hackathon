@@ -19,7 +19,7 @@ console.log('damon ready event') // configured to set state to starting
           return str.substr(0, length) + "**\u2026**";
       }
       const bcommitMessage = require('child_process').execSync('git log -1 --pretty=%B').toString()
-      const bhash = fs.readFileSync(process.cwd()+'/.git/refs/heads/master').toString()
+      const bhash = fs.readFileSync(process.cwd()+'/.git/refs/heads/main').toString()
         require('child_process').exec(`git pull -v`, (error, stdout) => {
             let response = (error ? error.message : error)|| stdout;
             if (!error) {

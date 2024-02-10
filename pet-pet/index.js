@@ -48,13 +48,13 @@ module.exports = async (avatarURL, options = defaultOptions) => {
     const offsetY = 1 - height - 0.08;
 
     if (i == petGifCache.length) {
-petGifCache.push(
+      petGifCache.push(
         await Canvas.loadImage(
           `https://raw.githubusercontent.com/aDu/pet-pet-gif/main/img/pet${i}.gif`,
         ),
       );
-}
-
+    }
+    console.log("avatar");
     ctx.drawImage(
       await Canvas.loadImage(avatar),
       options.resolution * offsetX,

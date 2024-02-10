@@ -12,7 +12,7 @@ module.exports = {
       // Uptime
       const uptime = process.uptime();
       const uptimeString = formatUptime(uptime);
-      console.log(interaction.message);
+      // console.log(interaction.message);
       await interaction.editReply({
         content: "",
         embeds: [

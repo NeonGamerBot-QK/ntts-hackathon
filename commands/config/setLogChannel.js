@@ -32,18 +32,16 @@ module.exports = {
   },
   async autocomplete(interaction) {
     const focusedValue = interaction.options.getFocused();
-    const choices = [
-      "Popular Topics: Threads",
-      "Sharding: Getting started",
-      "Library: Voice Connections",
-      "Interactions: Replying to slash commands",
-      "Popular Topics: Embed preview",
-    ];
-    const filtered = choices.filter((choice) =>
-      choice.startsWith(focusedValue),
+    // const choices = [
+    //   "Popular Topics: Threads",
+    //   "Sharding: Getting started",
+    //   "Library: Voice Connections",
+    //   "Interactions: Replying to slash commands",
+    //   "Popular Topics: Embed preview",
+    // ];
+    const filtered = types.filter((choice) =>
+      choice.name.startsWith(focusedValue),
     );
-    await interaction.respond(
-      filtered.map((choice) => ({ name: choice, value: choice })),
-    );
+    await interaction.respond(filtered);
   },
 };

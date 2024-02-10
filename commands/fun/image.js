@@ -29,7 +29,9 @@ Object.keys(DIG).forEach((key) => {
       exec: (interaction) => {
         const user = interaction.options.getUser("user") || interaction.user;
         const blurRadius = interaction.options.getNumber("radius") || 5;
-        const avatar = user.displayAvatarURL({ format: "png" });
+        const avatar = user
+          .displayAvatarURL({ format: "png" })
+          .replace(".webp", ".png");
         const img = new func().getImage(avatar, blurRadius);
         const embed = new EmbedBuilder()
           .setTitle("Image Generation")
@@ -54,7 +56,9 @@ Object.keys(DIG).forEach((key) => {
         ),
       exec: (interaction) => {
         const user = interaction.options.getUser("user") || interaction.user;
-        const avatar = user.displayAvatarURL({ format: "png" });
+        const avatar = user
+          .displayAvatarURL({ format: "png" })
+          .replace(".webp", ".png");
         const img = new func().getImage(avatar);
         const embed = new EmbedBuilder()
           .setTitle("Image Generation")
@@ -339,7 +343,9 @@ Object.keys(DIG).forEach((key) => {
         ),
       exec: (interaction) => {
         const user = interaction.options.getUser("user") || interaction.user;
-        const avatar = user.displayAvatarURL({ format: "png" });
+        const avatar = user
+          .displayAvatarURL({ format: "png" })
+          .replace(".webp", ".png");
         console.log(avatar);
         const img = new func().getImage(avatar);
         const embed = new EmbedBuilder()

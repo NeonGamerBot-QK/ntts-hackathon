@@ -591,7 +591,16 @@ discord-api-types@0.37.61:
   resolved "https://registry.yarnpkg.com/discord-api-types/-/discord-api-types-0.37.61.tgz#9dd8e58c624237e6f1b23be2d29579af268b8c5b"
   integrity sha512-o/dXNFfhBpYHpQFdT6FWzeO7pKc838QeeZ9d91CfVAtpr5XLK4B/zYxQbYgPdoMiTDvJfzcsLW5naXgmHGDNXw==
 
-discord.js@^14.14.1:
+discord-gamecord@^4.4.1:
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/discord-gamecord/-/discord-gamecord-4.4.1.tgz#38c0021aa4d7b25f6c2d7634da9e7996940070e4"
+  integrity sha512-0IDI2C7QttWSPJStQNUZn89xFlgqo+qrJUC+/Bu8xPfnZ0G0AsBN6Ut0lwYcJOZkHnX5cNbwHl6Wj//5ws9oTA==
+  dependencies:
+    discord.js "^14.8.0"
+    html-entities "^2.3.3"
+    node-fetch "^2.6.7"
+
+discord.js@^14.14.1, discord.js@^14.8.0:
   version "14.14.1"
   resolved "https://registry.yarnpkg.com/discord.js/-/discord.js-14.14.1.tgz#9a2bea23bba13819705ab87612837610abce9ee3"
   integrity sha512-/hUVzkIerxKHyRKopJy5xejp4MYKDPTszAnpYxzVVv4qJYf+Tkt+jnT2N29PIPschicaEEpXwF2ARrTYHYwQ5w==
@@ -947,6 +956,11 @@ has-unicode@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/has-unicode/-/has-unicode-2.0.1.tgz#e0e6fe6a28cf51138855e086d1691e771de2a8b9"
   integrity sha512-8Rf9Y83NBReMnx0gFzA8JImQACstCYWUplepDa9xprwwtmgEZUF0h/i5xSA625zB/I37EtrswSST6OXxwaaIJQ==
+
+html-entities@^2.3.3:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/html-entities/-/html-entities-2.4.0.tgz#edd0cee70402584c8c76cc2c0556db09d1f45061"
+  integrity sha512-igBTJcNNNhvZFRtm8uA6xMY6xYleeDwn3PeBCkDz7tHttv4F2hsDI2aPgNERWzvRcNYHNT3ymRaQzllmXj4YsQ==
 
 https-proxy-agent@^5.0.0:
   version "5.0.1"

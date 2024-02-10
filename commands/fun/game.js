@@ -465,7 +465,7 @@ module.exports = {
     //     case "2048":
     //         break;
     // }
-    const idd = gameSubCommands.findIndex(
+    const idd = gameSubCommands.find(
       (sc) => sc.name.split(/ +/).join("").toLowerCase() === ggame,
     );
     if (idd === -1) {

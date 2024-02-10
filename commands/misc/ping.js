@@ -5,7 +5,8 @@ module.exports = {
     .setName("ping")
     .setDescription("Fr it's a ping, what do you expect")
     .setDMPermission(true),
-  async execute(interaction, client) {
+  async execute(interaction) {
+    let client = interaction.client
     try {
       interaction.message = await interaction.reply("pinging...");
       // Uptime
@@ -37,7 +38,7 @@ module.exports = {
               },
               {
                 name: "• Uptime",
-                value: `> \`🟢 ${uptimeString}\``,
+                value: `> \`🟢 ${uptimeString}\` <t:${Math.round((Date.now() / 1000) - process.uptime())}:R>`,
                 inline: false,
               },
             ]),

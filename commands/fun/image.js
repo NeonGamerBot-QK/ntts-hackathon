@@ -340,6 +340,7 @@ Object.keys(DIG).forEach((key) => {
       exec: (interaction) => {
         const user = interaction.options.getUser("user") || interaction.user;
         const avatar = user.displayAvatarURL({ format: "png" });
+        console.log(avatar);
         const img = new func().getImage(avatar);
         const embed = new EmbedBuilder()
           .setTitle("Image Generation")

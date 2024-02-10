@@ -38,7 +38,7 @@ console.log('damon ready event') // configured to set state to starting
                           setTimeout(() => {
                             console.log('Bye Bye!')
                             process.exit()
-                        }, 3_000);
+                        }, 5_000);
                         });
                        
                     

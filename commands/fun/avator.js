@@ -10,11 +10,11 @@ module.exports = {
       options
         .setName("user")
         .setDescription("People who want to get other users")
-        .setRequired(true),
+        .setRequired(false),
     ),
 
   async execute(interaction) {
-    const user = interaction.options.getUser("user");
+    const user = interaction.options.getUser("user") || interaction.user;
 
     const avatar = user.avatarURL();
 

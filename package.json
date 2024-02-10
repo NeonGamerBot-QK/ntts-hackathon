@@ -35,6 +35,7 @@
     "@discordjs/voice": "^0.16.1",
     "discord.js": "^14.14.1",
     "dotenv": "latest",
+    "pet-pet-gif": "^1.0.9",
     "simple-json-db": "^2.0.0"
   },
   "lint-staged": {

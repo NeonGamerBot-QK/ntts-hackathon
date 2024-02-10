@@ -1,5 +1,8 @@
 // eslint-disable-next-line no-unused-vars
-const { SlashCommandBuilder } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  // ChatInputCommandInteraction
+} = require("discord.js");
 const {
   TwoZeroFourEight,
   Connect4,
@@ -456,7 +459,7 @@ module.exports = {
   data: new SlashCommandBuilder().setName("game").setDescription("Play a game"),
   /**
    *
-   * @param {ChatInputCommandInteraction} interaction
+   * @param {ChatInputCommandInteraction } interaction
    */
   async execute(interaction) {
     const ggame = interaction.options.getSubcommand(true);
@@ -465,10 +468,13 @@ module.exports = {
     //     case "2048":
     //         break;
     // }
+    //   interaction
     const idd = gameSubCommands.find(
-      (sc) => sc.name.split(/ +/).join("").toLowerCase() === ggame,
+      (sc) =>
+        sc.name.split(/ +/).join("").toLowerCase() === ggame.toLowerCase(),
     );
-    if (idd === -1) {
+    console.log(idd);
+    if (!idd) {
       interaction.reply("Game not found");
       return;
     }

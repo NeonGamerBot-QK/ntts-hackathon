@@ -7,7 +7,7 @@ module.exports = {
     const cmd = args.shift();
     if (cmd == "deploy" && message.guild.id === process.env.GUILD_ID) {
       require("../deploy");
-      message.reply(`Check Console!`);
+      message.reply("Check Console!");
     }
   },
 };

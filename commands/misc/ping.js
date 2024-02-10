@@ -6,7 +6,7 @@ module.exports = {
     .setDescription("Fr it's a ping, what do you expect")
     .setDMPermission(true),
   async execute(interaction) {
-    let client = interaction.client
+    const client = interaction.client;
     try {
       interaction.message = await interaction.reply("pinging...");
       // Uptime
@@ -38,14 +38,14 @@ module.exports = {
               },
               {
                 name: "• Uptime",
-                value: `> \`🟢 ${uptimeString}\` <t:${Math.round((Date.now() / 1000) - process.uptime())}:R>`,
+                value: `> \`🟢 ${uptimeString}\` <t:${Math.round(Date.now() / 1000 - process.uptime())}:R>`,
                 inline: false,
               },
             ]),
         ],
       });
     } catch (err) {
-      console.error(err)
+      console.error(err);
       interaction.editReply({
         content: "An error came while executing this command.",
       });

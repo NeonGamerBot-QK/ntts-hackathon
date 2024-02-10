@@ -6,6 +6,8 @@ const { Events } = require("discord.js");
 const client = new discord.Client({
   intents: Object.values(discord.GatewayIntentBits),
 });
+// this is just incase i paste code and forget to change stuff
+// eslint-disable-next-line no-unused-vars
 const discord_c = client;
 
 client.on("ready", () => {
@@ -13,7 +15,7 @@ client.on("ready", () => {
   client.user.setStatus("dnd");
   // client.user.setActivity("⚡Comming Soon");
   console.log("damon ready event"); // configured to set state to starting
-  let exiting = false;  
+  let exiting = false;
   setInterval(() => {
     const cap = function (str, length) {
       if (str == null || str?.length <= length) return str;
@@ -24,11 +26,11 @@ client.on("ready", () => {
       .execSync("git log -1 --pretty=%B")
       .toString();
     const bhash = fs.readFileSync(".git/refs/heads/main").toString();
-    require("child_process").exec(`git pull -v`, (error, stdout) => {
-      let response = (error ? error.message : error) || stdout;
+    require("child_process").exec("git pull -v", (error, stdout) => {
+      const response = (error ? error.message : error) || stdout;
       if (!error) {
         if (!response.includes("Already up to date.")) {
-          console.log(`New Files!!`);
+          console.log("New Files!!");
           console.log(response);
           const commitMessage = require("child_process")
             .execSync("git log -1 --pretty=%B")
@@ -106,17 +108,17 @@ for (const folder of commandFolders) {
     const filePath = path.join(commandsPath, file);
     try {
       const command = require(filePath);
-    // Set a new item in the Collection with the key as the command name and the value as the exported module
-    if ("data" in command && "execute" in command) {
-      client.commands.set(command.data.name, command);
-    } else {
-      console.log(
-        `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
-      );
-    }
+      // Set a new item in the Collection with the key as the command name and the value as the exported module
+      if ("data" in command && "execute" in command) {
+        client.commands.set(command.data.name, command);
+      } else {
+        console.log(
+          `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
+        );
+      }
     } catch (e) {
       // welp no command
-      console.log('[ERROR] ', e)
+      console.log("[ERROR] ", e);
     }
   }
 }
@@ -163,7 +165,7 @@ for (const file of eventFiles) {
     client.on(event.name, (...args) => event.execute(...args));
   }
 }
-process.on('uncaughtException', (err) => {
-  console.error(err)
-})
+process.on("uncaughtException", (err) => {
+  console.error(err);
+});
 client.login(process.env.DISCORD_TOKEN);

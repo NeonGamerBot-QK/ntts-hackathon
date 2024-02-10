@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const { exec, execSync } = require("child_process");
 module.exports = {
   data: new SlashCommandBuilder()
@@ -11,14 +11,14 @@ module.exports = {
         .setRequired(true),
     ),
   async execute(interaction) {
-    let pkgs = interaction.options.getString("pkgs");
+    const pkgs = interaction.options.getString("pkgs");
     if (!pkgs) return interaction.reply("No packages provided");
     const m = await interaction.reply({
       content: `Installing ${pkgs}...`,
       fetchReply: true,
     });
     exec(`npm i ${pkgs}`, (err, stdout, stderr) => {
-      if (err) return message.author.send(`Error: ${err.message}`);
+      if (err) return m.reply(`Error: ${err.message}`);
       // use git add on package.json and yarn.lock using child process
       execSync("git add package.json yarn.lock", { stdio: "inherit" });
       execSync(`git commit -m "➕ dep: install ${pkgs}"`, { stdio: "inherit" });

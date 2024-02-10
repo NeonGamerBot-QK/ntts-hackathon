@@ -1,0 +1,38 @@
+{
+  "name": "ntts-hackathon",
+  "version": "0.0.1",
+  "description": "A discord bot for the NTTS hackathon",
+  "main": "src/index.js",
+  "author": "Neon <neon@saahild.com>",
+  "license": "MIT",
+  "private": false,
+  "funding": [
+    {
+      "type": "individual",
+      "url": "http://ko-fi.com/saahil"
+    }
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "husky": "^9.0.10",
+    "lint-staged": "^15.2.2",
+    "nodemon": "^3.0.3",
+    "prettier": "^3.2.5"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "precommit": "lint-staged",
+    "dev": "nodemon src/index.js",
+    "prepare": "husky"
+  },
+  "dependencies": {
+    "@discordjs/voice": "^0.16.1",
+    "discord.js": "^14.14.1",
+    "simple-json-db": "^2.0.0"
+  }
+}

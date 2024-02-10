@@ -11,7 +11,7 @@ const types = [
 ];
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("setLogChannel")
+    .setName("setlogchannel")
     .setDescription("Fr it's a ping, what do you expect")
     .addStringOption((o) => {
       return o

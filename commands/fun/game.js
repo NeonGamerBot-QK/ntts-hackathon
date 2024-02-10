@@ -480,10 +480,10 @@ module.exports = {
     }
     // einteraction.reply(`You want to play ${gameSubCommands[idd].name}`);
     if (idd.noReturn) {
-      idd.runGame(interaction);
+      idd.playGame(interaction);
     }
  else {
-      const game = idd.runGame(interaction);
+      const game = idd.playGame(interaction);
       game.startGame();
       game.on("gameOver", (result) => {
         // console.log(result); // =>  { result... }

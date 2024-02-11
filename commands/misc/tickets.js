@@ -47,7 +47,7 @@ module.exports = {
         });
       }
       const channel = await interaction.guild.channels.create({
-        type: "text",
+        type: ChannelType.GuildText,
         name: `ticket-${interaction.user.username}`,
         parent: interaction.client.db.get(
           `ticketcategory_${interaction.guild.id}`,

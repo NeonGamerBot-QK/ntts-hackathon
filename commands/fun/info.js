@@ -26,17 +26,17 @@ module.exports = {
                 .setTitle(`Server Information`)
                 .setThumbnail(interaction.guild.iconURL())
                 .setDescription(`
-                    <a:server:1174372626475528226> **Server name:** ${interaction.guild.name}
-                    <:role_owner:1174372151181185136> **Owner:** ${(await interaction.guild.fetchOwner()).user}
-                    <:Time:1174372631282208858> **Created at:** <t:${parseInt(interaction.guild.createdTimestamp / 1000)}:F>
-                    <:arrow_right:1174373165737189386> **Total Channels:** \`${guildTextChannelCount + guildVoiceChannelCount + guildThreadsChannelCount}\`
-                    <:list_bottom:1174365033225011270> <:blurple_text_channel:1174371323154268191> **Text Channels:** \`${guildTextChannelCount}\`
-                    <:list_bottom:1174365033225011270> <:4321voiceg:1174216686510022656> **Voice Channels:** \`${guildVoiceChannelCount}\`
-                    <:list_bottom:1174365033225011270> <:n_category:1174371675601633400> **Category Channels:** \`${guildCategoryChannelCount}\`
-                    <:list_bottom:1174365033225011270> <:M_thread:1174371879197347921> **Threads Channels:** \`${guildThreadsChannelCount}\`
-                    <:member_white_black:1174215881098801252> **Total members:** \`${interaction.guild.memberCount}\`
-                    <:roles:1174372156252102658> **Roles:** \`${interaction.guild.roles.cache.size}\`
-                    <:3161boost:1174216675760025600> **Total boosts:** \`${interaction.guild.premiumSubscriptionCount}\`
+                    **Server name:** ${interaction.guild.name}
+                    **Owner:** ${(await interaction.guild.fetchOwner()).user}
+                    **Created at:** <t:${parseInt(interaction.guild.createdTimestamp / 1000)}:F>
+                    **Total Channels:** \`${guildTextChannelCount + guildVoiceChannelCount + guildThreadsChannelCount}\`
+                    **Text Channels:** \`${guildTextChannelCount}\`
+                    **Voice Channels:** \`${guildVoiceChannelCount}\`
+                    **Category Channels:** \`${guildCategoryChannelCount}\`
+                    **Threads Channels:** \`${guildThreadsChannelCount}\`
+                    **Total members:** \`${interaction.guild.memberCount}\`
+                    **Roles:** \`${interaction.guild.roles.cache.size}\`
+                    **Total boosts:** \`${interaction.guild.premiumSubscriptionCount}\`
                 `);
 
             await interaction.reply({ embeds: [serverEmbed] });
@@ -46,9 +46,9 @@ module.exports = {
                 const sent = await interaction.deferReply({ fetchReply: true })
                 const uptime = formatUptime(interaction.client.uptime)
           
-                const description = `\`\`\`fix\nStatus:      Under Development\nLanguage:    JavaScript\nCreated on:  ${interaction.client.user.createdAt.toUTCString()}\`\`\``
+                const description = `\`\`\`fix\nStatus:      Under Development\nLanguage:    JavaScript & Node.js\nCreated on:  ${interaction.client.user.createdAt.toUTCString()}\`\`\``
                 const pingField = `\`\`\`fix\nPing:   ${sent.createdTimestamp - interaction.createdTimestamp} ms\nWS:     ${interaction.client.ws.ping} ms\nUptime: ${uptime}\nNode:   ${process.version}\nDJS:    v${version}\`\`\``
-                const statsField = `\`\`\`fix\nBot ID: ${interaction.client.user.id}\nType: Private\nCommands: 15\nCommands Type: Slash Commands\`\`\``
+                const statsField = `\`\`\`fix\nBot ID: ${interaction.client.user.id}\nType: Public\nCommands: 12\nCommands Type: Slash Commands\`\`\``
           
                 const embed = new EmbedBuilder()
                     .setTitle('Bot Info')

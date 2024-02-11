@@ -166,5 +166,17 @@
   {
     "name": "Webhooks Update",
     "value": "66"
+  },
+  {
+    "name": "Ticket Create",
+    "value": "67"
+  },
+  {
+    "name": "Ticket Update",
+    "value": "68"
+  },
+  {
+    "name": "Ticket Delete",
+    "value": "69"
   }
 ]

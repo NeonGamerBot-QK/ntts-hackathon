@@ -1,8 +1,8 @@
 const { AuditLogEvent, Events } = require("discord.js");
 module.exports = {
   name: Events.GuildAuditLogEntryCreate,
-  async execute(auditLog) {
-    const client = auditLog.client;
+  async execute(auditLog, client) {
+    // const client = auditLog.client;
     // Define your variables.
     // The extra information here will be the channel.
     const { action, extra: channel, executorId, targetId } = auditLog;

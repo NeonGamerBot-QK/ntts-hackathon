@@ -22,5 +22,8 @@ module.exports = {
     if (channel) {
       channel.send({ embeds: [embed] });
     }
+ else {
+      console.debug("no channel");
+    }
   },
 };

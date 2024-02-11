@@ -482,7 +482,7 @@ module.exports = {
     if (idd.noReturn) {
       idd.playGame(interaction);
     }
- else {
+    else {
       const game = idd.playGame(interaction);
       game.startGame();
       game.on("gameOver", (result) => {
@@ -492,7 +492,7 @@ module.exports = {
             `Game Over! ${result.winner ? `Winner: ${result.winner}` : "Tie"}`,
           );
         }
- catch (error) {
+        catch (error) {
           console.error(error);
         }
       });

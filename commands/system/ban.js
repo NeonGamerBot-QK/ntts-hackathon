@@ -26,7 +26,7 @@ module.exports = {
     const Banlogchannel =
       interaction.client.db.get(
         `logchannel_${interaction.guild.id}_` +
-          require("../../src/static/logTypes.json")[10].value,
+        require("../../src/static/logTypes.json")[10].value,
       ) || null;
     const user = interaction.options.getUser("user");
 
@@ -40,7 +40,7 @@ module.exports = {
         ephemeral: true,
       });
     }
- else if (!user) {
+    else if (!user) {
       return interaction.reply({
         content: "You didn't enter user",
         ephemeral: true,
@@ -74,7 +74,7 @@ module.exports = {
         channel.send({ embeds: [log] });
       }
     }
- catch (error) {
+    catch (error) {
       const embed = new EmbedBuilder()
         .setColor(0xffa600)
         .setTitle("Erorr")

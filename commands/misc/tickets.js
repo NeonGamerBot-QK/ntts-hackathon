@@ -1,4 +1,8 @@
-const { SlashCommandBuilder, ChannelType } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  ChannelType,
+  PermissionFlagsBits,
+} = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -55,15 +59,15 @@ module.exports = {
         permissionOverwrites: [
           {
             id: interaction.guild.id,
-            deny: ["VIEW_CHANNEL"],
+            deny: [PermissionFlagsBits.ViewChannel],
           },
           {
             id: interaction.user.id,
-            allow: ["VIEW_CHANNEL"],
+            allow: [PermissionFlagsBits.ViewChannel],
           },
           {
             id: interaction.client.user.id,
-            allow: ["VIEW_CHANNEL"],
+            allow: [PermissionFlagsBits.ViewChannel],
           },
         ],
       });

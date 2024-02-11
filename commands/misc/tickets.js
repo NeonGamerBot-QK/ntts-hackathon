@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, ChannelType } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,7 +23,7 @@ module.exports = {
             .setName("category")
             .setDescription("The category to create tickets in")
             .setRequired(true)
-            .addChannelTypes("GUILD_CATEGORY"),
+            .addChannelTypes(ChannelType.GuildCategory),
         ),
     ),
   async execute(interaction) {

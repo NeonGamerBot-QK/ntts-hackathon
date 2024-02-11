@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, ChannelType } = require("discord.js");
 const types = require("../../src/static/logTypes.json");
 module.exports = {
   data: new SlashCommandBuilder()
@@ -17,7 +17,7 @@ module.exports = {
         .setName("channel")
         .setDescription("The channel to set as log channel")
         .setRequired(true)
-        .addChannelTypes("GUILD_TEXT");
+        .addChannelTypes(ChannelType.GuildText);
     })
     .setDMPermission(false),
   async execute(interaction) {

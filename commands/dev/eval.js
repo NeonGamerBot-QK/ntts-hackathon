@@ -57,7 +57,7 @@ module.exports = {
       },
     ]);
     embed.setTimestamp();
-    embed.setColor("RANDOM");
+    // embed.setColor("RANDOM");
     try {
       // Evaluate (execute) our input
       // eslint-disable-next-line no-async-promise-executor
@@ -97,7 +97,9 @@ module.exports = {
         `\`ERROR\` \`\`\`xl\n${cleaned.slice(0, 2000)}\n\`\`\``,
       );
     }
-    if (respondWithOutput) {msg.edit({ embeds: [embed], files: sendAtt ? [attachment] : [] });}
+    if (respondWithOutput) {
+      msg.edit({ embeds: [embed], files: sendAtt ? [attachment] : [] });
+    }
     if (!respondWithOutput) msg.delete();
   },
 };

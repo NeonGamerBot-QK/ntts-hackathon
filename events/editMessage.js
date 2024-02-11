@@ -16,7 +16,7 @@ module.exports = {
     );
     // embed.addField("New Message", newMessage.content);
     embed.setTimestamp();
-    embed.setColor("RANDOM");
+    // embed.setColor("RED");
     // oldMessage.channel.send({ embeds: [embed] });
     const channelId = oldMessage.client.db.get(
       `logchannel_${oldMessage.guild.id}_` +

@@ -46,15 +46,13 @@ module.exports = {
           empheral: true,
         });
       }
-      const channel = await interaction.guild.channels.create(
-        `ticket-${interaction.user.username}`,
-        {
-          type: "text",
-          parent: interaction.client.db.get(
-            `ticketcategory_${interaction.guild.id}`,
-          ),
-        },
-      );
+      const channel = await interaction.guild.channels.create({
+        type: "text",
+        name: `ticket-${interaction.user.username}`,
+        parent: interaction.client.db.get(
+          `ticketcategory_${interaction.guild.id}`,
+        ),
+      });
       await channel.permissionOverwrites.edit(interaction.guild.id, {
         VIEW_CHANNEL: false,
       });

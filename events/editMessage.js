@@ -1,8 +1,9 @@
-const { EmbedBuilder } = require("discord.js");
+const { EmbedBuilder, Events } = require("discord.js");
 
 module.exports = {
-  name: "editMessage",
+  name: Events.MessageUpdate,
   async execute(oldMessage, newMessage) {
+    console.log("event");
     // console.log(`A message by ${oldMessage.author.tag} was edited in ${oldMessage.channel}`);
     const embed = new EmbedBuilder();
     embed.setTitle("Message Edited");

@@ -88,7 +88,7 @@ module.exports = {
     }
  catch (err) {
       const cleaned = await clean(err);
-      embed.setColor("RED");
+      embed.setColor(0xff0000);
       embed.setTitle("eval error");
       attachment.setFile(Buffer.from(cleaned), "error.log");
 

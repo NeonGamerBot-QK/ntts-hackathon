@@ -52,16 +52,30 @@ module.exports = {
         parent: interaction.client.db.get(
           `ticketcategory_${interaction.guild.id}`,
         ),
+        permissionOverwrites: [
+          {
+            id: interaction.guild.id,
+            deny: ["VIEW_CHANNEL"],
+          },
+          {
+            id: interaction.user.id,
+            allow: ["VIEW_CHANNEL"],
+          },
+          {
+            id: interaction.client.user.id,
+            allow: ["VIEW_CHANNEL"],
+          },
+        ],
       });
-      await channel.permissionOverwrites.edit(interaction.guild.id, {
-        VIEW_CHANNEL: false,
-      });
-      await channel.permissionOverwrites.edit(interaction.user.id, {
-        VIEW_CHANNEL: true,
-      });
-      await channel.permissionOverwrites.edit(interaction.client.user.id, {
-        VIEW_CHANNEL: true,
-      });
+      //   await channel.permissionOverwrites.edit(interaction.guild.id, {
+      //     VIEW_CHANNEL: false,
+      //   });
+      //   await channel.permissionOverwrites.edit(interaction.user.id, {
+      //     VIEW_CHANNEL: true,
+      //   });
+      //   await channel.permissionOverwrites.edit(interaction.client.user.id, {
+      //     VIEW_CHANNEL: true,
+      //   });
       await channel.send({
         content: `Welcome ${interaction.user}!`,
         embeds: [],

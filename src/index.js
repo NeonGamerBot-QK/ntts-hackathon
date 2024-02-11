@@ -99,7 +99,7 @@ client.on("ready", () => {
   }, 15_000);
 });
 client.commands = new discord.Collection();
-
+client.server = require("./server")();
 const foldersPath = path.join(__dirname, "..", "commands");
 const commandFolders = fs.readdirSync(foldersPath);
 

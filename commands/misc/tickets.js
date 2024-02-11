@@ -13,27 +13,39 @@ module.exports = {
     )
     .addSubcommand((subcommand) =>
       subcommand.setName("delete").setDescription("Delete a ticket"),
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("enable")
+        .setDescription("Enable ticket system")
+        .addChannelOption((option) =>
+          option
+            .setName("category")
+            .setDescription("The category to create tickets in")
+            .setRequired(true)
+            .addChannelTypes("GUILD_CATEGORY"),
+        ),
     ),
   async execute(interaction) {
     const subCMD = interaction.options.getSubcommand();
     if (subCMD === "create") {
       // await interaction.reply("This command is not yet implemented");
       if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
-return await interaction.reply({
+        return await interaction.reply({
           content: "Ticket system is not enabled",
           empheral: true,
         });
-}
+      }
       if (
         interaction.client.db.get(
           `ticket_${interaction.user.id}_${interaction.guild.id}`,
         )
       ) {
-return await interaction.reply({
+        return await interaction.reply({
           content: "You already have a ticket",
           empheral: true,
         });
-}
+      }
       const channel = await interaction.guild.channels.create(
         `ticket-${interaction.user.username}`,
         {
@@ -71,22 +83,22 @@ return await interaction.reply({
  else if (subCMD === "close") {
       await interaction.reply("This command is not yet implemented");
       if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
-return await interaction.reply({
+        return await interaction.reply({
           content: "Ticket system is not enabled",
           empheral: true,
         });
-}
+      }
       const channel = interaction.guild.channels.cache.get(
         interaction.client.db.get(
           `ticket_${interaction.user.id}_${interaction.guild.id}`,
         ),
       );
       if (!channel) {
-return await interaction.reply({
+        return await interaction.reply({
           content: "You don't have a ticket",
           empheral: true,
         });
-}
+      }
       await channel.delete();
       interaction.client.db.delete(
         `ticket_${interaction.user.id}_${interaction.guild.id}`,
@@ -97,6 +109,57 @@ return await interaction.reply({
     }
  else if (subCMD === "delete") {
       await interaction.reply("This command is not yet implemented");
+    }
+ else if (subCMD === "enable") {
+      const catagory = interaction.options.getChannel("category");
+      if (interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
+        return await interaction.reply({
+          content: "Ticket system is already enabled",
+          empheral: true,
+        });
+      }
+      // check perms
+      if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) {
+        return await interaction.reply({
+          content: "I don't have permission to manage channels",
+          empheral: true,
+        });
+      }
+      if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) {
+        return await interaction.reply({
+          content: "I don't have permission to manage roles",
+          empheral: true,
+        });
+      }
+      if (!interaction.guild.me.permissions.has("VIEW_CHANNEL")) {
+        return await interaction.reply({
+          content: "I don't have permission to view channels",
+          empheral: true,
+        });
+      }
+      if (!interaction.guild.me.permissions.has("SEND_MESSAGES")) {
+        return await interaction.reply({
+          content: "I don't have permission to send messages",
+          empheral: true,
+        });
+      }
+      // check USERS perms
+      if (!interaction.member.permissions.has("MANAGE_SERVER")) {
+        return await interaction.reply({
+          content: "You don't have permission to manage server",
+          empheral: true,
+        });
+      }
+
+      interaction.client.db.set(`ticketsys_${interaction.guild.id}`, true);
+      interaction.client.db.set(
+        `ticketcategory_${interaction.guild.id}`,
+        catagory.id,
+      );
+      await interaction.reply({
+        content: "Ticket system has been enabled",
+        empheral: true,
+      });
     }
     // await interaction.reply("This command is not yet implemented");
   },

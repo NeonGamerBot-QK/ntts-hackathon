@@ -16,7 +16,8 @@ module.exports = {
       return o
         .setName("channel")
         .setDescription("The channel to set as log channel")
-        .setRequired(true);
+        .setRequired(true)
+        .addChannelTypes("GUILD_TEXT");
     })
     .setDMPermission(false),
   async execute(interaction) {

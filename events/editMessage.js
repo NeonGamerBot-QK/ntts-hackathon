@@ -10,8 +10,11 @@ module.exports = {
     embed.setDescription(
       `A message by ${oldMessage.author.tag} was edited in ${oldMessage.channel}`,
     );
-    embed.addField("Old Message", oldMessage.content);
-    embed.addField("New Message", newMessage.content);
+    embed.addFields(
+      { name: "Old Message", value: oldMessage.content },
+      { name: "New Message", value: newMessage.content },
+    );
+    // embed.addField("New Message", newMessage.content);
     embed.setTimestamp();
     embed.setColor("RANDOM");
     // oldMessage.channel.send({ embeds: [embed] });

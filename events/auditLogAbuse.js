@@ -1,4 +1,4 @@
-const { AuditLogEvent, Events } = require("discord.js");
+const { AuditLogEvent, Events, EmbedBuilder } = require("discord.js");
 module.exports = {
   name: Events.GuildAuditLogEntryCreate,
   // the _ is the guild for SOME reason.
@@ -22,6 +22,25 @@ module.exports = {
       console.log(
         `A message by ${target.tag} was deleted by ${executor.tag} in ${channel}.`,
       );
+      const embed = new EmbedBuilder();
+      embed.setTitle("Message Deleted");
+      embed.setDescription(
+        `A message by ${target.tag} was deleted by ${executor.tag} in ${channel}`,
+      );
+      embed.setAuthor(target.tag, target.displayAvatarURL());
+      embed.addFields(
+        { name: "Channel", value: channel },
+        { name: "Executor", value: executor.tag },
+      );
+      embed.setTimestamp();
+      const channelId = client.db.get(
+        `logchannel_${auditLog.guild.id}_` +
+          require("../src/static/logTypes.json")[20].value,
+      );
+      const channell = auditLog.guild.channels.cache.get(channelId);
+      if (channell) {
+        channell.send({ embeds: [embed] });
+      }
     }
  else if (action == AuditLogEvent.MemberKick) {
       // Ensure the executor is cached.

@@ -119,30 +119,30 @@ module.exports = {
         });
       }
       // check perms
-      if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) {
-        return await interaction.reply({
-          content: "I don't have permission to manage channels",
-          empheral: true,
-        });
-      }
-      if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) {
-        return await interaction.reply({
-          content: "I don't have permission to manage roles",
-          empheral: true,
-        });
-      }
-      if (!interaction.guild.me.permissions.has("VIEW_CHANNEL")) {
-        return await interaction.reply({
-          content: "I don't have permission to view channels",
-          empheral: true,
-        });
-      }
-      if (!interaction.guild.me.permissions.has("SEND_MESSAGES")) {
-        return await interaction.reply({
-          content: "I don't have permission to send messages",
-          empheral: true,
-        });
-      }
+      //   if (!interaction.guild.me.permissions.has("MANAGE_CHANNELS")) {
+      //     return await interaction.reply({
+      //       content: "I don't have permission to manage channels",
+      //       empheral: true,
+      //     });
+      //   }
+      //   if (!interaction.guild.me.permissions.has("MANAGE_ROLES")) {
+      //     return await interaction.reply({
+      //       content: "I don't have permission to manage roles",
+      //       empheral: true,
+      //     });
+      //   }
+      //   if (!interaction.guild.me.permissions.has("VIEW_CHANNEL")) {
+      //     return await interaction.reply({
+      //       content: "I don't have permission to view channels",
+      //       empheral: true,
+      //     });
+      //   }
+      //   if (!interaction.guild.me.permissions.has("SEND_MESSAGES")) {
+      //     return await interaction.reply({
+      //       content: "I don't have permission to send messages",
+      //       empheral: true,
+      //     });
+      //   }
       // check USERS perms
       if (!interaction.member.permissions.has("MANAGE_SERVER")) {
         return await interaction.reply({

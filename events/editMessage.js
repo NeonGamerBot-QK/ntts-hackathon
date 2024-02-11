@@ -20,7 +20,7 @@ module.exports = {
     // oldMessage.channel.send({ embeds: [embed] });
     const channelId = oldMessage.client.db.get(
       `logchannel_${oldMessage.guild.id}_` +
-        require("../../src/static/logTypes.json")[31].value,
+        require("../src/static/logTypes.json")[31].value,
     );
     const channel = oldMessage.guild.channels.cache.get(channelId);
     if (channel) {

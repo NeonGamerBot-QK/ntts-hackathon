@@ -5,25 +5,43 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("warn")
     .setDescription("Warn a user")
-    .addUserOption((option) =>
-      option
-        .setName("target")
-        .setDescription("The user to warn")
-        .setRequired(true),
-    )
-    .addStringOption((option) =>
-      option
-        .setName("reason")
-        .setDescription("The reason for warning the user"),
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("create")
+        .setDescription("Create a warning")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to warn")
+            .setRequired(true),
+        )
+        .addStringOption((option) =>
+          option
+            .setName("reason")
+            .setDescription("The reason for warning the user"),
+        ),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("create").setDescription("Create a warning"),
+      subcommand
+        .setName("remove")
+        .setDescription("Remove a warning")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to warn")
+            .setRequired(true),
+        ),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("remove").setDescription("Remove a warning"),
-    )
-    .addSubcommand((subcommand) =>
-      subcommand.setName("clear").setDescription("Clear all warnings"),
+      subcommand
+        .setName("clear")
+        .setDescription("Clear all warnings")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to warn")
+            .setRequired(true),
+        ),
     ),
   execute: async (interaction) => {
     // code here

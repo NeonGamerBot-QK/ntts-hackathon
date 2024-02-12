@@ -2,8 +2,10 @@ const {
   SlashCommandBuilder,
   ChannelType,
   PermissionFlagsBits,
+  EmbedBuilder,
 } = require("discord.js");
-
+const dt = require("discord-html-transcripts");
+const fetch = require("node-fetch");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("tickets")
@@ -29,7 +31,12 @@ module.exports = {
             .setRequired(true)
             .addChannelTypes(ChannelType.GuildCategory),
         ),
-    ),
+    )
+    .addSubcommand((subcommand) => {
+      return subcommand
+        .setName("transcript")
+        .setDescription("Get a transcript of the ticket");
+    }),
   async execute(interaction) {
     const subCMD = interaction.options.getSubcommand();
     if (subCMD === "create") {
@@ -122,6 +129,49 @@ module.exports = {
       interaction.client.db.delete(`ticket_${channel.id}`);
       interaction.client.db.delete(`ticketopentime_${channel.id}`);
       // interaction.client.db.delete(`ticketcount_${interaction.guild.id}`);
+    }
+ else if (subCMD === "transcript") {
+      const channel = interaction.guild.channels.cache.get(
+        interaction.client.db.get(
+          `ticket_${interaction.user.id}_${interaction.guild.id}`,
+        ),
+      );
+      if (!channel) {
+        return await interaction.reply({
+          content: "You don't have a ticket",
+          empheral: true,
+        });
+      }
+      const transcript = await dt(channel, {
+        fileName: "transcript.html",
+        returnType: "buffer",
+        limit: -1,
+        poweredBy: false,
+      });
+      const formData = new FormData();
+      formData.append("file", transcript, "transcript.html");
+      const jsonData = await fetch("http://ticket.dragoncode.dev/api/upload", {
+        method: "POST",
+        body: formData,
+      }).then((r) => r.json());
+      const embed = new EmbedBuilder()
+        .setColor(0x6eaadc)
+        .setTitle("Transcript Created!")
+        .addFields(
+          {
+            name: "Transcript Link",
+            value: `[View Online!](<${jsonData.link.normallink}>)`,
+            inline: true,
+          },
+          {
+            name: "Transcript Download",
+            value: `[Download here](<${jsonData.link.downloadlink}>)`,
+            inline: true,
+          },
+        )
+        .setTimestamp();
+      await interaction.reply({ embeds: [embed] });
+      // await interaction.reply
     }
  else if (subCMD === "delete") {
       await interaction.reply("This command is not yet implemented");

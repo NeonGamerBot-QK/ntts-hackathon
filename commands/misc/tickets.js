@@ -150,7 +150,11 @@ module.exports = {
         poweredBy: false,
       });
       const formData = new FormData();
-      formData.append("file", transcript, "transcript.html");
+      formData.append(
+        "file",
+        transcript,
+        `transcript-${interaction.user.id}-${interaction.guild.id}-${Math.random().toString().split(".")[1].slice(0, 4)}.html`,
+      );
       const jsonData = await fetch("http://ticket.dragoncode.dev/api/upload", {
         method: "POST",
         body: formData,

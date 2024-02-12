@@ -1,4 +1,8 @@
-const { PermissionsBitField, SlashCommandBuilder } = require("discord.js");
+const {
+  PermissionsBitField,
+  SlashCommandBuilder,
+  EmbedBuilder,
+} = require("discord.js");
 
 module.exports = {
   // name: '
@@ -30,12 +34,29 @@ module.exports = {
             .setName("target")
             .setDescription("The user to warn")
             .setRequired(true),
+        )
+        .addIntegerOption((option) =>
+          option
+            .setName("index")
+            .setDescription("The index of the warning")
+            .setRequired(true),
         ),
     )
     .addSubcommand((subcommand) =>
       subcommand
         .setName("clear")
         .setDescription("Clear all warnings")
+        .addUserOption((option) =>
+          option
+            .setName("target")
+            .setDescription("The user to warn")
+            .setRequired(true),
+        ),
+    )
+    .addSubcommand((subcommand) =>
+      subcommand
+        .setName("list")
+        .setDescription("List all warnings")
         .addUserOption((option) =>
           option
             .setName("target")
@@ -121,6 +142,20 @@ module.exports = {
         content: `Cleared warnings for ${target.tag}`,
         empheral: true,
       });
+    }
+ else if (subCMD === "list") {
+      const target = interaction.options.getUser("target");
+      const warnings =
+        interaction.client.db.get(
+          `warnings_${interaction.guild.id}_${target.id}`,
+        ) || [];
+      const embed = new EmbedBuilder()
+        .setColor(0xffa600)
+        .setTitle(`Warnings for ${target.tag}`)
+        .setDescription(
+          warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`),
+        );
+      return await interaction.reply({ embeds: [embed] });
     }
  else {
       return await interaction.reply({

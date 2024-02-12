@@ -6,6 +6,7 @@ const {
 } = require("discord.js");
 const dt = require("discord-html-transcripts");
 const fetch = require("node-fetch");
+const FormData = require("form-data");
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("tickets")

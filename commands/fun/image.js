@@ -343,6 +343,10 @@ Object.keys(DIG).forEach((key) => {
             .setRequired(false),
         ),
       exec: async (interaction) => {
+        const msg = await interaction.reply({
+          content: "Processing...",
+          fetchReply: true,
+        });
         const user = interaction.options.getUser("user") || interaction.user;
         const avatar = user
           .displayAvatarURL({ format: "png" })
@@ -355,8 +359,9 @@ Object.keys(DIG).forEach((key) => {
             `**This is **${user}**'s photo post**\nThis is the link:\n\`${avatar}\``,
           )
           .setTimestamp();
-        interaction.reply({
+        msg.edit({
           embeds: [embed],
+          content: "Done!",
           files: [new AttachmentBuilder(img).setName("img.png").setFile(img)],
         });
       },

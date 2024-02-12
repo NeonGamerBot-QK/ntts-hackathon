@@ -159,7 +159,7 @@ module.exports = {
         method: "POST",
         body: formData,
       }).then((r) => r.json());
-      console.log(jsonData);
+      // console.log(jsonData);
       const embed = new EmbedBuilder()
         .setColor(0x6eaadc)
         .setTitle("Transcript Created!")

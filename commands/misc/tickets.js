@@ -142,7 +142,7 @@ module.exports = {
           empheral: true,
         });
       }
-      const transcript = await dt(channel, {
+      const transcript = await dt.createTranscript(channel, {
         fileName: "transcript.html",
         returnType: "buffer",
         limit: -1,
@@ -154,6 +154,7 @@ module.exports = {
         method: "POST",
         body: formData,
       }).then((r) => r.json());
+      console.log(jsonData);
       const embed = new EmbedBuilder()
         .setColor(0x6eaadc)
         .setTitle("Transcript Created!")

@@ -45,14 +45,18 @@ client.on("ready", () => {
           const content = `<t:${Date.now().toString().slice(0, -3)}:f> Automatic update from GitHub, pulling files. [\`${compareStr}\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/compare/${compareStr}>)
           \`\`\`${cap(response, 1700)}\`\`\`
           ## Current Branch 
-          [\`View Changes\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${bhash}>)     [\`Branch\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${bhash}>)       **Commit Message**: \`${bcommitMessage.replace("\n", "")}\`
+          [\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${bhash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${bhash})       **Commit Message**: \`${bcommitMessage.replace("\n", "")}\`
           ## Latest Branch
-          [\`View Changes\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${hash}>)     [\`Branch\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${hash}>)       **Commit Message**: \`${commitMessage}\``;
-          client.users.cache.get("566766267046821888").send(content);
+          [\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${hash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${hash})       **Commit Message**: \`${commitMessage}\``;
+          client.users.cache
+            .get("566766267046821888")
+            .send(content)
+            .then((e) => e.suppressEmbeds(true));
           client.channels.cache
             .get("1205883972807172186")
             .send(content)
-            .then(() => {
+            .then((m) => {
+              m.suppressEmbeds(true);
               console.log("ALL MESSAGES SENT!!");
               exiting = true;
               setTimeout(() => {
@@ -93,12 +97,14 @@ client.on("ready", () => {
           .get("566766267046821888")
           .send(
             `<t:${Date.now().toString().slice(0, -3)}:f> Merge Conflict!! \n\`\`\`${cap(response, 1900)}\`\`\``,
-          );
+          )
+          .then((e) => e.suppressEmbeds(true));
         client.channels.cache
           .get("1205883972807172186")
           .send(
             `<t:${Date.now().toString().slice(0, -3)}:f> Merge Conflict!!!\n\`\`\`${cap(response, 1900)}\`\`\``,
-          );
+          )
+          .then((e) => e.suppressEmbeds(true));
       }
     });
   }, 15_000);

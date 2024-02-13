@@ -58,6 +58,7 @@ module.exports = {
       return await interaction.reply({ embeds: [embed] });
     }
     await interaction.guild.commands.fetch();
+    const embed = new EmbedBuilder().setTitle("Command List");
     const commands = interaction.guild.commands.cache.map((cmd) => {
       // console.log(cmd);
       const str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
@@ -82,10 +83,9 @@ module.exports = {
         embed.addFields({ name: cmd.name, value: cmd.value });
       }
     });
+    embed.setDescription(fstr);
     // .join("\n");
-    const embed = new EmbedBuilder()
-      .setTitle("Command List")
-      .setDescription(fstr);
+
     // .setColor("RANDOM");
     return await interaction.reply({ embeds: [embed] });
   },

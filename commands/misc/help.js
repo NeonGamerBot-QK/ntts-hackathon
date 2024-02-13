@@ -85,9 +85,7 @@ module.exports = {
       //     return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
       //   });
       // str += subCmds.join("\n");
-      return subCmds.length > 0
-        ? { name: str, value: subCmds.join("\n") }
-        : str;
+      return subCmds ? { name: str, value: subCmds.join("\n") } : str;
     });
     // command
     let fstr = "";

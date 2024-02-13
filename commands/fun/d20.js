@@ -13,7 +13,7 @@ module.exports = {
           .setName(`${roll}.mp4`)
           .setFile(
             fs.readFileSync(
-              require("path").resolve(`../../assets/${roll}.mp4`),
+              require("path").resolve(`../../assets/dice/${roll}.mp4`),
             ),
           ),
       ],

@@ -103,8 +103,8 @@ module.exports = {
         embed.addFields({ name: cmd.name, value: cmd.value });
       }
     });
-    embed.setDescription(fstr);
-    // .join("\n");
+    embed.setDescription(fstr)
+     .join("\n");
 
     // .setColor("RANDOM");
     return await interaction.reply({ embeds: [embed] });

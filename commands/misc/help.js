@@ -46,9 +46,9 @@ module.exports = {
             `**Name:** ${option.type == 1 ? `</${cmd.name} ${option.name}:${cmd.id}>` : option.name}`,
           );
           data.push(`**Description:** ${option.description}`);
-          // if(option.type == 1) {
-          //   // data.push(`**Type:** Sub-command`);
-          // }
+          if(option.type == 1) {
+            data.push(`**Type:** Sub-command`);
+          }
           if (option.choices) {
             data.push("**Choices:**");
             option.choices.forEach((choice) => {
@@ -84,12 +84,12 @@ module.exports = {
       // console.log(cmd);
       const str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
       const subCmds = null;
-      // cmd.options
-      //   .filter((e) => e.type == 1)
-      //   .map((subCmd) => {
-      //     return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
-      //   });
-      // str += subCmds.join("\n");
+      cmd.options
+        .filter((e) => e.type == 1)
+        .map((subCmd) => {
+          return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
+        });
+      str += subCmds.join("\n");
       return subCmds ? { name: str, value: subCmds.join("\n") } : str;
     });
     // command
@@ -99,14 +99,14 @@ module.exports = {
         fstr += cmd;
       }
  else {
-        // fstr += cmd.name + '\n' + cmd.value;
+        fstr += cmd.name + '\n' + cmd.value;
         embed.addFields({ name: cmd.name, value: cmd.value });
       }
     });
-    embed.setDescription(fstr);
-    // .join("\n");
+    embed.setDescription(fstr)
+    .join("\n")
 
-    // .setColor("RANDOM");
+    .setColor("RANDOM");
     return await interaction.reply({ embeds: [embed] });
   },
 };

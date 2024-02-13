@@ -9,11 +9,7 @@ module.exports = {
         .setName("channel")
         .setDescription("The channel to lock")
         .setRequired(true)
-        .addChannelTypes(
-          ChannelType.GuildText,
-          ChannelType.GuildStoreThread,
-          ChannelType.GuildStageVoice,
-        ),
+        .addChannelTypes(ChannelType.GuildText),
     ),
   async execute(interaction) {
     const channel = interaction.options.getChannel("channel");

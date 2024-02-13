@@ -15,7 +15,7 @@ module.exports = {
   async execute(interaction) {
     const user = interaction.options.getUser("user") || interaction.member.user;
     const avatar = user.displayAvatarURL();
-    console.debug(avatar);
+    // console.debug(avatar);
     const gif = await petPetGif(avatar, {
       //   delay: 20,
       //   resolution: 128,

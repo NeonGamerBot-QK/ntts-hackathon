@@ -58,7 +58,10 @@ module.exports = {
       return await interaction.reply({ embeds: [embed] });
     }
     const commands = interaction.client.commands
-      .map((cmd) => cmd.data.name)
+      .map((cmd) => {
+        console.log(cmd);
+        return `</${cmd.data.name}:${cmd.data.id}> - ${cmd.data.description}`;
+      })
       .join("\n");
     const embed = new EmbedBuilder()
       .setTitle("Command List")

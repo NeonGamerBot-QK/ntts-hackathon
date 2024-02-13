@@ -57,10 +57,18 @@ module.exports = {
       // .setColor();
       return await interaction.reply({ embeds: [embed] });
     }
-    const commands = interaction.client.commands
+    await interaction.guild.commands.fetch();
+    const commands = interaction.guild.commands.cache
       .map((cmd) => {
         console.log(cmd);
-        return `</${cmd.data.name}:${cmd.data.id}> - ${cmd.data.description}`;
+        let str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
+        const subCmds = cmd.options
+          .filter((e) => e.type == 1)
+          .map((subCmd) => {
+            return `> </${subCmd.name}:${subCmd.id}> - ${subCmd.description}`;
+          });
+        str += subCmds.join("\n");
+        return str;
       })
       .join("\n");
     const embed = new EmbedBuilder()

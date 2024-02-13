@@ -11,10 +11,6 @@ module.exports = {
         .setRequired(true)
         .addChannelTypes(
           ChannelType.GuildText,
-          ChannelType.GuildNews,
-          ChannelType.GuildPublicThread,
-          ChannelType.GuildPrivateThread,
-          ChannelType.GuildNewsThread,
           ChannelType.GuildStoreThread,
           ChannelType.GuildStageVoice,
         ),

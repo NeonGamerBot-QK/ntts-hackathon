@@ -8,8 +8,24 @@ module.exports = {
       option
         .setName("command")
         .setDescription("The command to get help with")
-        .setRequired(false),
+        .setRequired(false)
+        .setAutocomplete(true),
     ),
+  async autocomplete(interaction) {
+    const focusedValue = interaction.options.getFocused();
+    await interaction.respond(
+      interaction.guild.commands.cache
+        .filter((cmd) => {
+          return (
+            cmd.name.startsWith(focusedValue) ||
+            cmd.description.includes(focusedValue)
+          );
+        })
+        .map((cmd) => {
+          return { name: cmd.name, value: cmd.id };
+        }),
+    );
+  },
   async execute(interaction) {
     const command = interaction.options.getString("command");
     if (command) {
@@ -62,11 +78,12 @@ module.exports = {
     const commands = interaction.guild.commands.cache.map((cmd) => {
       // console.log(cmd);
       const str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
-      const subCmds = cmd.options
-        .filter((e) => e.type == 1)
-        .map((subCmd) => {
-          return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
-        });
+      const subCmds = null;
+      // cmd.options
+      //   .filter((e) => e.type == 1)
+      //   .map((subCmd) => {
+      //     return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
+      //   });
       // str += subCmds.join("\n");
       return subCmds.length > 0
         ? { name: str, value: subCmds.join("\n") }

@@ -58,22 +58,34 @@ module.exports = {
       return await interaction.reply({ embeds: [embed] });
     }
     await interaction.guild.commands.fetch();
-    const commands = interaction.guild.commands.cache
-      .map((cmd) => {
-        console.log(cmd);
-        let str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
-        const subCmds = cmd.options
-          .filter((e) => e.type == 1)
-          .map((subCmd) => {
-            return `> </${subCmd.name}:${subCmd.id}> - ${subCmd.description}`;
-          });
-        str += subCmds.join("\n");
-        return str;
-      })
-      .join("\n");
+    const commands = interaction.guild.commands.cache.map((cmd) => {
+      console.log(cmd);
+      const str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
+      const subCmds = cmd.options
+        .filter((e) => e.type == 1)
+        .map((subCmd) => {
+          return `> </${cmd.name} ${subCmd.name}:${cmd.id}> - ${subCmd.description}`;
+        });
+      // str += subCmds.join("\n");
+      return subCmds.length > 0
+        ? { name: str, value: subCmds.join("\n") }
+        : str;
+    });
+    // command
+    let fstr = "";
+    commands.forEach((cmd) => {
+      if (typeof cmd === "string") {
+        fstr += cmd;
+      }
+ else {
+        // fstr += cmd.name + '\n' + cmd.value;
+        embed.addFields({ name: cmd.name, value: cmd.value });
+      }
+    });
+    // .join("\n");
     const embed = new EmbedBuilder()
       .setTitle("Command List")
-      .setDescription(commands);
+      .setDescription(fstr);
     // .setColor("RANDOM");
     return await interaction.reply({ embeds: [embed] });
   },

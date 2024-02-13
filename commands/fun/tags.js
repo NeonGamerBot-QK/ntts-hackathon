@@ -105,7 +105,9 @@ module.exports = {
       // let tag
       const tags =
         interaction.client.db.get(`tags-${interaction.user.id}`) || [];
-      if (indexOfTag < 0) {return await interaction.reply(`Tag ${tagName} could not be found.`);}
+      if (indexOfTag < 0) {
+        return await interaction.reply(`Tag ${tagName} could not be found.`);
+      }
       tags.splice(indexOfTag, 1);
       interaction.client.db.set(`tags-${interaction.user.id}`, tags);
       return await interaction.reply("Tag deleted.");
@@ -119,7 +121,9 @@ module.exports = {
         .findIndex((tag) => tag.name === tagName);
       const tags =
         interaction.client.db.get(`tags-${interaction.user.id}`) || [];
-      if (indexOfTag < 0) {return await interaction.reply(`Tag ${tagName} was edited.`);}
+      if (indexOfTag < 0) {
+        return await interaction.reply(`Tag ${tagName} was edited.`);
+      }
       tags[indexOfTag].description = newContent;
       interaction.client.db.set(`tags-${interaction.user.id}`, tags);
       return await interaction.reply(`Tag ${tagName} could not be found.`);
@@ -130,7 +134,10 @@ module.exports = {
         .get(`tags-${interaction.user.id}`)
         .find((t) => t.name === tagName);
       if (!tag) return await interaction.reply("That tag could not be found.");
-      return await interaction.reply(tag.description);
+      return await interaction.reply({
+        content: tag.description.split(/\n/).join("\n"),
+        allowed_mentions: { parse: [] },
+      });
     }
  else if (subCMD == "list") {
       const tags =

@@ -16,7 +16,7 @@ const defaultOptions = {
 
 module.exports = async (avatarURL, options = defaultOptions) => {
   // options = _.defaults(options, defaultOptions); // Fill in the default option values
-
+  avatarURL = avatarURL.replace(/\.webp$/, ".png");
   // Create GIF encoder
   const encoder = new GIFEncoder(options.resolution, options.resolution);
 

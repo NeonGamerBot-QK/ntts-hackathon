@@ -59,7 +59,7 @@ module.exports = {
     }
     await interaction.guild.commands.fetch();
     const commands = interaction.guild.commands.cache.map((cmd) => {
-      console.log(cmd);
+      // console.log(cmd);
       const str = `</${cmd.name}:${cmd.id}> - ${cmd.description}\n`;
       const subCmds = cmd.options
         .filter((e) => e.type == 1)

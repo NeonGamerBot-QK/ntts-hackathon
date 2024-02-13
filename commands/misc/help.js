@@ -15,11 +15,11 @@ module.exports = {
     if (command) {
       const cmd = interaction.client.commands.get(command);
       if (!cmd) {
-return await interaction.reply({
+        return await interaction.reply({
           content: "That command does not exist",
           ephemeral: true,
         });
-}
+      }
       const data = [];
       data.push(`**Name:** ${cmd.data.name}`);
       data.push(`**Description:** ${cmd.data.description}`);
@@ -53,8 +53,8 @@ return await interaction.reply({
       }
       const embed = new EmbedBuilder()
         .setTitle("Command Help")
-        .setDescription(data.join("\n"))
-        .setColor("RANDOM");
+        .setDescription(data.join("\n"));
+      // .setColor();
       return await interaction.reply({ embeds: [embed] });
     }
     const commands = interaction.client.commands
@@ -62,8 +62,8 @@ return await interaction.reply({
       .join("\n");
     const embed = new EmbedBuilder()
       .setTitle("Command List")
-      .setDescription(commands)
-      .setColor("RANDOM");
+      .setDescription(commands);
+    // .setColor("RANDOM");
     return await interaction.reply({ embeds: [embed] });
   },
 };

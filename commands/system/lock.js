@@ -51,7 +51,7 @@ module.exports = {
     }
  else {
       await channel.permissionOverwrites.create(interaction.guild.id, {
-        SEND_MESSAGES: null,
+        SEND_MESSAGES: false,
       });
       await channel.send({ content: ":lock: This channel has been locked" });
     }

@@ -41,7 +41,7 @@ module.exports = {
       const permissions = channel.permissionOverwrites.cache.get(
         interaction.guild.id,
       );
-      if (permissions.deny.bitfield === 0n) {
+      if (permissions.deny.bitfield === 0) {
         return interaction.reply({
           content: "The channel is already locked",
           ephemeral: true,

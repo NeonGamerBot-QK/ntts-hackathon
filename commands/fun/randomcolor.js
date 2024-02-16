@@ -11,7 +11,8 @@ module.exports = {
     const embed = new EmbedBuilder()
       .setColor(`#${randomHex}`)
       .setTitle('Random Color!')
-      .setDescription(`Here is your random hex color code: \n #${randomHex}`);
+      .setDescription(`Here is your random hex color code: \n #${randomHex}`)
+      .setThumbnail(`https://www.colorhexa.com/${randomHex}.png`);
 
     await interaction.reply({ embeds: [embed], ephemeral: true });
     // const color =

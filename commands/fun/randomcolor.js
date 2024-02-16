@@ -6,7 +6,7 @@ module.exports = {
     .setDescription("Get a random color"),
   async execute(interaction) {
     const color =
-      "#" + ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
+      ((Math.random() * 0xffffff) << 0).toString(16).padStart(6, "0");
     await interaction.reply({
       // content: color,
       ephemeral: true,

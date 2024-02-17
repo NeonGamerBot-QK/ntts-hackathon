@@ -18,7 +18,7 @@ module.exports = {
         SendMessages: false
     }).catch((e) => { console.error(e) })
 
-    if (!channel.permissionOverwrites.cache.get(channel.guildId)) {
+    if (channel.permissionOverwrites.cache.get(channel.guild.roles.everyone).has("SEND_MESSAGES")) {
       await interaction.reply({
         content: `Already locked ${channel}`,
         ephemeral: true,

@@ -30,7 +30,7 @@ module.exports = {
       })
 
       const embed = new EmbedBuilder().setColor('Red').setFooter({
-        text: `Moderator: ${interaction.user.username}`,
+        text: `Done by: ${interaction.user.username}`,
         iconURL: `${interaction.user.avatarURL()}`,
       })
 

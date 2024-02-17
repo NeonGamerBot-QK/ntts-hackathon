@@ -1,36 +1,50 @@
-const { SlashCommandBuilder, ChannelType } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  PermissionFlagsBits,
+  ChannelType,
+} = require('discord.js')
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("lock")
-    .setDescription("Lock a channel")
+    .setName('lock')
+    .setDescription('Lock a channel')
+    .setDMPermission(false)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
     .addChannelOption((option) =>
       option
-        .setName("channel")
-        .setDescription("The channel to lock")
-        .setRequired(true)
-        .addChannelTypes(ChannelType.GuildText),
+        .setName('channel')
+        .setDescription('The channel you want to lock')
+        .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
+        .setRequired(false)
     ),
   async execute(interaction) {
-    const channel = interaction.options.getChannel("channel");
-    if (channel.type == ChannelType.GuildText) {
-      channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
-        SendMessages: false
-    }).catch((e) => { console.error(e) })
+    try {
+      let channel =
+        interaction.options.getChannel('channel') || interaction.channel
 
-    if (channel.permissionOverwrites.cache.get(channel.guild.roles.everyone).has("SEND_MESSAGES")) {
-      await interaction.reply({
-        content: `Already locked ${channel}`,
-        ephemeral: true,
-      });
-    }
+      await interaction.deferReply()
 
-      await interaction.reply({
-        content: `Successfully locked ${channel}`,
-        ephemeral: true,
-      });
+      channel.permissionOverwrites.create(interaction.guild.id, {
+        SendMessages: false,
+      })
 
-    channel.send({content: "This channel has been locked"});
+      const embed = new EmbedBuilder().setColor('Red').setFooter({
+        text: `Moderator: ${interaction.user.username}`,
+        iconURL: `${interaction.user.avatarURL()}`,
+      })
+
+      await interaction.editReply({
+        content: `${channel} has been locked`,
+        embeds: [embed],
+      })
+    } catch (error) {
+      await interaction.editReply('Oops! There was an error.').then((msg) => {
+        setTimeout(() => {
+          msg.delete()
+        }, 10000)
+      })
+      console.log(error)
     }
   },
-};
+}

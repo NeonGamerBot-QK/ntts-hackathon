@@ -1,27 +1,50 @@
-const { SlashCommandBuilder, ChannelType } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  PermissionFlagsBits,
+  ChannelType,
+} = require('discord.js')
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("unlock")
-    .setDescription("Unlocks a channel")
+    .setName('unlock')
+    .setDescription('Unlock a channel')
+    .setDMPermission(false)
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
     .addChannelOption((option) =>
       option
-        .setName("channel")
-        .setDescription("The channel to unlock")
-        .setRequired(true)
-        .addChannelTypes(ChannelType.GuildText),
+        .setName('channel')
+        .setDescription('The channel you want to unlock')
+        .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
+        .setRequired(false)
     ),
   async execute(interaction) {
-    const channel = interaction.options.getChannel("channel");
-    if (channel.type == ChannelType.GuildText) {
-      channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
-        SendMessages: true
-    }).catch((e) => { console.error(e) })
-      await interaction.reply({
-        content: `Successfully unlocked ${channel}`,
-        ephemeral: true,
-      });
-      channel.send({content: "This channel has been unlocked"});
+    try {
+      let channel =
+        interaction.options.getChannel('channel') || interaction.channel
+
+      await interaction.deferReply()
+
+      channel.permissionOverwrites.create(interaction.guild.id, {
+        SendMessages: true,
+      })
+
+      const embed = new EmbedBuilder().setColor('Green').setFooter({
+        text: `Done by: ${interaction.user.username}`,
+        iconURL: `${interaction.user.avatarURL()}`,
+      })
+
+      await interaction.editReply({
+        content: `${channel} has been unlocked`,
+        embeds: [embed],
+      })
+    } catch (error) {
+      await interaction.editReply('Oops! There was an error.').then((msg) => {
+        setTimeout(() => {
+          msg.delete()
+        }, 10000)
+      })
+      console.log(error)
     }
   },
-};
+}

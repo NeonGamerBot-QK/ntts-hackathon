@@ -29,13 +29,12 @@ module.exports = {
         SendMessages: true,
       })
 
-      const embed = new EmbedBuilder().setColor('Green').setFooter({
+      const embed = new EmbedBuilder().setTitle(`${channel} has been unlocked`).setColor('Green').setFooter({
         text: `Done by: ${interaction.user.username}`,
         iconURL: `${interaction.user.avatarURL()}`,
       })
 
       await interaction.editReply({
-        content: `${channel} has been unlocked`,
         embeds: [embed],
       })
     } catch (error) {

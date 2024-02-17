@@ -1,10 +1,4 @@
-const { SlashCommandBuilder, ChannelType, PermissionsBitField } = require("discord.js");
-
-const flags = [
-	PermissionsBitField.Flags.SendMessages,
-];
-
-const permissions = new PermissionsBitField(flags);
+const { SlashCommandBuilder, ChannelType } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -23,7 +17,7 @@ module.exports = {
       channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
         SendMessages: false
     }).catch((e) => { console.error(e) })
-    
+
       await interaction.reply({
         content: `Successfully locked ${channel}`,
         ephemeral: true,

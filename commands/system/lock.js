@@ -1,67 +1,60 @@
-const { 
-  SlashCommandBuilder, 
-  ChannelType,
-  PermissionFlagsBits 
-} = require('discord.js');
-
-const MANAGE_CHANNELS = PermissionFlagsBits.ManageChannels;
-const SEND_MESSAGES = PermissionFlagsBits.SendMessages;
+const { SlashCommandBuilder, ChannelType } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('lock')
-    .setDescription('Lock a channel')
+    .setName("lock")
+    .setDescription("Lock a channel")
     .addChannelOption((option) =>
       option
-        .setName('channel')
-        .setDescription('The channel to lock')
+        .setName("channel")
+        .setDescription("The channel to lock")
         .setRequired(true)
-        .addChannelTypes([ChannelType.GuildText]),
+        .addChannelTypes(ChannelType.GuildText),
     ),
-
   async execute(interaction) {
-
-    const channel = interaction.options.getChannel('channel');
-
-    if (!canLockChannel(channel)) {
-      return interaction.reply({ content: 'Invalid channel', ephemeral: true});
+    const channel = interaction.options.getChannel("channel");
+    if (channel.type === "GUILD_CATEGORY") {
+      return interaction.reply({
+        content: "You can't lock a category",
+        ephemeral: true,
+      });
     }
-
-    if (!hasPermission(channel, interaction.member)) {
-      return interaction.reply({ content: 'You do not have permission', ephemeral: true}); 
+    if (channel.type === "GUILD_VOICE") {
+      return interaction.reply({
+        content: "You can't lock a voice channel",
+        ephemeral: true,
+      });
     }
-
-    if (isLocked(channel)) {
-      return interaction.reply({ content: 'Channel already locked', ephemeral: true });
+    if (!channel.permissionsFor(interaction.guild.me).has("MANAGE_CHANNELS")) {
+      return interaction.reply({
+        content: "I don't have permission to lock that channel",
+        ephemeral: true,
+      });
     }
-
-    await lockChannel(channel, interaction.guildId);
-    
-    await interaction.reply({ content: `Locked ${channel.name}`, ephemeral: true });
-  } 
-}
-
-function canLockChannel(channel) {
-  return channel.type !== ChannelType.GuildCategory 
-    && channel.type !== ChannelType.GuildVoice;
-}
-
-function hasPermission(channel, member) {
-  return channel.permissionsFor(member).has(MANAGE_CHANNELS); 
-}
-
-function isLocked(channel) {
-  const overwrite = channel.permissionOverwrites.cache.get(channel.guild.id);
-  return overwrite?.deny.has(SEND_MESSAGES);
-}
-
-async function lockChannel(channel, guildId) {
-
-  if (channel.permissionsFor(interaction.guild.me).has(MANAGE_CHANNELS)) {
-    await channel.permissionOverwrites.create(guildId, {
-      [SEND_MESSAGES]: false
-    });
-    await channel.send('This channel has been locked');
-  }
-
-}
+    if (!channel.permissionsFor(interaction.member).has("MANAGE_CHANNELS")) {
+      return interaction.reply({
+        content: "You don't have permission to lock that channel",
+        ephemeral: true,
+      });
+    }
+    if (channel.permissionOverwrites.cache.has(interaction.guild.id)) {
+      const permissions = channel.permissionOverwrites.cache.get(
+        interaction.guild.id,
+      );
+      if (permissions.deny.bitfield === 0) {
+        return interaction.reply({
+          content: "The channel is already locked",
+          ephemeral: true,
+        });
+      }
+      await permissions.update({ SEND_MESSAGES: null });
+    }
+ else {
+      await channel.permissionOverwrites.create(interaction.guild.id, {
+        SEND_MESSAGES: false,
+      });
+      await channel.send({ content: ":lock: This channel has been locked" });
+    }
+    await interaction.reply({ content: `Locked ${channel}`, ephemeral: true });
+  },
+};

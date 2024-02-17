@@ -15,7 +15,7 @@ module.exports = {
     const channel = interaction.options.getChannel("channel");
     if (channel.type == ChannelType.GuildText) {
       channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
-        SEND_MESSAGES: false
+        SendMessages: false
     }).catch((e) => { console.error(e) })
       await interaction.reply({
         content: `Successfully locked ${channel}`,

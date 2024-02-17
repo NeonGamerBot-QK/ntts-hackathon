@@ -23,13 +23,7 @@ module.exports = {
       channel.permissionOverwrites.edit(channel.guild.roles.everyone, {
         SendMessages: false
     }).catch((e) => { console.error(e) })
-
-    if (permissions.has(channel.permissionsFor(channel.guild.roles.everyone))) {
-      await interaction.reply({
-        content: "I can't lock this channel",
-        ephemeral: true,
-      })
-    }
+    
       await interaction.reply({
         content: `Successfully locked ${channel}`,
         ephemeral: true,

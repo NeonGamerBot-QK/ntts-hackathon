@@ -14,9 +14,6 @@ module.exports = {
   async execute(interaction) {
     const channel = interaction.options.getChannel("channel");
     if (channel.type === 'text') {
-      await channel.permissionOverwrites.create(interaction.guild.roles.everyone, {
-        SEND_MESSAGES: false,
-      });
       await interaction.reply({
         content: `Successfully locked ${channel}`,
         ephemeral: true,

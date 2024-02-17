@@ -13,7 +13,7 @@ module.exports = {
     ),
   async execute(interaction) {
     const channel = interaction.options.getChannel("channel");
-    if (channel.type === 'text') {
+    if (channel.type == ChannelType.GuildText) {
       await interaction.reply({
         content: `Successfully locked ${channel}`,
         ephemeral: true,

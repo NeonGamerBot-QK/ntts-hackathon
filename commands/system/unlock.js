@@ -21,7 +21,7 @@ module.exports = {
         content: `Successfully unlocked ${channel}`,
         ephemeral: true,
       });
-      channel.send({content: "This channel has been locked"});
+      channel.send({content: "This channel has been unlocked"});
     }
   },
 };

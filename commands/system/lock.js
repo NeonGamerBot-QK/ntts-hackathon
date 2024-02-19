@@ -33,7 +33,7 @@ module.exports = {
       ow = channel.permissionOverwrites.cache.get(channel.guildId);
       console.log(ow);
       console.log(ow.SEND_MESSAGES === true);
-      console.log(PermissionsBitField.permissions.has(2048n));
+      console.log(PermissionsBitField.resolve(ow.permissions));
       if (ow && ow.SEND_MESSAGES === true) 
       {
         interaction.editReply({ content: "The channel is already locked." , ephemeral: true });

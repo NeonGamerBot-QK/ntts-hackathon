@@ -3,6 +3,7 @@ const {
   SlashCommandBuilder,
   ChannelType,
   ActionRowBuilder,
+  ButtonStyle,
 } = require("discord.js");
 
 module.exports = {
@@ -58,7 +59,7 @@ module.exports = {
       const row = new ActionRowBuilder();
       const btn = new ButtonBuilder();
       btn.setLabel("Admin Response");
-      btn.setStyle("PRIMARY");
+      btn.setStyle(ButtonStyle.Primary);
       btn.setCustomId("adminResponse");
       row.addComponent(btn);
       channel

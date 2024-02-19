@@ -61,7 +61,7 @@ module.exports = {
       btn.setLabel("Admin Response");
       btn.setStyle(ButtonStyle.Primary);
       btn.setCustomId("adminResponse");
-      row.addComponent(btn);
+      row.addComponents(btn);
       channel
         .send({
           content: message,

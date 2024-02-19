@@ -11,7 +11,7 @@ module.exports = {
         interaction.client.db.get(`adminResponseSystem_${interaction.guild.id}`)
           .channel,
       );
-      interaction.deferReply({ ephemeral: true });
+      await interaction.deferReply({ ephemeral: true });
       // response
       if (channel) {
         channel.threads
@@ -20,7 +20,7 @@ module.exports = {
             autoArchiveDuration: ThreadAutoArchiveDuration.OneWeek,
             reason: "Admin response",
           })
-          .then((thread) => {
+          .then(async (thread) => {
             thread.send({ content: response || "None" });
             thread.send({
               content: `Any response will end up in the users DM's`,
@@ -29,6 +29,10 @@ module.exports = {
               `adminresponse_${interaction.user.id}_${interaction.guild.id}`,
               { response, threadId: thread.id },
             );
+            await interaction.editReply({
+              content: "Response sent",
+              ephemeral: true,
+            });
           });
       }
  else {
@@ -36,11 +40,11 @@ module.exports = {
           `adminresponse_${interaction.user.id}_${interaction.guild.id}`,
           { response },
         );
+        await interaction.editReply({
+          content: "Response sent",
+          ephemeral: true,
+        });
       }
-      await interaction.editReply({
-        content: "Response sent",
-        ephemeral: true,
-      });
     }
   },
 };

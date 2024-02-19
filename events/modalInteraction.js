@@ -5,7 +5,7 @@ module.exports = {
   async execute(interaction) {
     if (!interaction.isModalSubmit()) return;
     if (interaction.customId === "adminResponse") {
-      const response = interaction.getTextInputValue("response");
+      const response = interaction.fields.getTextInputValue("response");
       console.log(response);
       const channel = interaction.client.channels.cache.get(
         interaction.client.db.get(`adminresponsesystem_${interaction.guild.id}`)

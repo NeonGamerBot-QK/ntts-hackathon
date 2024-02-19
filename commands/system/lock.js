@@ -6,6 +6,14 @@ const {
   ChannelType,
 } = require('discord.js')
 
+const flags = [
+  PermissionsBitField.Flags.SendMessages
+]
+
+const permissions = new PermissionsBitField(flags)
+
+console.log(permissions.bitfield);
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('lock')

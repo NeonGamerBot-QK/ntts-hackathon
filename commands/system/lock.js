@@ -26,7 +26,7 @@ module.exports = {
       ow = interaction.channel.permissionOverwrites.get(id); 
       if (ow && ow.SEND_MESSAGES === false) 
       {
-        interaction.reply({ content: "The channel is already locked." , ephemeral: true });
+        interaction.editReply({ content: "The channel is already locked." , ephemeral: true });
       }
       else 
       {

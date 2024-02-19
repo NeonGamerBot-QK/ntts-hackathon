@@ -6,10 +6,12 @@ module.exports = {
     if (!interaction.isModalSubmit()) return;
     if (interaction.customId === "adminResponse") {
       const response = interaction.getTextInputValue("response");
+      console.log(response);
       const channel = interaction.client.channels.cache.get(
         interaction.client.db.get(`adminresponsesystem_${interaction.guild.id}`)
           .channel,
       );
+      interaction.replyDefer({ ephemeral: true });
       // response
       if (channel) {
         channel.threads
@@ -19,7 +21,7 @@ module.exports = {
             reason: "Admin response",
           })
           .then((thread) => {
-            thread.send({ content: response });
+            thread.send({ content: response || "None" });
             thread.send({
               content: `Any response will end up in the users DM's`,
             });
@@ -35,7 +37,10 @@ module.exports = {
           { response },
         );
       }
-      await interaction.reply({ content: "Response sent", ephemeral: true });
+      await interaction.editReply({
+        content: "Response sent",
+        ephemeral: true,
+      });
     }
   },
 };

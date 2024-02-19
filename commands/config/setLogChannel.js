@@ -43,6 +43,6 @@ module.exports = {
     const filtered = types.filter((choice) =>
       choice.name.startsWith(focusedValue),
     );
-    await interaction.respond(filtered);
+    await interaction.respond(filtered.slice(0, 25));
   },
 };

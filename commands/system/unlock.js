@@ -21,6 +21,14 @@ module.exports = {
   async execute(interaction) {
       const channel = interaction.options.getChannel('channel') || interaction.channel
       await interaction.deferReply()
+
+      if (!channel.permissionOverwrites.cache.get(interaction.guild.id).deny.has(PermissionFlagsBits.SendMessages)) {
+        return interaction.editReply({
+          content: "Channel is already unlocked",
+          ephemeral: true,
+        })
+      }
+
       channel.permissionOverwrites.create(interaction.guild.id, {
         SendMessages: true,
       })

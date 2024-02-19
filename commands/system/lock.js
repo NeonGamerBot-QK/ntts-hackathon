@@ -25,6 +25,7 @@ module.exports = {
       if (channel.permissionOverwrites.cache.get(interaction.guild.id).deny.has(PermissionFlagsBits.SendMessages)) {
         return interaction.editReply({
           content: "Channel is already locked",
+          ephemeral: true,
         })
       }
 
@@ -40,7 +41,7 @@ module.exports = {
       await interaction.editReply({
         embeds: [embed],
       })
-      
+
       await channel.send("Locked the text channel.")
   },
 }

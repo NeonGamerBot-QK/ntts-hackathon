@@ -19,8 +19,6 @@ module.exports = {
         .setRequired(false)
     ),
   async execute(interaction) {
-    try 
-    {
       let channel = interaction.options.getChannel('channel') || interaction.channel
       let {id} = interaction.guild.defaultRole;
       ow = interaction.channel.permissionOverwrites.get(id); 
@@ -37,11 +35,5 @@ module.exports = {
           .setFooter({ text: `Done by: ${interaction.user.username}`, iconURL: `${interaction.user.avatarURL()}` })
         await interaction.editReply({ content: `${channel} has been locked`, embeds: [embed] })
       }
-    } 
-    catch (error) 
-    {
-      await interaction.editReply('Oops! There was an error.').then((msg) => { setTimeout(() => {msg.delete()}, 10000)})
-      console.log(error)
-    }
   },
 }

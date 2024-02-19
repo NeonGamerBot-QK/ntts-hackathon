@@ -21,7 +21,7 @@ module.exports = {
   async execute(interaction) {
       let channel = interaction.options.getChannel('channel') || interaction.channel
       let {id} = interaction.guild.id;
-      ow = interaction.channel.permissionOverwrites.get(id); 
+      ow = interaction.channel.permissionOverwrites.cache.get(id); 
       if (ow && ow.SEND_MESSAGES === false) 
       {
         interaction.editReply({ content: "The channel is already locked." , ephemeral: true });

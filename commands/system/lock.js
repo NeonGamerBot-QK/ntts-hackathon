@@ -19,16 +19,15 @@ module.exports = {
         .setRequired(false)
     ),
   async execute(interaction) {
+      await interaction.deferReply()
       let channel = interaction.options.getChannel('channel') || interaction.channel
-      let {id} = interaction.guild.id;
-      ow = interaction.channel.permissionOverwrites.cache.get(id); 
+      ow = channel.permissionOverwrites.cache.get(channel.guildId); 
       if (ow && ow.SEND_MESSAGES === false) 
       {
         interaction.editReply({ content: "The channel is already locked." , ephemeral: true });
       }
       else 
       {
-        await interaction.deferReply()
         channel.permissionOverwrites.create(interaction.guild.id, { SendMessages: false })
         const embed = new EmbedBuilder()
           .setColor('Red')

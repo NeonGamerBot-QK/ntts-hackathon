@@ -233,6 +233,26 @@ module.exports = {
         empheral: true,
       });
     }
+ else if (subCMD == "disable") {
+      if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
+        return await interaction.reply({
+          content: "Ticket system is not enabled",
+          empheral: true,
+        });
+      }
+      if (!interaction.member.permissions.has("MANAGE_SERVER")) {
+        return await interaction.reply({
+          content: "You don't have permission to manage server",
+          empheral: true,
+        });
+      }
+      interaction.client.db.delete(`ticketsys_${interaction.guild.id}`);
+      interaction.client.db.delete(`ticketcategory_${interaction.guild.id}`);
+      await interaction.reply({
+        content: "Ticket system has been disabled",
+        empheral: true,
+      });
+    }
     // await interaction.reply("This command is not yet implemented");
   },
 };

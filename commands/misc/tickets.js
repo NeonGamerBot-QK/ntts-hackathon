@@ -105,7 +105,7 @@ module.exports = {
       );
     }
  else if (subCMD === "close") {
-      await interaction.reply("This command is not yet implemented");
+      await interaction.reply(":wastebasket:  Closed!");
       if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
         return await interaction.reply({
           content: "Ticket system is not enabled",

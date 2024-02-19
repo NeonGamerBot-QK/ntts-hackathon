@@ -3,7 +3,9 @@ const { Events, EmbedBuilder, AuditLogEvent } = require("discord.js");
 module.exports = {
   name: Events.MessageDelete,
   execute: async (message) => {
-    if (message.author.bot && message.author.id == message.client.user.id) {return;}
+    if (message.author.bot && message.author.id == message.client.user.id) {
+      return;
+    }
     // console.log(`A message by ${message.author.tag} was deleted in ${message.channel}`);
     // check audit log
     const entry = await message.guild
@@ -45,7 +47,7 @@ module.exports = {
     const channell = message.guild.channels.cache.get(
       message.client.db.get(
         `logchannel_${message.guild.id}_` +
-          require("../src/static/logTypes.json")[20].value,
+          require("../src/static/logTypes.json")[30].value,
       ),
     );
     if (channell) {

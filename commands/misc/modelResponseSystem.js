@@ -80,12 +80,12 @@ module.exports = {
         });
     }
  else if (subCMD === "disable") {
-      const channel = interaction.options.getString("channel");
+      // const channel = interaction.options.getString("channel");
       interaction.client.db.delete(
         `adminResponseSystem_${interaction.guild.id}`,
       );
       interaction.reply(
-        `Admin Response System has been disabled in ${channel}`,
+        `Admin Response System has been disabled. You can enable it again by using the command /adminresponsesystem enable`,
       );
     }
  else if (subCMD === "edit") {

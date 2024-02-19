@@ -23,27 +23,21 @@ module.exports = {
       let channel =
         interaction.options.getChannel('channel') || interaction.channel
 
-      let {id} = interaction.guild.defaultRole, // get the ID of defaultRole
-      ow = interaction.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
-      // If the overwrites exist and SEND_MESSAGES is set to false, then it's already locked
-      if (ow && ow.SEND_MESSAGES === false) interaction.channel.send("The channel is already locked.");
-      else { // otherwise, lock it
-        await interaction.deferReply()
+      await interaction.deferReply()
 
-        channel.permissionOverwrites.create(interaction.guild.id, {
-          SendMessages: false,
-        })
+      channel.permissionOverwrites.create(interaction.guild.id, {
+        SendMessages: false,
+      })
 
-        const embed = new EmbedBuilder().setColor('Red').setFooter({
-          text: `Done by: ${interaction.user.username}`,
-          iconURL: `${interaction.user.avatarURL()}`,
-        })
+      const embed = new EmbedBuilder().setColor('Red').setFooter({
+        text: `Done by: ${interaction.user.username}`,
+        iconURL: `${interaction.user.avatarURL()}`,
+      })
 
-        await interaction.editReply({
-          content: `${channel} has been locked`,
-          embeds: [embed],
-        })
-      }
+      await interaction.editReply({
+        content: `${channel} has been locked`,
+        embeds: [embed],
+      })
     } catch (error) {
       await interaction.editReply('Oops! There was an error.').then((msg) => {
         setTimeout(() => {

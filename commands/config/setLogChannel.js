@@ -16,19 +16,30 @@ module.exports = {
       return o
         .setName("channel")
         .setDescription("The channel to set as log channel")
-        .setRequired(true)
+        .setRequired(false)
         .addChannelTypes(ChannelType.GuildText);
     })
     .setDMPermission(false),
   async execute(interaction) {
-    const channel = interaction.options.getChannel("channel");
+    const channel =
+      interaction.options.getChannel("channel") || interaction.channel;
     const type = interaction.options.getString("type");
-    interaction.client.db.set(
-      `logchannel_${interaction.guild.id}_${type}`,
-      channel.id,
-    );
+    if (type !== "all") {
+      interaction.client.db.set(
+        `logchannel_${interaction.guild.id}_${type}`,
+        channel.id,
+      );
+    }
+ else {
+      types.forEach((t) => {
+        interaction.client.db.set(
+          `logchannel_${interaction.guild.id}_${t.value}`,
+          channel.id,
+        );
+      });
+    }
     interaction.reply(
-      `Log channel for \`${types.find((t) => t.value === type).name}\` has been set to ${channel}`,
+      `Log channel for \`${type == "all" ? `${types.map((e) => e.name).join(", ")}` : types.find((t) => t.value === type).name}\` has been set to ${channel}`,
     );
   },
   async autocomplete(interaction) {
@@ -43,6 +54,6 @@ module.exports = {
     const filtered = types.filter((choice) =>
       choice.name.startsWith(focusedValue),
     );
-    await interaction.respond(filtered);
+    await interaction.respond(filtered.slice(0, 25));
   },
 };

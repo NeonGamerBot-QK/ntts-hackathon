@@ -23,11 +23,11 @@ module.exports = {
         require("../src/static/logTypes.json")[31].value,
     );
     const channel = oldMessage.guild.channels.cache.get(channelId);
-    if (channel) {
+    if (channel && oldMessage.content !== newMessage.content) {
       channel.send({ embeds: [embed] });
     }
  else {
-      console.debug("no channel");
+      // console.debug("no channel");
     }
   },
 };

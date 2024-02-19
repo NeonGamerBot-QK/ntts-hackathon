@@ -7,14 +7,14 @@ const {
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('lock')
-    .setDescription('Lock a channel')
+    .setName('unlock')
+    .setDescription('Unlock a channel')
     .setDMPermission(false)
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageChannels)
     .addChannelOption((option) =>
       option
         .setName('channel')
-        .setDescription('The channel you want to lock')
+        .setDescription('The channel you want to unlock')
         .addChannelTypes(ChannelType.GuildText, ChannelType.GuildAnnouncement)
         .setRequired(false)
     ),
@@ -23,27 +23,20 @@ module.exports = {
       let channel =
         interaction.options.getChannel('channel') || interaction.channel
 
-      let {id} = interaction.guild.defaultRole, // get the ID of defaultRole
-      ow = interaction.channel.permissionOverwrites.get(id); // get the permissionOverwrites fro that role
-      // If the overwrites exist and SEND_MESSAGES is set to false, then it's already locked
-      if (ow && ow.SEND_MESSAGES === true) interaction.channel.send("The channel is already unlocked.");
-      else { // otherwise, lock it
-        await interaction.deferReply()
+      await interaction.deferReply()
 
-        channel.permissionOverwrites.create(interaction.guild.id, {
-          SendMessages: true,
-        })
+      channel.permissionOverwrites.create(interaction.guild.id, {
+        SendMessages: true,
+      })
 
-        const embed = new EmbedBuilder().setColor('Green').setFooter({
-          text: `Done by: ${interaction.user.username}`,
-          iconURL: `${interaction.user.avatarURL()}`,
-        })
+      const embed = new EmbedBuilder().setTitle(`${channel} has been unlocked`).setColor('Green').setFooter({
+        text: `Done by: ${interaction.user.username}`,
+        iconURL: `${interaction.user.avatarURL()}`,
+      })
 
-        await interaction.editReply({
-          content: `${channel} has been unlocked`,
-          embeds: [embed],
-        })
-      }
+      await interaction.editReply({
+        embeds: [embed],
+      })
     } catch (error) {
       await interaction.editReply('Oops! There was an error.').then((msg) => {
         setTimeout(() => {

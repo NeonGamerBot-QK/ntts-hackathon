@@ -28,14 +28,6 @@
     "value": "16"
   },
   {
-    "name": "Thread Member Update",
-    "value": "18"
-  },
-  {
-    "name": "Thread Members Update",
-    "value": "19"
-  },
-  {
     "name": "Guild Update",
     "value": "24"
   },
@@ -50,6 +42,14 @@
   {
     "name": "Guild Emojis Update",
     "value": "29"
+  },
+  {
+    "name": "Guild Emoji Create",
+    "value": "17"
+  },
+  {
+    "name": "Guild Emoji Delete",
+    "value": "18"
   },
   {
     "name": "Guild Stickers Update",
@@ -178,5 +178,6 @@
   {
     "name": "Ticket Delete",
     "value": "69"
-  }
+  },
+  { "name": "ALL (ALL LOG EVENTS!!)", "value": "all" }
 ]

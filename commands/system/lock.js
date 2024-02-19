@@ -24,7 +24,7 @@ module.exports = {
       let channel = interaction.options.getChannel('channel') || interaction.channel
       ow = channel.permissionOverwrites.cache.get(channel.guildId);
       console.log(ow);
-      console.log(ow.SEND_MESSAGES);
+      console.log(ow.SEND_MESSAGES === false);
       console.log(PermissionsBitField.has(PermissionFlagsBits.SendMessages));
       if (ow && ow.SEND_MESSAGES === false) 
       {

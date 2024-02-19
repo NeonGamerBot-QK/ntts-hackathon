@@ -1,5 +1,9 @@
 const { ButtonBuilder } = require("@discordjs/builders");
-const { SlashCommandBuilder, ActionRow, ChannelType } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  ChannelType,
+  ActionRowBuilder,
+} = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -51,7 +55,7 @@ module.exports = {
     if (subCMD === "enable") {
       const channel = interaction.options.getChannel("channel");
       const message = interaction.options.getString("message");
-      const row = new ActionRow();
+      const row = new ActionRowBuilder();
       const btn = new ButtonBuilder();
       btn.setLabel("Admin Response");
       btn.setStyle("PRIMARY");

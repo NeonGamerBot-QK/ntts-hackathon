@@ -98,14 +98,17 @@ module.exports = {
       });
       interaction.client.db.set(`ticket_${channel.id}`, interaction.user.id);
       interaction.client.db.set(`ticketopentime_${channel.id}`, Date.now());
-      // interaction.client.db.set(`ticketcount_${interaction.guild.id}`, 1);
+      interaction.client.db.set(
+        `ticketcount_${interaction.guild.id}`,
+        (interaction.client.db.get(`ticketcount_${interaction.guild.id}`) ||
+          0) + 1,
+      );
       interaction.client.db.set(
         `ticket_${interaction.user.id}_${interaction.guild.id}`,
         channel.id,
       );
     }
  else if (subCMD === "close") {
-      await interaction.reply(":wastebasket:  Closed!");
       if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
         return await interaction.reply({
           content: "Ticket system is not enabled",
@@ -123,12 +126,10 @@ module.exports = {
           empheral: true,
         });
       }
-      await channel.delete();
-      interaction.client.db.delete(
-        `ticket_${interaction.user.id}_${interaction.guild.id}`,
-      );
-      interaction.client.db.delete(`ticket_${channel.id}`);
-      interaction.client.db.delete(`ticketopentime_${channel.id}`);
+      await interaction.reply(":wastebasket:  Closed!");
+      channel.permissionOverwrites.edit(interaction.user.id, {
+        VIEW_CHANNEL: false,
+      });
       // interaction.client.db.delete(`ticketcount_${interaction.guild.id}`);
     }
  else if (subCMD === "transcript") {
@@ -180,7 +181,31 @@ module.exports = {
       // await interaction.reply
     }
  else if (subCMD === "delete") {
-      await interaction.reply("This command is not yet implemented");
+      if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
+        return await interaction.reply({
+          content: "Ticket system is not enabled",
+          empheral: true,
+        });
+      }
+      const channel = interaction.guild.channels.cache.get(
+        interaction.client.db.get(
+          `ticket_${interaction.user.id}_${interaction.guild.id}`,
+        ),
+      );
+      if (!channel) {
+        return await interaction.reply({
+          content: "You don't have a ticket",
+          empheral: true,
+        });
+      }
+
+      await channel.delete();
+      interaction.client.db.delete(
+        `ticket_${interaction.user.id}_${interaction.guild.id}`,
+      );
+      interaction.client.db.delete(`ticket_${channel.id}`);
+      interaction.client.db.delete(`ticketopentime_${channel.id}`);
+      // await interaction.reply("This command is not yet implemented");
     }
  else if (subCMD === "enable") {
       const catagory = interaction.options.getChannel("category");

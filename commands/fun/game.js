@@ -299,18 +299,6 @@ const emojis = [
   "🕥️",
   "🕚️",
   "🕦️",
-  "*️",
-  "#️",
-  "0️",
-  "1️",
-  "2️",
-  "3️",
-  "4️",
-  "5️",
-  "6️",
-  "7️",
-  "8️",
-  "9️",
   "🛎️",
   "🧳",
   "⌛️",
@@ -1666,6 +1654,8 @@ const gameSubCommands = [
   {
     name: "FindEmoji",
     playGame: (interaction) => {
+      const min = Math.floor(Math.random() * (emojis.length - 8));
+      const max = min + 8;
       return new FindEmoji({
         message: interaction,
         isSlashGame: true,
@@ -1678,7 +1668,7 @@ const gameSubCommands = [
         timeoutTime: 60000,
         hideEmojiTime: 5000,
         buttonStyle: "PRIMARY",
-        emojis,
+        emojis: emojis.slice(min, max),
         winMessage: "You won! You selected the correct emoji. {emoji}",
         loseMessage: "You lost! You selected the wrong emoji. {emoji}",
         timeoutMessage: "You lost! You ran out of time. The emoji is {emoji}",

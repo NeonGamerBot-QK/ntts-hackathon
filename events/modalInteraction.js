@@ -11,7 +11,7 @@ module.exports = {
         interaction.client.db.get(`adminResponseSystem_${interaction.guild.id}`)
           .channel,
       );
-      interaction.replyDefer({ ephemeral: true });
+      interaction.deferReply({ ephemeral: true });
       // response
       if (channel) {
         channel.threads

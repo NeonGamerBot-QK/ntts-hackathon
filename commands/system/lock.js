@@ -20,7 +20,7 @@ module.exports = {
     ),
   async execute(interaction) {
       let channel = interaction.options.getChannel('channel') || interaction.channel
-      let {id} = interaction.guild.defaultRole;
+      let {id} = interaction.guild.id;
       ow = interaction.channel.permissionOverwrites.get(id); 
       if (ow && ow.SEND_MESSAGES === false) 
       {

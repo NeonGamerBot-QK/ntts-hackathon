@@ -2,6 +2,7 @@ const {
   SlashCommandBuilder,
   EmbedBuilder,
   PermissionFlagsBits,
+  PermissionsBitField,
   ChannelType,
 } = require('discord.js')
 
@@ -23,6 +24,8 @@ module.exports = {
       let channel = interaction.options.getChannel('channel') || interaction.channel
       ow = channel.permissionOverwrites.cache.get(channel.guildId);
       console.log(ow);
+      console.log(ow.SEND_MESSAGES);
+      console.log(PermissionsBitField.has(PermissionFlagsBits.SendMessages));
       if (ow && ow.SEND_MESSAGES === false) 
       {
         interaction.editReply({ content: "The channel is already locked." , ephemeral: true });

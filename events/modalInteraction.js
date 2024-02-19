@@ -8,7 +8,7 @@ module.exports = {
       const response = interaction.fields.getTextInputValue("response");
       console.log(response);
       const channel = interaction.client.channels.cache.get(
-        interaction.client.db.get(`adminresponsesystem_${interaction.guild.id}`)
+        interaction.client.db.get(`adminResponseSystem_${interaction.guild.id}`)
           .channel,
       );
       interaction.replyDefer({ ephemeral: true });

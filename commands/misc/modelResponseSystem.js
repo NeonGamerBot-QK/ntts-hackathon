@@ -3,7 +3,7 @@ const { SlashCommandBuilder, ActionRow, ChannelType } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("adminResponseSystem")
+    .setName("adminresponsesystem")
     .setDescription("Admin Response System")
     .addSubcommand((subcommand) =>
       subcommand

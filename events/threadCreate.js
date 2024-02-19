@@ -1,32 +1,34 @@
 const { Events, AuditLogEvent, EmbedBuilder } = require("discord.js");
 
 module.exports = {
-  name: Events.ChannelDelete,
+  name: Events.ThreadCreate,
   /**
    *
    * @param {GuildChannel} channel
    * @param {Client} client
    */
-  async execute(channel, client) {
+  async execute(channel, _, client) {
     if (!channel.guild) return;
     // get audit log enty
     const auditLog = await channel.guild.fetchAuditLogs({
-      type: AuditLogEvent.ChannelDelete,
+      type: AuditLogEvent.ThreadCreate,
     });
     const entry = auditLog.entries.first();
     // entry.executorId
     const embed = new EmbedBuilder();
     if (entry && entry.executorId) {
       const executor = await client.users.fetch(entry.executorId);
-      embed.addFields({ name: "Deleted by", value: executor.tag });
+      embed.addFields({
+        name: "Created by",
+        value: `<@${executor.executorId}>`,
+      });
     }
-    embed.setTitle("Channel Deleted");
-    // hyperlink to channel
+    embed.setTitle("Thread Created");
     embed.setURL(
-      `https://discord.com/channels/${channel.guild.id}/${channel.id}`,
+      `https://discord.com/channels/${channel.guild.id}/${channel.parentId}/threads/${channel.id}`,
     );
     embed.setDescription(
-      `Channel <#${channel.id}> (${channel.name}) was deleted.`,
+      `Thread <#${channel.id}> was created in channel <#${channel.parentId}>.`,
     );
     embed.setTimestamp();
     // TODO ASTHETICS SET EMBED COLOR
@@ -34,7 +36,7 @@ module.exports = {
 
     const channelId = client.db.get(
       `logchannel_${channel.guild.id}_` +
-        require("../src/static/logTypes.json")[2].value,
+        require("../src/static/logTypes.json")[4].value,
     );
     const channell = channel.guild.channels.cache.get(channelId);
     if (channell) {

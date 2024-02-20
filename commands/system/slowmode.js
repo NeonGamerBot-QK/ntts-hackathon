@@ -10,7 +10,7 @@ module.exports = {
         .setDescription("The time in seconds")
         .setRequired(true)
         .setMaxValue(21600)
-        .setMinValue(1),
+        .setMinValue(0),
     ),
   async execute(interaction) {
     const time = interaction.options.getInteger("time");

@@ -6,7 +6,7 @@ const { PermissionsBitField, EmbedBuilder } = require("discord.js");
 const SystemMsg = {
   BanMsg: {
     Title: "User Banned",
-    Message: "You have been banned from the server",
+    Message: "USER has been banned from the server",
     LogMsg: "USER has been banned by ADMIN",
   },
 };
@@ -77,9 +77,9 @@ module.exports = {
     catch (error) {
       const embed = new EmbedBuilder()
         .setColor(0xffa600)
-        .setTitle("Erorr")
+        .setTitle("Error")
         .setDescription(
-          "**Error message：**the user you want to ban is not in the server\n(or banned)",
+          "**Error message: **the user you want to ban is not in the server\n(or banned)",
         )
         .setTimestamp();
 

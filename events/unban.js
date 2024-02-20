@@ -2,7 +2,7 @@ const { Events, AuditLogEvent, EmbedBuilder } = require("discord.js");
 
 module.exports = {
   name: Events.GuildBanRemove,
-  async execute(guild, user) {
+  async execute(user, guild) {
     // check audit log for reason
     const embed = new EmbedBuilder();
 

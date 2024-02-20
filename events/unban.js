@@ -7,6 +7,7 @@ module.exports = {
     const embed = new EmbedBuilder();
 
     try {
+      console.log(guild);
       const auditLogs = await guild.fetchAuditLogs({ type: AuditLogEvent.MemberBanRemove });
       const entry = auditLogs.entries.first();
 

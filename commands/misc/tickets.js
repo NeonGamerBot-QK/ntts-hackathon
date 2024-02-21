@@ -2,7 +2,7 @@
 const {
   SlashCommandBuilder,
   ChannelType,
-  PermissionFlagsBits,
+  // PermissionFlagsBits,
   EmbedBuilder,
   ButtonBuilder,
   ButtonStyle,
@@ -207,74 +207,74 @@ module.exports = {
     const subCMD = interaction.options.getSubcommand();
     if (subCMD === "create") {
       // await interaction.reply("This command is not yet implemented");
-      if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
-        return await interaction.reply({
-          content: "Ticket system is not enabled",
-          empheral: true,
-        });
-      }
-      if (
-        interaction.client.db.get(
-          `ticket_${interaction.user.id}_${interaction.guild.id}`,
-        )
-      ) {
-        return await interaction.reply({
-          content: "You already have a ticket",
-          empheral: true,
-        });
-      }
-      const channel = await interaction.guild.channels.create({
-        type: ChannelType.GuildText,
-        name: `ticket-${interaction.user.username}`,
-        parent: interaction.client.db.get(
-          `ticketcategory_${interaction.guild.id}`,
-        ),
-        permissionOverwrites: [
-          {
-            id: interaction.guild.id,
-            deny: [PermissionFlagsBits.ViewChannel],
-          },
-          {
-            id: interaction.user.id,
-            allow: [PermissionFlagsBits.ViewChannel],
-          },
-          {
-            id: interaction.client.user.id,
-            allow: [PermissionFlagsBits.ViewChannel],
-          },
-        ],
-      });
-      //   await channel.permissionOverwrites.edit(interaction.guild.id, {
-      //     VIEW_CHANNEL: false,
+      // if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
+      //   return await interaction.reply({
+      //     content: "Ticket system is not enabled",
+      //     empheral: true,
       //   });
-      //   await channel.permissionOverwrites.edit(interaction.user.id, {
-      //     VIEW_CHANNEL: true,
+      // }
+      // if (
+      //   interaction.client.db.get(
+      //     `ticket_${interaction.user.id}_${interaction.guild.id}`,
+      //   )
+      // ) {
+      //   return await interaction.reply({
+      //     content: "You already have a ticket",
+      //     empheral: true,
       //   });
-      //   await channel.permissionOverwrites.edit(interaction.client.user.id, {
-      //     VIEW_CHANNEL: true,
-      //   });
-      await channel.send({
-        content: `Welcome ${interaction.user}!`,
-        embeds: [],
-      });
-      await interaction.reply({
-        content: `Ticket has been created at <#${channel.id}>`,
-        ephemeral: true,
-      });
-      interaction.client.db.set(`ticket_${channel.id}`, interaction.user.id);
-      interaction.client.db.set(`ticketopentime_${channel.id}`, Date.now());
-      interaction.client.db.set(
-        `ticketcount_${interaction.guild.id}`,
-        (interaction.client.db.get(`ticketcount_${interaction.guild.id}`) ||
-          0) + 1,
-      );
-      interaction.client.db.set(
-        `ticket_${interaction.user.id}_${interaction.guild.id}`,
-        channel.id,
-      );
+      // }
+      // const channel = await interaction.guild.channels.create({
+      //   type: ChannelType.GuildText,
+      //   name: `ticket-${interaction.user.username}`,
+      //   parent: interaction.client.db.get(
+      //     `ticketcategory_${interaction.guild.id}`,
+      //   ),
+      //   permissionOverwrites: [
+      //     {
+      //       id: interaction.guild.id,
+      //       deny: [PermissionFlagsBits.ViewChannel],
+      //     },
+      //     {
+      //       id: interaction.user.id,
+      //       allow: [PermissionFlagsBits.ViewChannel],
+      //     },
+      //     {
+      //       id: interaction.client.user.id,
+      //       allow: [PermissionFlagsBits.ViewChannel],
+      //     },
+      //   ],
+      // });
+      // //   await channel.permissionOverwrites.edit(interaction.guild.id, {
+      // //     VIEW_CHANNEL: false,
+      // //   });
+      // //   await channel.permissionOverwrites.edit(interaction.user.id, {
+      // //     VIEW_CHANNEL: true,
+      // //   });
+      // //   await channel.permissionOverwrites.edit(interaction.client.user.id, {
+      // //     VIEW_CHANNEL: true,
+      // //   });
+      // await channel.send({
+      //   content: `Welcome ${interaction.user}!`,
+      //   embeds: [],
+      // });
+      // await interaction.reply({
+      //   content: `Ticket has been created at <#${channel.id}>`,
+      //   ephemeral: true,
+      // });
+      // interaction.client.db.set(`ticket_${channel.id}`, interaction.user.id);
+      // interaction.client.db.set(`ticketopentime_${channel.id}`, Date.now());
+      // interaction.client.db.set(
+      //   `ticketcount_${interaction.guild.id}`,
+      //   (interaction.client.db.get(`ticketcount_${interaction.guild.id}`) ||
+      //     0) + 1,
+      // );
+      // interaction.client.db.set(
+      //   `ticket_${interaction.user.id}_${interaction.guild.id}`,
+      //   channel.id,
+      // );
     }
  else if (subCMD === "close") {
-      if (!(await interaction.client.db.get(interaction.channel.id))) {
+      if (!(await ticketsDB.get(interaction.channel.id))) {
         return interaction.reply({
           content: config.errors.not_in_a_ticket,
           ephemeral: true,
@@ -282,8 +282,7 @@ module.exports = {
       }
 
       if (
-        (await interaction.client.db.get(`${interaction.channel.id}`)
-          .status) === "Closed"
+        (await ticketsDB.get(`${interaction.channel.id}`).status) === "Closed"
       ) {
         return interaction.reply({
           content: "This ticket is already closed!",
@@ -411,17 +410,15 @@ module.exports = {
         });
       // await ticketsDB.set(`${interaction.channel.id}.closeMsgID`, messageID);
       // await ticketsDB.set(`${interaction.channel.id}.status`, "Closed");
-      interaction.client.db.set(`${interaction.channel.id}`, {
-        ...interaction.client.db.get(`${interaction.channel.id}`),
+      ticketsDB.set(`${interaction.channel.id}`, {
+        ...ticketsDB.get(`${interaction.channel.id}`),
         closeMsgID: messageID,
         status: "Closed",
       });
       // await mainDB.pull("openTickets", interaction.channel.id);
-      interaction.client.db.set(
+      mainDB.set(
         "openTickets",
-        interaction.client.db
-          .get("openTickets")
-          .filter((id) => id !== interaction.channel.id),
+        mainDB.get("openTickets").filter((id) => id !== interaction.channel.id),
       );
       if (config.closeRemoveUser) {
         interaction.channel.permissionOverwrites.delete(ticketUserID);
@@ -531,16 +528,16 @@ module.exports = {
         });
       }
 
-      const hasSupportRole = await checkSupportRole(interaction);
-      if (!hasSupportRole) {
-        return interaction.reply({
-          content: config.errors.not_allowed,
-          ephemeral: true,
-        });
-      }
+      // const hasSupportRole = await checkSupportRole(interaction);
+      // if (!hasSupportRole) {
+      //   return interaction.reply({
+      //     content: config.errors.not_allowed,
+      //     ephemeral: true,
+      //   });
+      // }
 
       const ticketUserID = client.users.cache.get(
-        await ticketsDB.get(`${interaction.channel.id}.userID`),
+        await ticketsDB.get(`${interaction.channel.id}`).userID,
       );
 
       const attachment = await saveTranscript(interaction, null, true);
@@ -568,7 +565,7 @@ module.exports = {
           },
           {
             name: "Category",
-            value: `${await ticketsDB.get(`${interaction.channel.id}.ticketType`)}`,
+            value: `${await ticketsDB.get(`${interaction.channel.id}`).ticketType}`,
             inline: true,
           },
         ])
@@ -689,9 +686,7 @@ module.exports = {
       });
     }
  else if (subCMD == "add") {
-      if (
-        !(await interaction.client.db.get(`ticket_` + interaction.channel.id))
-      ) {
+      if (!(await ticketsDB.get(interaction.channel.id))) {
         return interaction.reply({
           content: config.errors.not_in_a_ticket,
           ephemeral: true,
@@ -843,25 +838,23 @@ module.exports = {
       }
  else if (subCMD === "alert") {
         // next cmd
-        if (
-          !(await interaction.client.db.get(`ticket_` + interaction.channel.id))
-        ) {
+        if (!(await ticketsDB.get(interaction.channel.id))) {
           return interaction.reply({
             content: config.errors.not_in_a_ticket,
             ephemeral: true,
           });
         }
 
-        const hasSupportRole = await checkSupportRole(interaction);
-        if (!hasSupportRole) {
-          return interaction.reply({
-            content: config.errors.not_allowed,
-            ephemeral: true,
-          });
-        }
+        // const hasSupportRole = await checkSupportRole(interaction);
+        // if (!hasSupportRole) {
+        //   return interaction.reply({
+        //     content: config.errors.not_allowed,
+        //     ephemeral: true,
+        //   });
+        // }
 
         const user = interaction.client.users.cache.get(
-          await interaction.client.db.get(`${interaction.channel.id}`).userID,
+          await ticketsDB.get(`${interaction.channel.id}`).userID,
         );
 
         const closeButton = new ButtonBuilder()
@@ -917,9 +910,7 @@ module.exports = {
         );
       }
  else if (subCMD == "claim") {
-        if (
-          !(await interaction.client.db.get(`ticket_` + interaction.channel.id))
-        ) {
+        if (!(await ticketsDB.get(`ticket_` + interaction.channel.id))) {
           return interaction.reply({
             content: config.errors.not_in_a_ticket,
             ephemeral: true,
@@ -941,12 +932,10 @@ module.exports = {
           });
         }
 
-        const claimStatus = await interaction.client.db.get(
-          `${interaction.channel.id}`,
-        ).claimed;
-        const claimUser = await interaction.client.db.get(
-          `${interaction.channel.id}`,
-        ).claimUser;
+        const claimStatus = await ticketsDB.get(`${interaction.channel.id}`)
+          .claimed;
+        const claimUser = await ticketsDB.get(`${interaction.channel.id}`)
+          .claimUser;
 
         if (claimStatus) {
           return interaction.reply({
@@ -956,7 +945,7 @@ module.exports = {
         }
 
         await interaction.deferReply({ ephemeral: true });
-        const totalClaims = await interaction.client.db.get("totalClaims");
+        const totalClaims = await mainDB.get("totalClaims");
 
         const embed = new EmbedBuilder()
           .setTitle("Ticket Claimed")
@@ -976,9 +965,7 @@ module.exports = {
         interaction.channel.send({ embeds: [embed], ephemeral: false });
 
         interaction.channel.messages
-          .fetch(
-            await interaction.client.db.get(`${interaction.channel.id}`).msgID,
-          )
+          .fetch(await ticketsDB.get(`${interaction.channel.id}`).msgID)
           .then(async (message) => {
             const embed = message.embeds[0];
             const claimedByField = {
@@ -1014,7 +1001,7 @@ module.exports = {
             message.edit({ embeds: [embed], components: [actionRow2] });
 
             if (config.claim1on1) {
-              const ticketButton = await interaction.client.db.get(
+              const ticketButton = await ticketsDB.get(
                 `${interaction.channel.id}`,
               ).button;
 
@@ -1052,12 +1039,14 @@ module.exports = {
             //   `${interaction.channel.id}.claimUser`,
             //   interaction.user.id,
             // );
-            interaction.client.db.set(`${interaction.channel.id}`, {
-              ...interaction.client.db.get(`${interaction.channel.id}`),
+            ticketsDB.set(`${interaction.channel.id}`, {
+              ...ticketsDB.get(`${interaction.channel.id}`),
               claimed: true,
               claimUser: interaction.user.id,
             });
-            const logChannelId = config.logs.ticketClaim || config.logs.default;
+            const logChannelId = interaction.client.db.get(
+              `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
+            );
             const logsChannel =
               interaction.guild.channels.cache.get(logChannelId);
 
@@ -1164,7 +1153,9 @@ module.exports = {
       //     attachment = await saveTranscriptTxt(interaction);
       //   }
 
-      const logChannelId = config.logs.ticketDelete || config.logs.default;
+      const logChannelId = interaction.client.db.get(
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[44].value}`,
+      );
       const logsChannel = interaction.guild.channels.cache.get(logChannelId);
       await logsChannel.send({ embeds: [logEmbed], files: [attachment] });
       logMessage(
@@ -1249,7 +1240,7 @@ module.exports = {
           .setTitle(config.DMUserSettings.ratingSystem.embed.title)
           .setDescription(config.DMUserSettings.ratingSystem.embed.description)
           .setFooter({
-            text: `Ticket: #${interaction.channel.name} | Category: ${await ticketsDB.get(`${interaction.channel.id}.ticketType`)}`,
+            text: `Ticket: #${interaction.channel.name} | Category: ${await ticketsDB.get(`${interaction.channel.id}`).ticketType}`,
           });
 
         try {
@@ -1303,18 +1294,17 @@ module.exports = {
         });
       }
 
-      const hasSupportRole = await checkSupportRole(interaction);
-      if (!hasSupportRole) {
-        return interaction.reply({
-          content: config.errors.not_allowed,
-          ephemeral: true,
-        });
-      }
+      // const hasSupportRole = await checkSupportRole(interaction);
+      // if (!hasSupportRole) {
+      //   return interaction.reply({
+      //     content: config.errors.not_allowed,
+      //     ephemeral: true,
+      //   });
+      // }
 
       const option = interaction.options.getString("category").toLowerCase();
-      const ticketType = await ticketsDB.get(
-        `${interaction.channel.id}.ticketType`,
-      );
+      const ticketType = await ticketsDB.get(`${interaction.channel.id}`)
+        .ticketType;
 
       if (!choices.includes(option)) {
         return interaction.reply({
@@ -1336,7 +1326,11 @@ module.exports = {
       );
       const categoryID = category.categoryID;
 
-      await ticketsDB.set(`${interaction.channel.id}.ticketType`, option);
+      // await ticketsDB.set(`${interaction.channel.id}.ticketType`, option);
+      ticketsDB.set(`${interaction.channel.id}`, {
+        ...ticketsDB.get(`${interaction.channel.id}`),
+        ticketType: option,
+      });
       await interaction.channel.setParent(categoryID, {
         lockPermissions: false,
       });
@@ -1519,13 +1513,13 @@ module.exports = {
         });
       }
 
-      const hasSupportRole = await checkSupportRole(interaction);
-      if (!hasSupportRole) {
-        return interaction.reply({
-          content: config.errors.not_allowed,
-          ephemeral: true,
-        });
-      }
+      // const hasSupportRole = await checkSupportRole(interaction);
+      // if (!hasSupportRole) {
+      //   return interaction.reply({
+      //     content: config.errors.not_allowed,
+      //     ephemeral: true,
+      //   });
+      // }
 
       if (interaction.channel.name.includes(config.commands.pin.emoji)) {
         return interaction.reply({
@@ -1571,7 +1565,9 @@ module.exports = {
 
       const newName = interaction.options.getString("name");
       interaction.channel.setName(`${newName}`);
-      const logChannelId = config.logs.ticketRename || config.logs.default;
+      const logChannelId = interaction.client.db.get(
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
+      );
       const logChannel = interaction.guild.channels.cache.get(logChannelId);
 
       const log = new EmbedBuilder()
@@ -1683,9 +1679,11 @@ module.exports = {
           iconURL: `${interaction.user.displayAvatarURL({ format: "png", dynamic: true, size: 1024 })}`,
         });
 
-      const logChannelId = config.logs.ticketReopen || config.logs.default;
+      const logChannelId = interaction.client.db.get(
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
+      );
       const logsChannel = interaction.guild.channels.cache.get(logChannelId);
-      await logsChannel.send({ embeds: [logEmbed] });
+      if (logsChannel) await logsChannel.send({ embeds: [logEmbed] });
 
       const embed = new EmbedBuilder()
         .setColor(config.commands.reopen.embed.color)
@@ -1834,7 +1832,9 @@ module.exports = {
         );
       }
 
-      const logChannelId = config.logs.ticketTransfer || config.logs.default;
+      const logChannelId = interaction.client.db.get(
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
+      );
       const logChannel = interaction.guild.channels.cache.get(logChannelId);
 
       const logEmbed = new EmbedBuilder()
@@ -1962,7 +1962,7 @@ module.exports = {
       interaction.channel.send({ embeds: [embed] });
 
       interaction.channel.messages
-        .fetch(await ticketsDB.get(`${interaction.channel.id}.msgID`))
+        .fetch(await ticketsDB.get(`${interaction.channel.id}`).msgID)
         .then(async (message) => {
           const embed = message.embeds[0];
           embed.fields.pop();
@@ -1994,7 +1994,9 @@ module.exports = {
             claimUser: "",
           });
 
-          const logChannelId = config.logs.ticketUnclaim || config.logs.default;
+          const logChannelId = interaction.client.db.get(
+            `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
+          );
           const logsChannel =
             interaction.guild.channels.cache.get(logChannelId);
 
@@ -2008,7 +2010,7 @@ module.exports = {
               },
               {
                 name: "• Ticket",
-                value: `> <#${interaction.channel.id}>\n> #${sanitizeInput(interaction.channel.name)}\n> ${await ticketsDB.get(`${interaction.channel.id}.ticketType`)}`,
+                value: `> <#${interaction.channel.id}>\n> #${sanitizeInput(interaction.channel.name)}\n> ${await ticketsDB.get(`${interaction.channel.id}`).ticketType}`,
               },
             ])
             .setTimestamp()

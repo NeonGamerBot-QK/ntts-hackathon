@@ -1,68 +1,74 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder } = require("discord.js");
 const ms = require("ms");
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName("mute")
-    .setDescription("Mute a user")
+    .setName("timeout")
+    .setDescription("Timeout a user")
     .addUserOption((option) =>
       option
         .setName("user")
-        .setDescription("The user to mute")
+        .setDescription("The user to timeout")
         .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("duration")
-        .setDescription("The duration of the mute, ex- 1d 2hrs 3 minutes 4 days")
+        .setDescription("The duration of the timeout, ex- 1d 2hrs 3 minutes 4 days")
         .setRequired(true),
     )
     .addStringOption((option) =>
       option
         .setName("reason")
-        .setDescription("The reason for the mute")
+        .setDescription("The reason for the timeout")
         .setRequired(false),
     ),
   async execute(interaction) {
     const user = interaction.options.getUser("user");
     const member = interaction.guild.members.cache.get(user.id);
     const duration = interaction.options.getString("duration");
-    const reason =
-      interaction.options.getString("reason") || "No reason provided";
-    if (
-      member.roles.highest.position >= interaction.member.roles.highest.position
-    ) {
-return interaction.reply({
-        content: "You can't mute someone with a higher or equal role",
+    const reason = interaction.options.getString("reason") || "No reason provided";
+
+    const errorArrays = [];
+
+    const errorsEmbed = new EmbedBuilder()
+      .setAuthor({ name: 'Could not timeout user due to: '})
+      .setColor('Red')
+
+    if (!member) {
+      return interaction.reply({
+        embeds: [errorsEmbed.setDescription("Selected member is not in the server")],
         ephemeral: true,
-      });
-}
-    if (!member.manageable) {
-return interaction.reply({
-        content: "I can't mute that user",
+      })
+    }
+
+    if (!ms(duration) || ms(duration) > ms("28d")) {
+      errorArrays.push("Invalid duration or duration must be less than 28 days");
+    }
+
+    if (!member.manageable || !member.moderable) {
+      errorArrays.push("You do not have permissions to timeout this user");
+    }
+
+    if (member.roles.highest.position > interaction.member.roles.highest.position) {
+      errorArrays.push("You cannot timeout a user with a higher role than you");
+    }
+    
+    if (errorArrays.length) {
+      return interaction.reply({
+        embeds: [errorsEmbed.setDescription(errorArrays.join("\n"))],
         ephemeral: true,
-      });
-}
-    const muteRole = interaction.guild.roles.cache.find(
-      (role) => role.name.toLowerCase() === "muted",
-    );
-    if (!muteRole) {
-return interaction.reply({
-        content: "There is no mute role in this server",
-        ephemeral: true,
-      });
-}
-    if (member.roles.cache.has(muteRole.id)) {
-return interaction.reply({
-        content: "The user is already muted",
-        ephemeral: true,
-      });
-}
+      })
+    }
+
     const durationms = ms(duration);
-    await member.roles.add(muteRole);
-    await member.timeout(durationms);
-    console.log(ms(duration))
-    setTimeout(() => member.roles.remove(muteRole), durationms)
-    await interaction.reply({ content: `Muted ${user.tag} for <t:${durationms}:R>\nReason: ${reason}` });
+    await member.timeout(durationms, reason).catch((err) => {
+      return interaction.reply({
+        embeds: [errorsEmbed.setDescription("Could not timeout user due to an unknown error")],
+        ephemeral: true,
+      })
+    })
+
+    await interaction.reply({ content: `Timeout ${user.tag} for <t:${durationms}:R>\nReason: ${reason}` });
   },
 };

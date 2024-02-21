@@ -58,10 +58,11 @@ return interaction.reply({
         ephemeral: true,
       });
 }
-    await member.roles.add(muteRole, reason);
-    await member.timeout(duration*1000);
+    const durationms = ms(duration);
+    await member.roles.add(muteRole);
+    await member.timeout(durationms);
     console.log(ms(duration))
-    setTimeout(() => member.roles.remove(muteRole), duration*1000)
-    await interaction.reply({ content: `Muted ${user.tag} for \`<t:${Date.now() + duration * 1000}:R>\`\nReason: ${reason}` });
+    setTimeout(() => member.roles.remove(muteRole), durationms)
+    await interaction.reply({ content: `Muted ${user.tag} for \`<t:${Date.now() + durationms}:R>\`\nReason: ${reason}` });
   },
 };

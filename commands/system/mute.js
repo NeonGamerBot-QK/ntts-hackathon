@@ -1,4 +1,5 @@
 const { SlashCommandBuilder } = require("discord.js");
+const ms = require("ms");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -10,19 +11,10 @@ module.exports = {
         .setDescription("The user to mute")
         .setRequired(true),
     )
-    .addIntegerOption((option) =>
+    .addStringOption((option) =>
       option
         .setName("duration")
-        .setDescription("The duration of the mute")
-        .addChoices(
-          { name: "1 minute", value: 60 },
-          { name: "5 minutes", value: 300 },
-          { name: "10 minutes", value: 600 },
-          { name: "1 hour", value: 3600 },
-          { name: "1 day", value: 86400 },
-          { name: "1 week", value: 604800 },
-          { name: "1 month", value: 2592000 },
-        )
+        .setDescription("The duration of the mute, ex- 1d 2hrs 3 minutes 4 days")
         .setRequired(true),
     )
     .addStringOption((option) =>
@@ -68,6 +60,7 @@ return interaction.reply({
 }
     await member.roles.add(muteRole, reason);
     await member.timeout(duration*1000);
+    console.log(ms(duration))
     setTimeout(() => member.roles.remove(muteRole), duration*1000)
     await interaction.reply({ content: `Muted ${user.tag} for \`<t:${duration}:R>\`\nReason: ${reason}` });
   },

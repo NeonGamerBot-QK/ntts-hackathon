@@ -112,7 +112,7 @@ module.exports = {
           { name: `System`, value: `${systemFields.join(', ')}`},
         ])
 
-      if (category === 'None') {
+      if (category === null) {
         const mainMenuEmbed = new EmbedBuilder()
           .setColor("White")
           .setDescription('`/help [category] - View specific category`')

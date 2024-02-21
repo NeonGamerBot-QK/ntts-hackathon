@@ -183,7 +183,7 @@ module.exports = {
       let embedDescription = []
 
       const commandFiles = fs
-        .readdirSync(`./commands/${category}`)
+        .readdirSync(`commands/${category}`)
         .filter((file) => file.endsWith('.js'))
 
       for (const file of commandFiles) {

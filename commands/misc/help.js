@@ -207,7 +207,7 @@ module.exports = {
       }
 
       const categoryEmbed = new EmbedBuilder()
-        .setColor("Invis")
+        .setColor("White")
         .setTitle(`${getCategoryTitle(category)}`)
         .setDescription(`${embedDescription.join('\n\n')}`)
 

@@ -21,6 +21,64 @@ const fs = require("fs");
 const configFile = fs.readFileSync("./config.yml", "utf8");
 const config = yaml.parse(configFile);
 const ticketCategories = [];
+config.TicketCategories.forEach((category) => {
+  const {
+    id,
+    name,
+    categoryID,
+    closedCategoryID,
+    support_role_ids,
+    pingRoles,
+    ping_role_ids,
+    creatorRoles,
+    buttonEmoji,
+    buttonLabel,
+    buttonStyle,
+    menuEmoji,
+    menuLabel,
+    menuDescription,
+    embedTitle,
+    color,
+    description,
+    ticketName,
+    modalTitle,
+    questions,
+  } = category;
+
+  const extractedQuestions = questions.map((question) => {
+    const { label, placeholder, style, required, minLength } = question;
+
+    return {
+      label,
+      placeholder,
+      style,
+      required,
+      minLength,
+    };
+  });
+
+  ticketCategories[id] = {
+    name,
+    categoryID,
+    closedCategoryID,
+    support_role_ids,
+    pingRoles,
+    ping_role_ids,
+    creatorRoles,
+    buttonEmoji,
+    buttonLabel,
+    buttonStyle,
+    menuEmoji,
+    menuLabel,
+    menuDescription,
+    embedTitle,
+    color,
+    description,
+    ticketName,
+    modalTitle,
+    questions: extractedQuestions,
+  };
+});
 // const customIds = Object.keys(ticketCategories);
 // const choices = customIds.map((customId) => {
 //   const category = ticketCategories[customId];

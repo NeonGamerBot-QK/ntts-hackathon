@@ -95,7 +95,7 @@ module.exports = {
       }
 
       const cmdListEmbed = new EmbedBuilder()
-        .setColor(colors.invis)
+        .setColor("White")
         .setTitle('Command List')
         .setDescription(`\`/help [category] - View specific category\``)
         .setAuthor({
@@ -199,6 +199,7 @@ module.exports = {
             embedDescription.push(`</${name}:${commandId}> \n> ${description}`)
         } catch (error) {
           console.error(`Error fetching ID for ${name}: ${error.message}`)
+          console.log(error)
         }
       }
 

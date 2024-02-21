@@ -34,6 +34,13 @@ module.exports = {
     const errorsEmbed = new EmbedBuilder()
       .setAuthor({ name: 'Could not timeout user due to: '})
       .setColor('Red')
+      .setTimestamp()
+
+    const successEmbed = new EmbedBuilder()
+      .setAuthor({ name: `${user.tag} has been timed out `})
+      .setDescription(`Duration: ${duration}\nReason: ${reason}`)
+      .setColor('Green')
+      .setTimestamp()
 
     if (!member) {
       return interaction.reply({
@@ -43,19 +50,19 @@ module.exports = {
     }
 
     if (!ms(duration) || ms(duration) > ms("28d")) {
-      errorArrays.push("Invalid duration or duration must be less than 28 days");
+      return errorArrays.push("Invalid duration or duration must be less than 28 days");
     }
 
     if (!member.manageable || !member.moderable) {
-      errorArrays.push("You do not have permissions to timeout this user");
+      return errorArrays.push("You do not have permissions to timeout this user");
     }
 
     if (member.roles.highest.position > interaction.member.roles.highest.position) {
-      errorArrays.push("You cannot timeout a user with a higher role than you");
+      return errorArrays.push("You cannot timeout a user with a higher role than you");
     }
 
     if (member.isCommunicationDisabled() === true) {
-      errorArrays.push("User is already timed out");
+      return errorArrays.push("User is already timed out");
     }
     
     if (errorArrays.length) {
@@ -73,6 +80,6 @@ module.exports = {
       })
     })
 
-    await interaction.reply({ content: `Timeout ${user.tag} for <t:${durationms}:R>\nReason: ${reason}` });
+    await interaction.reply({ embeds: [successEmbed] });
   },
 };

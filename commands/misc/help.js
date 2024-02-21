@@ -60,19 +60,19 @@ module.exports = {
       let systemFields = []
 
       for (const [index, folder] of fs
-        .readdirSync('./commands')
+        .readdirSync('commands')
         .entries()) {
         const files = fs
-          .readdirSync(`./commands/${folder}`)
+          .readdirSync(`commands/${folder}`)
           .filter((file) => file.endsWith('.js'))
 
         for (const file of files) {
-          const command = require(`./../${folder}/${file}`)
+          const command = require(`./${folder}/${file}`)
           let name = `${command.data.name}`
           try {
             let commandId = await interaction.guild.commands
               .fetch()
-              .then((commands) => commands.findKey((cmd) => cmd.name === name).id)
+              .then((commands) => commands.find((cmd) => cmd.name === name).id)
 
             // Make sure to update command categories
             if (folder === 'config') {
@@ -197,7 +197,7 @@ module.exports = {
         try {
           let commandId = await interaction.guild.commands
             .fetch()
-            .then((commands) => commands.findKey((cmd) => cmd.name === name).id)
+            .then((commands) => commands.find((cmd) => cmd.name === name).id)
 
             embedDescription.push(`</${name}:${commandId}> \n> ${description}`)
         } catch (error) {
@@ -211,7 +211,7 @@ module.exports = {
         .setTitle(`${getCategoryTitle(category)}`)
         .setDescription(`${embedDescription.join('\n\n')}`)
 
-      if (fs.readdirSync('./commands').includes(category)) {
+      if (fs.readdirSync('commands').includes(category)) {
         return await interaction.editReply({ embeds: [categoryEmbed] })
       }
     }

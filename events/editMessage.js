@@ -11,8 +11,8 @@ module.exports = {
       `A message by ${oldMessage.author.tag} was edited in ${oldMessage.channel}`,
     );
     embed.addFields(
-      { name: "Old Message", value: oldMessage.content },
-      { name: "New Message", value: newMessage.content },
+      { name: "Old Message", value: oldMessage.content || "Empt" },
+      { name: "New Message", value: newMessage.content || "Empt" },
     );
     // embed.addField("New Message", newMessage.content);
     embed.setTimestamp();

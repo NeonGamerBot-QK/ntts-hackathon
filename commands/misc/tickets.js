@@ -18,7 +18,7 @@ const yaml = require("yaml");
 const fs = require("fs");
 const configFile = fs.readFileSync("./config.yml", "utf8");
 const config = yaml.parse(configFile);
-const ticketCategories = [];
+const ticketCategories = ["primary"];
 const customIds = Object.keys(ticketCategories);
 const choices = customIds.map((customId) => {
   const category = ticketCategories[customId];

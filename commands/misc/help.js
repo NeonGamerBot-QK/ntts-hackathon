@@ -117,9 +117,9 @@ module.exports = {
       if (category === null) {
         const mainMenuEmbed = new EmbedBuilder()
           .setColor("White")
-          .setDescription('`/help [category] - View specific category`\n(NOTE: The non-blue command links have subcommands because discord doesnt allow to add blue command links to them.)')
+          .setDescription('`/help [category] - View specific category`')
           .setAuthor({
-            name: 'Sparky Bot HelpDesk',
+            name: 'MSOTD HelpDesk',
             iconURL: interaction.client.user.avatarURL(),
           })
           .addFields([

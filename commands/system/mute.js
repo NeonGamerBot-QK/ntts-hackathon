@@ -68,7 +68,7 @@ return interaction.reply({
 }
     await member.roles.add(muteRole, reason);
     await member.timeout(duration*1000);
-    settimeout(() => member.roles.remove(muteRole), duration*1000)
-    await interaction.reply({ content: `Muted ${user.tag} for \`${duration.name}\`\nReason: ${reason}` });
+    setTimeout(() => member.roles.remove(muteRole), duration*1000)
+    await interaction.reply({ content: `Muted ${user.tag} for \`<t:${duration}:R>\`\nReason: ${reason}` });
   },
 };

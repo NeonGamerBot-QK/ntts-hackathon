@@ -63,6 +63,6 @@ return interaction.reply({
     await member.timeout(durationms);
     console.log(ms(duration))
     setTimeout(() => member.roles.remove(muteRole), durationms)
-    await interaction.reply({ content: `Muted ${user.tag} for \`<t:${Date.now() + durationms}:R>\`\nReason: ${reason}` });
+    await interaction.reply({ content: `Muted ${user.tag} for <t:${durationms}:R>\nReason: ${reason}` });
   },
 };

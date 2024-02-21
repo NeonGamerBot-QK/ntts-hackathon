@@ -26,15 +26,15 @@ module.exports = {
       function getCategoryNameForMainMenu(choice) {
         // Make sure to update command categories
         if (choice === 'config') 
-          return `> ${emotes.info} Configuration\n> `
+          return `> Configuration\n> `
         if (choice === 'dev') 
-          return `> ${emotes.fun} Developers\n> `
+          return `> Developers\n> `
         if (choice === 'fun') 
-          return `> ${emotes.economy} Fun\n> `
+          return `> Fun\n> `
         if (choice === 'misc')
-          return `> ${emotes.moderation} Miscellaneous\n> `
+          return `> Miscellaneous\n> `
         if (choice === 'system')
-          return `> ${emotes.imageGeneration} System\n> `
+          return `> System\n> `
       }
 
       function getCategoryTitle(choice) {

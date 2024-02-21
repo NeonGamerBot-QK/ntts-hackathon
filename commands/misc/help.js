@@ -68,9 +68,9 @@ module.exports = {
           const command = require(`./../${folder}/${file}`)
           let name = `${command.data.name}`
           try {
-            let commandId = await interaction.client.application.commands
+            let commandId = await interaction.guild.commands
               .fetch()
-              .then((commands) => commands.find((cmd) => cmd.name === name).id)
+              .then((commands) => commands.findKey((cmd) => cmd.name === name).id)
 
             // Make sure to update command categories
             if (folder === 'config') {

@@ -28,15 +28,15 @@ module.exports = {
       function getCategoryNameForMainMenu(choice) {
         // Make sure to update command categories
         if (choice === 'config') 
-          return `> Configuration\n> `
+          return `> **Configuration**\n> Commands to configure the server\n`
         if (choice === 'dev') 
-          return `> Developers\n> `
+          return `> **Developers**\n> Commands for developers\n`
         if (choice === 'fun') 
-          return `> Fun\n> `
+          return `> **Fun**\n> Commands for fun activities\n`
         if (choice === 'misc')
-          return `> Miscellaneous\n> `
+          return `> **Miscellaneous**\n> Commands for miscellaneous things\n`
         if (choice === 'system')
-          return `> System `
+          return `> **System**\n> Commands for system/moderation tools`
       }
 
       function getCategoryTitle(choice) {
@@ -107,11 +107,11 @@ module.exports = {
         })
         // Make sure to update command categories
         .addFields([
-          { name: `Configuration`, value: `${configFields.join(', ')}` },
-          { name: `Developers`, value: `${devFields.join(', ')}` },
-          { name: `Fun`, value: `${funFields.join(', ')}`},
-          { name: `Miscellaneous`, value: `${miscFields.join(', ')}`},
-          { name: `System`, value: `${systemFields.join(', ')}`},
+          { name: `**Configuration**`, value: `${configFields.join(', ')}` },
+          { name: `**Developers**`, value: `${devFields.join(', ')}` },
+          { name: `**Fun**`, value: `${funFields.join(', ')}`},
+          { name: `**Miscellaneous**`, value: `${miscFields.join(', ')}`},
+          { name: `**System**`, value: `${systemFields.join(', ')}`},
         ])
 
       if (category === null) {

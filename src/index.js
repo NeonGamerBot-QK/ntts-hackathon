@@ -9,6 +9,8 @@ const client = new discord.Client({
 });
 const db = new JSONDb(path.join(__dirname, "..", "db.json"));
 client.db = db;
+// tickets database cuz tickets are a lot of space
+client.tdb = new JSONDb(path.join(__dirname, "..", "tdb.json"));
 // this is just incase i paste code and forget to change stuff
 // eslint-disable-next-line no-unused-vars
 const discord_c = client;

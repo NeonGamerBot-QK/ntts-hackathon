@@ -42,7 +42,8 @@
     "form-data": "^4.0.0",
     "gifencoder": "^2.0.1",
     "node-fetch": "^2.6.7",
-    "simple-json-db": "^2.0.0"
+    "simple-json-db": "^2.0.0",
+    "yaml": "^2.3.4"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown",

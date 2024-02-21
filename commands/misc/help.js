@@ -67,7 +67,7 @@ module.exports = {
           .filter((file) => file.endsWith('.js'))
 
         for (const file of files) {
-          const command = require(`./${folder}/${file}`)
+          const command = require(`commands/${folder}/${file}`)
           let name = `${command.data.name}`
           try {
             let commandId = await interaction.guild.commands

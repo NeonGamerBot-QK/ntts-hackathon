@@ -50,19 +50,19 @@ module.exports = {
     }
 
     if (!ms(duration) || ms(duration) > ms("28d")) {
-      return errorArrays.push("Invalid duration or duration must be less than 28 days");
+      errorArrays.push("Invalid duration or duration must be less than 28 days");
     }
 
     if (!member.manageable || !member.moderable) {
-      return errorArrays.push("You do not have permissions to timeout this user");
+      errorArrays.push("You do not have permissions to timeout this user");
     }
 
     if (member.roles.highest.position > interaction.member.roles.highest.position) {
-      return errorArrays.push("You cannot timeout a user with a higher role than you");
+      errorArrays.push("You cannot timeout a user with a higher role than you");
     }
 
     if (member.isCommunicationDisabled() === true) {
-      return errorArrays.push("User is already timed out");
+      errorArrays.push("User is already timed out");
     }
     
     if (errorArrays.length) {

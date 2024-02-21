@@ -53,7 +53,7 @@ module.exports = {
       errorArrays.push("Invalid duration or duration must be less than 28 days");
     }
 
-    if (!member.manageable || !member.moderable) {
+    if (!member.manageable) {
       errorArrays.push("You do not have permissions to timeout this user");
     }
 

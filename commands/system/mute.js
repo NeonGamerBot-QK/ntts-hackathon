@@ -26,7 +26,7 @@ module.exports = {
   async execute(interaction) {
     const user = interaction.options.getUser("user");
     const member = interaction.guild.members.cache.get(user.id);
-    const duration = interaction.options.getInteger("duration");
+    const duration = interaction.options.getString("duration");
     const reason =
       interaction.options.getString("reason") || "No reason provided";
     if (

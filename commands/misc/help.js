@@ -100,7 +100,7 @@ module.exports = {
       const cmdListEmbed = new EmbedBuilder()
         .setColor("White")
         .setTitle('Command List')
-        .setDescription(`\`/help [category] - View specific category\``)
+        .setDescription(`\`/help [category] - View specific category\`\n(NOTE: The non-blue command links have subcommands because discord doesnt allow to add blue command links to them.)`)
         .setAuthor({
           name: 'MSOTD HelpDesk',
           iconURL: interaction.client.user.avatarURL(),
@@ -117,7 +117,7 @@ module.exports = {
       if (category === null) {
         const mainMenuEmbed = new EmbedBuilder()
           .setColor("White")
-          .setDescription('`/help [category] - View specific category`')
+          .setDescription('`/help [category] - View specific category`\n(NOTE: The non-blue command links have subcommands because discord doesnt allow to add blue command links to them.)')
           .setAuthor({
             name: 'Sparky Bot HelpDesk',
             iconURL: interaction.client.user.avatarURL(),

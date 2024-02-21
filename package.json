@@ -21,7 +21,8 @@
     "lint-staged": "^15.2.2",
     "nodemon": "^3.0.3",
     "prettier": "^3.2.5",
-    "prettier-eslint": "^16.3.0"
+    "prettier-eslint": "^16.3.0",
+    "readme-md-generator": "^1.0.0"
   },
   "scripts": {
     "start": "node src/index.js",

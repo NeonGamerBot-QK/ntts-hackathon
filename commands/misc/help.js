@@ -193,9 +193,9 @@ module.exports = {
 
         // Handle errors when fetching the command ID in case the command is not registered
         try {
-          let commandId = await interaction.client.application.commands
+          let commandId = await interaction.guild.commands
             .fetch()
-            .then((commands) => commands.find((cmd) => cmd.name === name).id)
+            .then((commands) => commands.findKey((cmd) => cmd.name === name).id)
 
             embedDescription.push(`</${name}:${commandId}> \n> ${description}`)
         } catch (error) {

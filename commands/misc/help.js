@@ -90,6 +90,7 @@ module.exports = {
             }
           } catch (error) {
             console.error(`Error fetching ID for ${name}: ${error.message}`)
+            console.log(error)
           }
         }
       }
@@ -113,7 +114,7 @@ module.exports = {
 
       if (category === 'None') {
         const mainMenuEmbed = new EmbedBuilder()
-          .setColor(colors.invis)
+          .setColor("White")
           .setDescription('`/help [category] - View specific category`')
           .setAuthor({
             name: 'Sparky Bot HelpDesk',
@@ -121,7 +122,7 @@ module.exports = {
           })
           .addFields([
             {
-              name: `${emotes.category} Categories`,
+              name: `Categories`,
               value: `${fs
                 .readdirSync('./commands')
                 .map(getCategoryNameForMainMenu)

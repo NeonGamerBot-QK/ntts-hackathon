@@ -17,8 +17,7 @@ module.exports = {
           { name: 'Miscellaneous', value: 'misc' },
           { name: 'System', value: 'system' }
         )
-    )
-    .setAutocomplete(true),
+    ),
 
     async execute(interaction) {
       const category = interaction.options.getString('category')

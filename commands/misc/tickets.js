@@ -18,68 +18,95 @@ const yaml = require("yaml");
 const fs = require("fs");
 const configFile = fs.readFileSync("./config.yml", "utf8");
 const config = yaml.parse(configFile);
-const ticketCategories = [];
-config.TicketCategories.forEach((category) => {
-  const {
-    id,
-    name,
-    categoryID,
-    closedCategoryID,
-    support_role_ids,
-    pingRoles,
-    ping_role_ids,
-    creatorRoles,
-    buttonEmoji,
-    buttonLabel,
-    buttonStyle,
-    menuEmoji,
-    menuLabel,
-    menuDescription,
-    embedTitle,
-    color,
-    description,
-    ticketName,
-    modalTitle,
-    questions,
-  } = category;
+const defaultticketCategories = [
+  {
+    id: 1,
+    name: "Open Ticket",
+    categoryID: "GUILD_CAT_ID",
+    closedCategoryID: "GUILD_CAT_ID",
+    buttonEmoji: "🎫",
+    buttonLabel: "Open Ticket",
+    buttonStyle: "Primary",
+    menuEmoji: "🎫",
+    menuLabel: "Open Ticket",
+    menuDescription: "Open a ticket",
+    embedTitle: "Open a Ticket",
+    color: 0x6eaadc,
+    description: "Open a ticket",
+    ticketName: "GUILD_CHOICE", // Can be USERNAME or TICKETCOUNT, will be called name-ticketName such as "report-12348"
+    modalTitle: "Open a Ticket",
+    questions: [
+      {
+        label: "What is your issue?",
+        placeholder: "Issue",
+        style: "Paragraph",
+        required: true,
+        minLength: 5,
+      },
+    ],
+  },
+];
+// config.TicketCategories.forEach((category) => {
+//   const {
+//     id,
+//     name,
+//     categoryID,
+//     closedCategoryID,
+//     support_role_ids,
+//     pingRoles,
+//     ping_role_ids,
+//     creatorRoles,
+//     buttonEmoji,
+//     buttonLabel,
+//     buttonStyle,
+//     menuEmoji,
+//     menuLabel,
+//     menuDescription,
+//     embedTitle,
+//     color,
+//     description,
+//     ticketName,
+//     modalTitle,
+//     questions,
+//   } = category;
 
-  const extractedQuestions = questions.map((question) => {
-    const { label, placeholder, style, required, minLength } = question;
+//   const extractedQuestions = questions.map((question) => {
+//     const { label, placeholder, style, required, minLength } = question;
 
-    return {
-      label,
-      placeholder,
-      style,
-      required,
-      minLength,
-    };
-  });
+//     return {
+//       label,
+//       placeholder,
+//       style,
+//       required,
+//       minLength,
+//     };
+//   });
 
-  ticketCategories[id] = {
-    name,
-    categoryID,
-    closedCategoryID,
-    support_role_ids,
-    pingRoles,
-    ping_role_ids,
-    creatorRoles,
-    buttonEmoji,
-    buttonLabel,
-    buttonStyle,
-    menuEmoji,
-    menuLabel,
-    menuDescription,
-    embedTitle,
-    color,
-    description,
-    ticketName,
-    modalTitle,
-    questions: extractedQuestions,
-  };
-});
-const customIds = Object.keys(ticketCategories);
+//   ticketCategories[id] = {
+//     name,
+//     categoryID,
+//     closedCategoryID,
+//     support_role_ids,
+//     pingRoles,
+//     ping_role_ids,
+//     creatorRoles,
+//     buttonEmoji,
+//     buttonLabel,
+//     buttonStyle,
+//     menuEmoji,
+//     menuLabel,
+//     menuDescription,
+//     embedTitle,
+//     color,
+//     description,
+//     ticketName,
+//     modalTitle,
+//     questions: extractedQuestions,
+//   };
+// });
+const customIds = Object.keys(defaultticketCategories);
 const choices = customIds.map((customId) => {
-  const category = ticketCategories[customId];
+  const category = defaultticketCategories[customId];
   return category.name;
 });
 async function saveTranscript(interaction, message, saveImages = false) {
@@ -125,18 +152,18 @@ function sanitizeInput(input) {
 }
 const logMessage = (message) => console.log(`[TICKETS] ${message}`);
 async function checkSupportRole(interaction) {
-  const customIds = Object.keys(ticketCategories);
+  const customIds = Object.keys(defaultticketCategories);
   let foundId;
   const ticketType = await interaction.client.db.get(
     `${interaction.channel.id}`,
   ).ticketType;
   for (const id of customIds) {
-    if (ticketCategories[id].name === ticketType) {
+    if (defaultticketCategories[id].name === ticketType) {
       foundId = id;
       break;
     }
   }
-  const allowedRoles = ticketCategories[foundId].support_role_ids;
+  const allowedRoles = defaultticketCategories[foundId].support_role_ids;
   return interaction.member.roles.cache.some((role) =>
     allowedRoles.includes(role.id),
   );
@@ -250,6 +277,13 @@ module.exports = {
     const client = interaction.client;
     const ticketsDB = client.tdb;
     const mainDB = client.db;
+    const ticketCategories = Object.freeze(defaultticketCategories);
+    ticketCategories[0].categoryID = ticketsDB.get("ticketCategory");
+    ticketCategories[0].closedCategoryID = ticketsDB.get(
+      "closedTicketCategory",
+    );
+    ticketCategories[0].ticketName =
+      ticketsDB.get("ticketName") || "TICKETCOUNT";
     ticketsDB.has = (...args) => Boolean(ticketsDB.get(...args));
     ticketsDB.pull = (key, value) => {
       const data = ticketsDB.get(key);

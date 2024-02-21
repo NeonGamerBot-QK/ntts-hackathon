@@ -1379,25 +1379,25 @@ module.exports = {
       );
     }
  else if (subCMD == "panel") {
-      if (
-        config.commands.panel.support_role_ids.length > 0 &&
-        !interaction.member.roles.cache.some((role) =>
-          config.commands.panel.support_role_ids.includes(role.id),
-        )
-      ) {
-        return interaction.reply({
-          content: config.errors.not_allowed,
-          ephemeral: true,
-        });
-      }
+      // if (
+      //   config.commands.panel.support_role_ids.length > 0 &&
+      //   !interaction.member.roles.cache.some((role) =>
+      //     config.commands.panel.support_role_ids.includes(role.id),
+      //   )
+      // ) {
+      //   return interaction.reply({
+      //     content: config.errors.not_allowed,
+      //     ephemeral: true,
+      //   });
+      // }
 
       const panelEmbed = new EmbedBuilder()
         .setColor(config.commands.panel.embed.color)
         .setTitle(config.commands.panel.embed.title)
         .setDescription(config.commands.panel.embed.description)
         .setFooter({
-          text: config.commands.panel.embed.footer_msg,
-          iconURL: config.commands.panel.embed.footer_icon_url,
+          text: config.commands.panel.embed.footer_msg || null,
+          iconURL: config.commands.panel.embed.footer_icon_url || null,
         });
 
       if (config.commands.panel.embed.imageURL) {

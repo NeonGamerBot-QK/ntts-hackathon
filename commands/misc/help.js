@@ -36,7 +36,7 @@ module.exports = {
         if (choice === 'misc')
           return `> Miscellaneous\n> `
         if (choice === 'system')
-          return `> System\n> `
+          return `> System `
       }
 
       function getCategoryTitle(choice) {

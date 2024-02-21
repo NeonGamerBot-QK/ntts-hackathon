@@ -74,10 +74,11 @@ module.exports = {
 
     const durationms = ms(duration);
     await member.timeout(durationms, reason).catch((err) => {
-      return interaction.reply({
+      interaction.reply({
         embeds: [errorsEmbed.setDescription("Could not timeout user due to an unknown error")],
         ephemeral: true,
       })
+      return console.log(err);
     })
 
     await interaction.reply({ embeds: [successEmbed] });

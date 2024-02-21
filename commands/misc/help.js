@@ -21,6 +21,8 @@ module.exports = {
     ),
 
     async execute(interaction) {
+      await interaction.deferReply()
+
       const category = interaction.options.getString('category')
 
       function getCategoryNameForMainMenu(choice) {

@@ -7,7 +7,9 @@ module.exports = {
     const embed = new EmbedBuilder();
 
     try {
-      const auditLogs = await guild.fetchAuditLogs({ type: AuditLogEvent.MemberBanRemove });
+      const auditLogs = await guild.fetchAuditLogs({
+        type: AuditLogEvent.MemberBanRemove,
+      });
       console.log(auditLogs);
       const entry = auditLogs.entries.first();
 
@@ -37,8 +39,9 @@ module.exports = {
         // Uncomment the following line to send the embed
         // await channel.send({ embeds: [embed] });
       }
-    } catch (error) {
-      console.error('Error fetching audit logs or sending embed:', error);
+    }
+ catch (error) {
+      console.error("Error fetching audit logs or sending embed:", error);
     }
   },
 };

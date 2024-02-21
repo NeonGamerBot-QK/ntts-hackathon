@@ -53,6 +53,10 @@ module.exports = {
     if (member.roles.highest.position > interaction.member.roles.highest.position) {
       errorArrays.push("You cannot timeout a user with a higher role than you");
     }
+
+    if (member.isCommunicationDisabled() === true) {
+      errorArrays.push("User is already timed out");
+    }
     
     if (errorArrays.length) {
       return interaction.reply({

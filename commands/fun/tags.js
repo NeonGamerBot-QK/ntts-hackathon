@@ -135,14 +135,16 @@ module.exports = {
         .find((t) => t.name === tagName);
       if (!tag) return await interaction.reply("That tag could not be found.");
       return await interaction.reply({
-        content: tag.description.split(/\n/).join("\n"),
+        content: tag.description.split(/\\n/gi).join("\n"),
         allowed_mentions: { parse: [] },
       });
     }
  else if (subCMD == "list") {
       const tags =
         interaction.client.db.get(`tags-${interaction.user.id}`) || [];
-      return await interaction.reply(tags.map((tag) => tag.name).join(", "));
+      return await interaction.reply(
+        tags.map((tag, i) => `\`${i}\` - ${tag.name}`).join("\n"),
+      );
     }
  else {
       return await interaction.reply("Unknown subcommand.");

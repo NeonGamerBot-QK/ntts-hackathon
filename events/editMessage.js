@@ -4,6 +4,9 @@ module.exports = {
   name: Events.MessageUpdate,
   async execute(oldMessage, newMessage) {
     console.log("event");
+    // DO NOT LOG BOTS MESSAGES
+    // logs emphreals!
+    if (oldMessage.author.id == oldMessage.client.user.id) return;
     // console.log(`A message by ${oldMessage.author.tag} was edited in ${oldMessage.channel}`);
     const embed = new EmbedBuilder();
     embed.setTitle("Message Edited");

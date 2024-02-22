@@ -1,0 +1,12 @@
+{
+    "OpenTicketBoard": {
+        "title":"Open Ticket Board owowoowow",
+        "description":"This is the Open Ticket Board",
+        "footer":"Open Ticket Board Footer",
+        "timestamps":true
+    },
+    "TicketCreate":{
+        "title":"You Create a Ticket",
+        "description":"Thank you for creating a ticket, click {channel} to view your ticket."
+    }
+}

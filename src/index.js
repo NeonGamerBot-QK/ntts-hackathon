@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 const JSONDb = require("simple-json-db");
 const discord = require("discord.js");
-const { Events } = require("discord.js");
+const { Events, Collection } = require("discord.js");
 const client = new discord.Client({
   intents: Object.values(discord.GatewayIntentBits),
 });
@@ -14,6 +14,7 @@ client.tdb = new JSONDb(path.join(__dirname, "..", "tdb.json"));
 // this is just incase i paste code and forget to change stuff
 // eslint-disable-next-line no-unused-vars
 const discord_c = client;
+// client.log = require('../trigger/log.js').log;
 
 client.on("ready", () => {
   console.log(`Ready on ${client.user.tag}`);
@@ -22,7 +23,7 @@ client.on("ready", () => {
   console.log("damon ready event"); // configured to set state to starting
   let exiting = false;
   setInterval(() => {
-    const cap = function(str, length) {
+    const cap = function (str, length) {
       if (str == null || str?.length <= length) return str;
 
       return str.substr(0, length) + "**\u2026**";
@@ -69,7 +70,7 @@ client.on("ready", () => {
         }
         // if its already exiting then it is really this error
       }
- else if (
+      else if (
         error.message.includes(
           "error: Your local changes to the following files would be overwritten by merge:",
         ) &&
@@ -129,13 +130,13 @@ for (const folder of commandFolders) {
       if ("data" in command && "execute" in command) {
         client.commands.set(command.data.name, command);
       }
- else {
+      else {
         console.log(
           `[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`,
         );
       }
     }
- catch (e) {
+    catch (e) {
       // welp no command
       console.log("[ERROR] ", e);
     }
@@ -156,7 +157,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
     try {
       await command.autocomplete(interaction);
     }
- catch (error) {
+    catch (error) {
       console.error(error);
     }
     //  return;
@@ -173,7 +174,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
   try {
     await command.execute(interaction);
   }
- catch (error) {
+  catch (error) {
     console.error(error);
     if (interaction.replied || interaction.deferred) {
       await interaction.followUp({
@@ -181,7 +182,7 @@ client.on(Events.InteractionCreate, async (interaction) => {
         ephemeral: true,
       });
     }
- else {
+    else {
       await interaction.reply({
         content: "There was an error while executing this command!",
         ephemeral: true,
@@ -201,11 +202,91 @@ for (const file of eventFiles) {
   if (event.once) {
     client.once(event.name, (...args) => event.execute(...[...args, client]));
   }
- else {
+  else {
     client.on(event.name, (...args) => event.execute(...[...args, client]));
   }
 }
 process.on("uncaughtException", (err) => {
   console.error(err);
 });
+
+
+let c_count = 0;
+client.commands = new Collection();
+const foldersPath_ = path.join(__dirname,"..", 'commands');
+const commandFolders_ = fs.readdirSync(foldersPath_);
+for (const folder of commandFolders_) {
+	const commandsPath_ = path.join(foldersPath_, folder);
+	const commandFiles_ = fs.readdirSync(commandsPath_).filter(file => file.endsWith('.js'));
+	console.log(`\x1B[30m┬──────────[${folder}]─────`)
+	for (const file of commandFiles_) {
+		const filePath = path.join(commandsPath_, file);
+		const command = require(filePath);
+		if ('data' in command && 'execute' in command) {
+			client.commands.set(command.data.name, command);
+			console.log(`\x1B[30m├─\x1B[32mSuccessfully load \x1B[34mcommand:[${file}]\x1B[0m`)
+			c_count++
+		} else {
+			console.log(`\─x1B[31m[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.\x1B[0m`);
+		}
+	}
+}
+console.log(`\x1B[37m-----------Load total [${c_count}] commands-----------\x1B[0m`)
+//====================================
+
+client.log = require('../trigger/log.js').log;
+
+const eventsPath_ = path.join(__dirname,'..', 'events');
+const eventFiles_ = fs.readdirSync(eventsPath_).filter(file => file.endsWith('.js'));
+
+for (const file of eventFiles_) {
+	const filePath = path.join(eventsPath_, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args, client));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, client));
+	}
+}
+//====================================
+const unityPath = path.join(__dirname,'..', 'trigger');
+const unityFiles = fs.readdirSync(unityPath).filter(file => file.endsWith('.js'));
+
+for (const file of unityFiles) {
+	const filePath = path.join(unityPath, file);
+	const event = require(filePath);
+	if (event.once) {
+		client.once(event.name, (...args) => event.execute(...args, client));
+	} else {
+		client.on(event.name, (...args) => event.execute(...args, client));
+	}
+}
+//=====================================
+const buttonActions = {};
+const ActionFolderPath = path.join(__dirname, '..', 'trigger', 'action');
+const actionFolders = fs.readdirSync(ActionFolderPath);
+
+let a_count = 0;
+
+for (const folder of actionFolders) {
+	const actionPath = path.join(ActionFolderPath, folder);
+	const actionFiles = fs.readdirSync(actionPath).filter(file => file.endsWith('.js'));
+	console.log(`\x1B[30m┬──────────[${folder}]─────`)
+	for (const file of actionFiles) {
+		const filePath = path.join(actionPath, file);
+		const action = require(filePath);
+		if ('customId' in action && 'execute' in action) {
+			buttonActions[action.customId] = action;
+			console.log(`\x1B[30m├─\x1B[32mSuccessfully load \x1B[36mevent:[${file}]\x1B[0m`)
+			a_count++
+		} else {
+			console.log(`\x1B[31m[WARNING] The trigger event at ${filePath} is missing a required "customid" or "execute" property.`);
+		}
+	}
+}
+console.log(`\x1B[37m-----------Load total[${a_count}] trigger event-----------\x1B[0m`)
+console.log('\x1B[37m============================\x1B[0m')
+
+
+
 client.login(process.env.DISCORD_TOKEN);

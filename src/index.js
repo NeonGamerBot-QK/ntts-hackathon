@@ -46,9 +46,9 @@ client.on("ready", () => {
             `${bhash}...${hash}`;
           const content = `<t:${Date.now().toString().slice(0, -3)}:f> Automatic update from GitHub, pulling files. [\`${compareStr}\`](<https://github.com/NeonGamerBot-QK/ntts-hackathon/compare/${compareStr}>)
           \`\`\`${cap(response, 1700)}\`\`\`
-          ## Current Branch 
+## Current Branch 
           [\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${bhash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${bhash})       **Commit Message**: \`${bcommitMessage.replace("\n", "")}\`
-          ## Latest Branch
+## Latest Branch
           [\`View Changes\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/commit/${hash})     [\`Branch\`](https://github.com/NeonGamerBot-QK/ntts-hackathon/tree/${hash})       **Commit Message**: \`${commitMessage}\``;
           client.users.cache
             .get("566766267046821888")

@@ -65,7 +65,7 @@ module.exports = {
         ),
     ),
   async execute(interaction) {
-    await interaction.deferReply();
+    await interaction.deferReply({ fetchReply: true });
 
     // code here
     const subCMD = interaction.options.getSubcommand();

@@ -457,7 +457,7 @@ module.exports = {
       }
     }
  else if (interaction.isButton()) {
-      const userRoles = interaction.member.roles.cache.map((role) => role.id);
+      // const userRoles = interaction.member.roles.cache.map((role) => role.id);
       // if (
       //   blacklistedUsers.includes(interaction.user.id) ||
       //   userRoles.some((roleId) => blacklistedUsers.includes(roleId))
@@ -521,16 +521,16 @@ module.exports = {
           );
           const category = ticketCategories[customId];
 
-          if (
-            category.creatorRoles.length > 0 &&
-            !userRoles.some((roleId) => category.creatorRoles.includes(roleId))
-          ) {
-            return interaction.reply({
-              content:
-                "You are not allowed to create tickets in this category.",
-              ephemeral: true,
-            });
-          }
+          // if (
+          //   category.creatorRoles.length > 0 &&
+          //   !userRoles.some((roleId) => category.creatorRoles.includes(roleId))
+          // ) {
+          //   return interaction.reply({
+          //     content:
+          //       "You are not allowed to create tickets in this category.",
+          //     ephemeral: true,
+          //   });
+          // }
 
           const userTicketCount = interaction.guild.channels.cache.reduce(
             async (count, channel) => {

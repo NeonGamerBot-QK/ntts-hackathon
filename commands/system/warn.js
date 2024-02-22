@@ -59,11 +59,11 @@ module.exports = {
         .setDescription("List all warnings")
         .addUserOption((option) =>
           option
-          .setName("target")
-          .setDescription("The user to warn")
-          .setRequired(true),
-          ),
-          ),
+            .setName("target")
+            .setDescription("The user to warn")
+            .setRequired(true),
+        ),
+    ),
   execute: async (interaction) => {
     // code here
     const subCMD = interaction.options.getSubcommand();
@@ -134,14 +134,13 @@ module.exports = {
       });
     }
  else if (subCMD === "clear") {
-   const target = interaction.options.getUser("target");
-   interaction.client.db.delete(
-     `warnings_${interaction.guild.id}_${target.id}`,
-     );
-     await interaction.deferReply();
-     await interaction.editReply({
-       content: `Cleared warnings for ${target.tag}`,
-       empheral: true,
+      const target = interaction.options.getUser("target");
+      interaction.client.db.delete(
+        `warnings_${interaction.guild.id}_${target.id}`,
+      );
+      return await interaction.reply({
+        content: `Cleared warnings for ${target.tag}`,
+        empheral: true,
       });
     }
  else if (subCMD === "list") {
@@ -156,7 +155,8 @@ module.exports = {
         .setDescription(
           (warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`)).join("\n"),
         );
-      await interaction.followUp({ embeds: [embed] });
+      console.log(warnings);
+      return await interaction.reply({ embeds: [embed] });
     }
  else {
       return await interaction.reply({

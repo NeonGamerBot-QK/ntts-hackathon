@@ -59,12 +59,13 @@ module.exports = {
         .setDescription("List all warnings")
         .addUserOption((option) =>
           option
-            .setName("target")
-            .setDescription("The user to warn")
-            .setRequired(true),
-        ),
-    ),
+          .setName("target")
+          .setDescription("The user to warn")
+          .setRequired(true),
+          ),
+          ),
   execute: async (interaction) => {
+    await interaction.deferReply();
     // code here
     const subCMD = interaction.options.getSubcommand();
     if (subCMD === "create") {
@@ -144,7 +145,6 @@ module.exports = {
       });
     }
  else if (subCMD === "list") {
-      await interaction.deferReply();
       const target = interaction.options.getUser("target");
       const warnings =
         interaction.client.db.get(

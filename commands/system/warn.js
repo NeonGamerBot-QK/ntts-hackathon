@@ -90,7 +90,7 @@ module.exports = {
       });
 
       await interaction.client.db.set(`warnings_${interaction.guild.id}_${target.id}`, currentWarnings)
-      await interaction.reply({
+      await interaction.followUp({
         content: `Warned ${target.tag} for ${reason}`,
         empheral: true,
       });

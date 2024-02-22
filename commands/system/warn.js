@@ -153,7 +153,8 @@ module.exports = {
         .setColor(0xffa600)
         .setTitle(`Warnings for ${target.tag}`)
         .setDescription(
-          (warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`)).join("\n"),
+          (warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`)).join("\n") ||
+          "No warnings",
         );
       console.log(warnings);
       return await interaction.reply({ embeds: [embed] });

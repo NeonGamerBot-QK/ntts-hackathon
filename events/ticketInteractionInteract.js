@@ -178,12 +178,14 @@ module.exports = {
     const ticketsDB = client.tdb;
     const mainDB = client.db;
     const ticketCategories = Object.freeze(defaultticketCategories);
-    ticketCategories[0].categoryID = ticketsDB.get("ticketCategory");
+    ticketCategories[0].categoryID = ticketsDB.get(
+      "ticketCategory_" + interaction.guild.id,
+    );
     ticketCategories[0].closedCategoryID = ticketsDB.get(
-      "closedTicketCategory",
+      "closedTicketCategory_" + interaction.guild.id,
     );
     ticketCategories[0].ticketName =
-      ticketsDB.get("ticketName") || "TICKETCOUNT";
+      ticketsDB.get("ticketName_" + interaction.guild.id) || "TICKETCOUNT";
     ticketsDB.has = (...args) => Boolean(ticketsDB.get(...args));
     ticketsDB.pull = (key, value) => {
       const data = ticketsDB.get(key);
@@ -1545,7 +1547,15 @@ module.exports = {
  else if (configValue === "TICKETCOUNT") {
               channelName = `${category.name}-${TICKETCOUNT}`;
             }
-
+            if (
+              !client.channels.cache.get(category.categoryID) ||
+              !client.channels.cache.get(category.closedCategoryID)
+            ) {
+              return interaction.editReply({
+                content: "The category or closed category ID is invalid!",
+                ephemeral: true,
+              });
+            }
             await interaction.guild.channels
               .create({
                 name: channelName,
@@ -1578,16 +1588,16 @@ module.exports = {
                       PermissionFlagsBits.ReadMessageHistory,
                     ],
                   },
-                  ...category.support_role_ids.map((roleId) => ({
-                    id: roleId,
-                    allow: [
-                      PermissionFlagsBits.ViewChannel,
-                      PermissionFlagsBits.SendMessages,
-                      PermissionFlagsBits.EmbedLinks,
-                      PermissionFlagsBits.AttachFiles,
-                      PermissionFlagsBits.ReadMessageHistory,
-                    ],
-                  })),
+                  // ...category.support_role_ids.map((roleId) => ({
+                  //   id: roleId,
+                  //   allow: [
+                  //     PermissionFlagsBits.ViewChannel,
+                  //     PermissionFlagsBits.SendMessages,
+                  //     PermissionFlagsBits.EmbedLinks,
+                  //     PermissionFlagsBits.AttachFiles,
+                  //     PermissionFlagsBits.ReadMessageHistory,
+                  //   ],
+                  // })),
                 ],
               })
               .then(async (channel) => {

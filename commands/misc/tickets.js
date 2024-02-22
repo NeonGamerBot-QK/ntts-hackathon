@@ -278,12 +278,14 @@ module.exports = {
     const ticketsDB = client.tdb;
     const mainDB = client.db;
     const ticketCategories = Object.freeze(defaultticketCategories);
-    ticketCategories[0].categoryID = ticketsDB.get("ticketCategory");
+    ticketCategories[0].categoryID = ticketsDB.get(
+      "ticketCategory_" + interaction.guild.id,
+    );
     ticketCategories[0].closedCategoryID = ticketsDB.get(
-      "closedTicketCategory",
+      "closedTicketCategory_" + interaction.guild.id,
     );
     ticketCategories[0].ticketName =
-      ticketsDB.get("ticketName") || "TICKETCOUNT";
+      ticketsDB.get("ticketName_" + interaction.guild.id) || "TICKETCOUNT";
     ticketsDB.has = (...args) => Boolean(ticketsDB.get(...args));
     ticketsDB.pull = (key, value) => {
       const data = ticketsDB.get(key);
@@ -297,6 +299,16 @@ module.exports = {
     };
 
     const subCMD = interaction.options.getSubcommand();
+    if (
+      !ticketsDB.get("enabled_" + interaction.guild.id) &&
+      subCMD !== "enable" &&
+      subCMD !== "disable"
+    ) {
+      return await interaction.reply({
+        content: "Ticket system is not enabled",
+        empheral: true,
+      });
+    }
     if (subCMD === "create") {
       // await interaction.reply("This command is not yet implemented");
       // if (!interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
@@ -708,7 +720,7 @@ module.exports = {
     //     }
     else if (subCMD === "enable") {
       const catagory = interaction.options.getChannel("category");
-      if (interaction.client.db.get(`ticketsys_${interaction.guild.id}`)) {
+      if (ticketsDB.get(`enabled_${interaction.guild.id}`)) {
         return await interaction.reply({
           content: "Ticket system is already enabled",
           empheral: true,
@@ -747,11 +759,13 @@ module.exports = {
         });
       }
 
-      interaction.client.db.set(`ticketsys_${interaction.guild.id}`, true);
-      interaction.client.db.set(
-        `ticketcategory_${interaction.guild.id}`,
-        catagory.id,
-      );
+      // interaction.client.db.set(`ticketsys_${interaction.guild.id}`, true);
+      ticketsDB.set(`enabled_${interaction.guild.id}`, true);
+      // interaction.client.db.set(
+      //   `ticketcategory_${interaction.guild.id}`,
+      //   catagory.id,
+      // );
+      ticketsDB.set("ticketCategory_" + interaction.guild.id, catagory.id);
       await interaction.reply({
         content: "Ticket system has been enabled",
         empheral: true,

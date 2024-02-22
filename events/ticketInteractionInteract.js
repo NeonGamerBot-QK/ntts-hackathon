@@ -458,15 +458,15 @@ module.exports = {
     }
  else if (interaction.isButton()) {
       const userRoles = interaction.member.roles.cache.map((role) => role.id);
-      if (
-        blacklistedUsers.includes(interaction.user.id) ||
-        userRoles.some((roleId) => blacklistedUsers.includes(roleId))
-      ) {
-        return interaction.reply({
-          content: config.errors.blacklisted,
-          ephemeral: true,
-        });
-      }
+      // if (
+      //   blacklistedUsers.includes(interaction.user.id) ||
+      //   userRoles.some((roleId) => blacklistedUsers.includes(roleId))
+      // ) {
+      //   return interaction.reply({
+      //     content: config.errors.blacklisted,
+      //     ephemeral: true,
+      //   });
+      // }
 
       if (buttonCooldown.has(interaction.user.id)) {
         return interaction.reply({ embeds: [cooldownEmbed], ephemeral: true });

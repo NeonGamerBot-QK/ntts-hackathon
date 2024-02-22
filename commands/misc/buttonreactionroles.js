@@ -20,10 +20,29 @@ module.exports = {
     .addSubcommand((subcommand) =>
       subcommand
         .setName("delete")
-        .setDescription("Delete a Button Reaction Role"),
+        .setDescription("Delete a Button Reaction Role")
+        .addStringOption((nn) =>
+          nn
+            .setName("name")
+            .setDescription("the name for the reaction role")
+            .setAutocomplete(true),
+        ),
     )
     .addSubcommand((subcommand) =>
-      subcommand.setName("edit").setDescription("Edit a Button Reaction Role"),
+      subcommand
+        .setName("edit")
+        .setDescription("Edit a Button Reaction Role")
+        .addRoleOption((roption) =>
+          roption
+            .setName("role")
+            .setDescription("The reaction role to be given"),
+        )
+        .addStringOption((nn) =>
+          nn
+            .setName("name")
+            .setDescription("the name for the reaction role")
+            .setAutocomplete(true),
+        ),
     ),
   async execute(interaction) {
     // await interaction.reply("Button Reaction Roles");
@@ -67,6 +86,22 @@ module.exports = {
     }
  else if (subcommand === "edit") {
       // await interaction.reply("Edit Button Reaction Role");
+      // let selectron
+      // interaction.reply({
+      //   content: "Edit Button Reaction Role",
+      //   empheral: true,
+      // });
+
+      const name = interaction.options.getString("name");
+      const role = interaction.options.getRole("role");
+      interaction.client.db.set(
+        `reactionrole_${interaction.guild.id}_${name}`,
+        role.id,
+      );
+      await interaction.reply({
+        content: "Button Reaction Role Edited",
+        empheral: true,
+      });
     }
   },
 };

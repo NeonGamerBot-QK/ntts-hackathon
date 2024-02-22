@@ -144,6 +144,7 @@ module.exports = {
       });
     }
  else if (subCMD === "list") {
+      await interaction.deferReply();
       const target = interaction.options.getUser("target");
       const warnings =
         interaction.client.db.get(

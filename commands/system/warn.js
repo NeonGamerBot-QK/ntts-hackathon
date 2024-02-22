@@ -156,7 +156,7 @@ module.exports = {
         .setDescription(
           (warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`)).join("\n"),
         );
-      return await interaction.reply({ content: 'hello' }); // embeds: [embed] 
+      await interaction.reply({ embeds: [embed] });
     }
  else {
       return await interaction.reply({

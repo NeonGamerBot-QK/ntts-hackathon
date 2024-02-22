@@ -135,13 +135,14 @@ module.exports = {
       });
     }
  else if (subCMD === "clear") {
-      const target = interaction.options.getUser("target");
-      interaction.client.db.delete(
-        `warnings_${interaction.guild.id}_${target.id}`,
-      );
-      return await interaction.reply({
-        content: `Cleared warnings for ${target.tag}`,
-        empheral: true,
+   const target = interaction.options.getUser("target");
+   interaction.client.db.delete(
+     `warnings_${interaction.guild.id}_${target.id}`,
+     );
+     await interaction.deferReply();
+     await interaction.editReply({
+       content: `Cleared warnings for ${target.tag}`,
+       empheral: true,
       });
     }
  else if (subCMD === "list") {

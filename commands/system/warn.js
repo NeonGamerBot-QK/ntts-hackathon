@@ -65,6 +65,7 @@ module.exports = {
         ),
     ),
   execute: async (interaction) => {
+    await interaction.deferReply();
     // code here
     const subCMD = interaction.options.getSubcommand();
     if (subCMD === "create") {

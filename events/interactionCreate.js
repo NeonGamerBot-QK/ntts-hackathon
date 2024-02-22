@@ -22,6 +22,7 @@ module.exports = {
 		const actionFolders = fs.readdirSync(ActionFolderPath);
 
 		if (command) {
+			interaction.deferReply({ ephemeral: true });
 			try {
 				if (interaction.isAutocomplete()) {
 					await command.autocomplete(interaction);

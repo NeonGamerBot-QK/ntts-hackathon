@@ -155,7 +155,7 @@ module.exports = {
         .setDescription(
           (warnings.map((w, i) => `${i + 1}. ${w.reason} - <@${w.moderator}>`)).join("\n"),
         );
-      await interaction.reply({ embeds: [embed] });
+      await interaction.followUp({ embeds: [embed] });
     }
  else {
       return await interaction.reply({

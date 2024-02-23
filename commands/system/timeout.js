@@ -37,7 +37,7 @@ module.exports = {
       const reason =
         interaction.options.getString('reason') || 'No reason provided.'
 
-      const errEmbed = new EmbedBuilder().setColor(colors.red)
+      const errEmbed = new EmbedBuilder().setColor('RED').setTitle('ERROR')
 
       if (!targetUser) {
         errEmbed.setDescription(`Looks like that user isn't in this server`)

@@ -242,7 +242,7 @@ console.log(
 );
 // ====================================
 
-client.log = require("../trigger/log.js").log;
+client.log = console.log;
 
 const eventsPath_ = path.join(__dirname, "..", "events");
 const eventFiles_ = fs

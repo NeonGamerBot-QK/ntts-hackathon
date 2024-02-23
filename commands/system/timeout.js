@@ -221,7 +221,7 @@ module.exports = {
       })
 
       const dmEmbed = new EmbedBuilder()
-        .setColor(colors.red)
+        .setColor("Red")
         .setTitle(`You have been timed out!`)
         .setDescription(
           `Reason: ${reason}\nServer: ${

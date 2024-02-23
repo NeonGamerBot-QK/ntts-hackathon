@@ -276,38 +276,38 @@ for (const file of unityFiles) {
   }
 }
 // =====================================
-const buttonActions = {};
-const ActionFolderPath = path.join(__dirname, "..", "trigger", "action");
-const actionFolders = fs.readdirSync(ActionFolderPath);
+// const buttonActions = {};
+// const ActionFolderPath = path.join(__dirname, "..", "trigger", "action");
+// const actionFolders = fs.readdirSync(ActionFolderPath);
 
-let a_count = 0;
+// let a_count = 0;
 
-for (const folder of actionFolders) {
-  const actionPath = path.join(ActionFolderPath, folder);
-  const actionFiles = fs
-    .readdirSync(actionPath)
-    .filter((file) => file.endsWith(".js"));
-  console.log(`\x1B[30m┬──────────[${folder}]─────`);
-  for (const file of actionFiles) {
-    const filePath = path.join(actionPath, file);
-    const action = require(filePath);
-    if ("customId" in action && "execute" in action) {
-      buttonActions[action.customId] = action;
-      console.log(
-        `\x1B[30m├─\x1B[32mSuccessfully load \x1B[36mevent:[${file}]\x1B[0m`,
-      );
-      a_count++;
-    }
- else {
-      console.log(
-        `\x1B[31m[WARNING] The trigger event at ${filePath} is missing a required "customid" or "execute" property.`,
-      );
-    }
-  }
-}
-console.log(
-  `\x1B[37m-----------Load total[${a_count}] trigger event-----------\x1B[0m`,
-);
+// for (const folder of actionFolders) {
+//   const actionPath = path.join(ActionFolderPath, folder);
+//   const actionFiles = fs
+//     .readdirSync(actionPath)
+//     .filter((file) => file.endsWith(".js"));
+//   console.log(`\x1B[30m┬──────────[${folder}]─────`);
+//   for (const file of actionFiles) {
+//     const filePath = path.join(actionPath, file);
+//     const action = require(filePath);
+//     if ("customId" in action && "execute" in action) {
+//       buttonActions[action.customId] = action;
+//       console.log(
+//         `\x1B[30m├─\x1B[32mSuccessfully load \x1B[36mevent:[${file}]\x1B[0m`,
+//       );
+//       a_count++;
+//     }
+//  else {
+//       console.log(
+//         `\x1B[31m[WARNING] The trigger event at ${filePath} is missing a required "customid" or "execute" property.`,
+//       );
+//     }
+//   }
+// }
+// console.log(
+//   `\x1B[37m-----------Load total[${a_count}] trigger event-----------\x1B[0m`,
+// );
 console.log("\x1B[37m============================\x1B[0m");
 
 client.login(process.env.DISCORD_TOKEN);

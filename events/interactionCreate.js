@@ -1,5 +1,4 @@
-const { Events } = require("discord.js");
-const { EmbedBuilder } = require("@discordjs/builders");
+const { Events, EmbedBuilder } = require("discord.js");
 const fs = require("node:fs");
 const path = require("node:path");
 const { QuickDB } = require("quick.db");

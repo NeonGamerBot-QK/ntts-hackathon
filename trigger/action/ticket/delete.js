@@ -1,20 +1,18 @@
-const { ButtonStyle } = require('discord.js')
-const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, channelLink } = require('@discordjs/builders')
+// const { ButtonStyle } = require('discord.js');
+// const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, channelLink } = require('@discordjs/builders');
 
-const { closeCategory } = require('../../../config.json')
-const { create } = require('discord-timestamps')
-const f = require('../../../function/ticketclose.js')
+// const { closeCategory } = require('../../../config.json');
+const { create } = require("discord-timestamps");
+// const f = require('../../../function/ticketclose.js');
 
 module.exports = {
-    customId: 'ticket-delete',
-    async execute(interaction, client) {
+  customId: "ticket-delete",
+  async execute(interaction) {
+    const time = await create(10, "Relative");
+    await interaction.reply(`## This ticket will be close in ${time}`);
 
-        let time = await create(10, 'Relative')
-        await interaction.reply(`## This ticket will be close in ${time}`)
-
-        setTimeout(() => {
-            interaction.channel.delete();
-        }, 10000);
-        
-    }
+    setTimeout(() => {
+      interaction.channel.delete();
+    }, 10000);
+  },
 };

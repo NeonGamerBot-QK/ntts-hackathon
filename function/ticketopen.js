@@ -68,6 +68,7 @@ function openmodal(interaction, value) {
 }
 
 async function openticket(Categorytype, interaction, client, request) {
+  await interaction.deferReply({ ephemeral: true }) 
   const ticketcategory = TicketCategory[Categorytype];
   const category = interaction.guild.channels.cache.get(
     ticketcategory.categoryId,
@@ -127,7 +128,7 @@ return interaction.reply({
     .setTitle(TicketCreate.title)
     .setDescription(TicketCreate.description.replace("{channel}", channel));
 
-  interaction.reply({ embeds: [embed], ephemeral: true });
+  interaction.editReply({ embeds: [embed], ephemeral: true });
 
   OpenMsgSend(Categorytype, channel, interaction, request);
 }

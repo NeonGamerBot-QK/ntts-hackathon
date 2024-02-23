@@ -189,7 +189,20 @@ module.exports = {
             .setDescription("The category to create tickets in")
             .setRequired(true)
             .addChannelTypes(ChannelType.GuildCategory),
-        ),
+        )
+        .addChannelOption((option) =>
+          option
+            .setName("closecategory")
+            .setDescription("The category to where closed tickets are moved to")
+            .setRequired(true)
+            .addChannelTypes(ChannelType.GuildCategory),
+        )
+        .addRoleOption((option) => {
+          return option
+            .setName("supportrole")
+            .setDescription("Support Role")
+            .setRequired(true);
+        }),
     )
     .addSubcommand((subcommand) => {
       return subcommand
@@ -271,6 +284,11 @@ module.exports = {
     })
     .addSubcommand((subcommand) => {
       return subcommand.setName("unclaim").setDescription("Unclaim a ticket");
+    })
+    .addSubcommand((subcommand) => {
+      return subcommand
+        .setName("disable")
+        .setDescription("Disable ticket system");
     }),
   // last subcommand statemendt CTRL+F shortcut
   async execute(interaction) {
@@ -766,6 +784,13 @@ module.exports = {
       //   catagory.id,
       // );
       ticketsDB.set("ticketCategory_" + interaction.guild.id, catagory.id);
+      const closeCatagory = interaction.options.getChannel("closecategory");
+      ticketsDB.set(
+        "closedTicketCategory_" + interaction.guild.id,
+        closeCatagory.id,
+      );
+      const supportRole = interaction.options.getRole("supportrole");
+      ticketsDB.set("supportRole_" + interaction.guild.id, supportRole.id);
       await interaction.reply({
         content: "Ticket system has been enabled",
         empheral: true,

@@ -810,7 +810,7 @@ module.exports = {
       const user = interaction.options.getUser("user");
       const role = interaction.options.getRole("role");
       const logChannelId = interaction.client.db.get(
-        `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
       );
       const logChannel = interaction.guild.channels.cache.get(logChannelId);
 
@@ -1151,7 +1151,7 @@ module.exports = {
               claimUser: interaction.user.id,
             });
             const logChannelId = interaction.client.db.get(
-              `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+              `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
             );
             const logsChannel =
               interaction.guild.channels.cache.get(logChannelId);
@@ -1260,7 +1260,7 @@ module.exports = {
       //   }
 
       const logChannelId = interaction.client.db.get(
-        `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[44].value}`,
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[44].value}`,
       );
       const logsChannel = interaction.guild.channels.cache.get(logChannelId);
       await logsChannel.send({ embeds: [logEmbed], files: [attachment] });
@@ -1672,7 +1672,7 @@ module.exports = {
       const newName = interaction.options.getString("name");
       interaction.channel.setName(`${newName}`);
       const logChannelId = interaction.client.db.get(
-        `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
       );
       const logChannel = interaction.guild.channels.cache.get(logChannelId);
 
@@ -1786,7 +1786,7 @@ module.exports = {
         });
 
       const logChannelId = interaction.client.db.get(
-        `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
       );
       const logsChannel = interaction.guild.channels.cache.get(logChannelId);
       if (logsChannel) await logsChannel.send({ embeds: [logEmbed] });
@@ -1939,7 +1939,7 @@ module.exports = {
       }
 
       const logChannelId = interaction.client.db.get(
-        `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+        `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
       );
       const logChannel = interaction.guild.channels.cache.get(logChannelId);
 
@@ -2101,7 +2101,7 @@ module.exports = {
           });
 
           const logChannelId = interaction.client.db.get(
-            `logchannel_${interaction.guild.id}_${require("../src/static/logTypes.json")[43].value}`,
+            `logchannel_${interaction.guild.id}_${require("../../src/static/logTypes.json")[43].value}`,
           );
           const logsChannel =
             interaction.guild.channels.cache.get(logChannelId);

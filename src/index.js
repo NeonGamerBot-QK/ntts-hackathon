@@ -311,3 +311,4 @@ console.log(
 console.log("\x1B[37m============================\x1B[0m");
 
 client.login(process.env.DISCORD_TOKEN);
+

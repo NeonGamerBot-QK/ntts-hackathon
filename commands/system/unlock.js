@@ -47,6 +47,8 @@ module.exports = {
     await interaction.editReply({
       embeds: [embed],
     });
-    await channel.send("Unlocked the text channel.");
+    await channel.send({
+      embeds: [embed],
+    });
   },
 };

@@ -145,11 +145,23 @@ module.exports = {
         return
       }
 
+      if ((interaction.guild.roles.cache.find(role => role.name ==='muted')) === null) {
+        await interaction.editReply({
+          content: `**There is no muted role in this server!**`,
+          embeds: [embed],
+        })
+        return
+      }
+
+      await targetUser.roles.add(interaction.guild.roles.cache.find(role => role.name === 'muted'))
       await targetUser.timeout(msDuration, reason)
       await interaction.editReply({
         content: `**${targetUser} has been timed out!**`,
         embeds: [embed],
       })
+      await setTimeout(() => {
+        targetUser.roles.remove(interaction.guild.roles.cache.find(role => role.name ==='muted'))
+      }, msDuration);
     } catch (error) {
       await interaction.editReply('Oops! There was an error.').then((msg) => {
         setTimeout(() => {

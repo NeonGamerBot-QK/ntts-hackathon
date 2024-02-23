@@ -50,8 +50,6 @@ module.exports = {
       embeds: [embed],
     });
 
-    await channel.send({
-      embeds: [embed],
-    });
+    await channel.send("Locked the text channel.");
   },
 };

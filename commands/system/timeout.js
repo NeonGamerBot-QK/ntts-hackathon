@@ -115,14 +115,14 @@ module.exports = {
       }
 
       const { default: prettyMs } = await import('pretty-ms')
-      const embed = new EmbedBuilder().setColor("Red").setFooter({
+      const embed = new EmbedBuilder().setColor(15548997).setFooter({
         text: `Reason: ${reason}\nModerator: ${
           interaction.user.username
         }\nDuration: ${prettyMs(msDuration)}`,
       })
 
       const dmEmbed = new EmbedBuilder()
-        .setColor("Red")
+        .setColor(15548997)
         .setTitle(`You have been timed out!`)
         .setDescription(
           `Reason: ${reason}\nServer: ${

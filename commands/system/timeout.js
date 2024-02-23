@@ -1,6 +1,7 @@
 const { PermissionFlagsBits } = require('discord.js')
 const { EmbedBuilder, SlashCommandBuilder } = require('@discordjs/builders')
 const ms = require('ms')
+const { Color } = require('discord-image-generation')
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -37,7 +38,7 @@ module.exports = {
       const reason =
         interaction.options.getString('reason') || 'No reason provided.'
 
-      const errEmbed = new EmbedBuilder().setColor('Red').setTitle('ERROR')
+      const errEmbed = new EmbedBuilder().setColor("FF0000").setTitle('ERROR')
 
       if (!targetUser) {
         errEmbed.setDescription(`Looks like that user isn't in this server`)

@@ -63,7 +63,7 @@ module.exports = {
 			const modal = value.match(/modal_(\d+)/)
 			const remove = value.match(/remove_(\w+)/)
 
-			if (userticketopen !== null && userticketopen >= 3) {
+			if (userticketopen !== null && userticketopen >= 5) {
 				const embed = new EmbedBuilder()
 					.setTitle('Ticket Limit Reached')
 					.setDescription('You have reached the maximum number of tickets you can open at once.')

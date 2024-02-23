@@ -17,10 +17,9 @@ const model = genAI.getGenerativeModel({ model: "gemini-pro", safetySettings});
 
 module.exports = {
     data: new SlashCommandBuilder()
-    .setName('gemini')
-    .setDescription('Generate a gemini text')
+    .setName('ask')
+    .setDescription('Ask a question to the AI')
     .addStringOption(option => option.setName('prompt').setDescription('The prompt to generate from').setRequired(true)),
-    category: 'utility',
     async execute(interaction) {
         await interaction.deferReply({ fetchReply: true })
         // const prompt = interaction.options.getString('prompt');

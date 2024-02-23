@@ -15,26 +15,26 @@ module.exports = {
 	name: Events.InteractionCreate,
 	async execute(interaction, client) {
 
-		if (!interaction.isChatInputCommand() && !interaction.isButton() && !interaction.isModalSubmit() && !interaction.isStringSelectMenu()) return;
+		if (!interaction.isButton() && !interaction.isModalSubmit() && !interaction.isStringSelectMenu()) return;
 		const Action = {};
-		const command = interaction.client.commands.get(interaction.commandName);
+		// const command = interaction.client.commands.get(interaction.commandName);
 		const ActionFolderPath = path.join(__dirname, '..', 'trigger', 'action');
 		const actionFolders = fs.readdirSync(ActionFolderPath);
 
-		if (command) {
-			interaction.deferReply({ ephemeral: true });
-			try {
-				if (interaction.isAutocomplete()) {
-					await command.autocomplete(interaction);
-				} else {
-					await command.execute(interaction);
-				}
-			} catch (error) {
-				console.error(`Error executing ${interaction.commandName}`);
-				console.error(error);
-			}
-			return;
-		}
+		// if (command) {
+		// 	interaction.deferReply({ ephemeral: true });
+		// 	try {
+		// 		if (interaction.isAutocomplete()) {
+		// 			await command.autocomplete(interaction);
+		// 		} else {
+		// 			await command.execute(interaction);
+		// 		}
+		// 	} catch (error) {
+		// 		console.error(`Error executing ${interaction.commandName}`);
+		// 		console.error(error);
+		// 	}
+		// 	return;
+		// }
 
 		for (const folder of actionFolders) {
 			const actionPath = path.join(ActionFolderPath, folder);

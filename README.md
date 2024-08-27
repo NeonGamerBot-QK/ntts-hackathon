@@ -1,4 +1,5 @@
-<h1 align="center">Welcome to MSOTD 👋</h1>
+<h1 align="center">🚧 No longer maintained🚧 </h1>
+<s>Welcome to MSOTD 👋</s>
 <p>
   <img alt="Version" src="https://img.shields.io/badge/version-0.0.1-blue.svg?cacheSeconds=2592000" />
   <img src="https://img.shields.io/badge/node-%3E%3D18-blue.svg" />
